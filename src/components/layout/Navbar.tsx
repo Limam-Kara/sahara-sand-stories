@@ -1,18 +1,21 @@
 
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
-
-const navItems = [
-  { label: "Histoire", href: "#histoire" },
-  { label: "Mode de Vie", href: "#lifestyle" },
-  { label: "Festivals", href: "#festivals" },
-  { label: "Art & Musique", href: "#art" },
-  { label: "Explorer", href: "#explorer" },
-];
+import { useLanguage } from "@/contexts/LanguageContext";
+import LanguageSelector from "./LanguageSelector";
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { t } = useLanguage();
+
+  const navItems = [
+    { label: t("nav.history"), href: "#histoire" },
+    { label: t("nav.lifestyle"), href: "#lifestyle" },
+    { label: t("nav.festivals"), href: "#festivals" },
+    { label: t("nav.art"), href: "#art" },
+    { label: t("nav.explore"), href: "#explorer" },
+  ];
 
   useEffect(() => {
     const handleScroll = () => {
@@ -55,32 +58,40 @@ const Navbar = () => {
             Sahara<span className="text-sahara-orange">Stories</span>
           </a>
 
-          <div className="hidden md:flex space-x-8">
-            {navItems.map((item) => (
-              <button
-                key={item.label}
-                onClick={() => scrollToSection(item.href)}
-                className="text-foreground hover:text-sahara-terracotta transition-colors duration-200"
-              >
-                {item.label}
-              </button>
-            ))}
+          <div className="hidden md:flex items-center space-x-8">
+            <div className="flex space-x-8">
+              {navItems.map((item) => (
+                <button
+                  key={item.label}
+                  onClick={() => scrollToSection(item.href)}
+                  className="text-foreground hover:text-sahara-terracotta transition-colors duration-200"
+                >
+                  {item.label}
+                </button>
+              ))}
+            </div>
+            <LanguageSelector />
           </div>
 
-          <button
-            className="md:hidden text-foreground"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          >
-            {isMobileMenuOpen ? (
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            ) : (
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-              </svg>
-            )}
-          </button>
+          <div className="flex items-center space-x-4">
+            <div className="md:hidden">
+              <LanguageSelector />
+            </div>
+            <button
+              className="md:hidden text-foreground"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            >
+              {isMobileMenuOpen ? (
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              ) : (
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                </svg>
+              )}
+            </button>
+          </div>
         </div>
       </div>
 

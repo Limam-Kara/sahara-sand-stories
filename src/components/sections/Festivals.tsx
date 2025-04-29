@@ -1,40 +1,42 @@
 
 import { useEffect, useRef } from "react";
 import SectionTitle from "../ui/SectionTitle";
-
-const events = [
-  {
-    title: "Festival des Nomades",
-    date: "Mars",
-    location: "M'hamid El Ghizlane",
-    description: "Célébration des traditions nomades avec musique, danse et artisanat dans les dunes de M'hamid.",
-    imageUrl: "https://images.unsplash.com/photo-1548374797-d1562ddf4412?q=80&w=2670&auto=format&fit=crop"
-  },
-  {
-    title: "Moussem de Tan-Tan",
-    date: "Mai",
-    location: "Tan-Tan",
-    description: "Grand rassemblement annuel des tribus nomades, reconnu par l'UNESCO comme patrimoine culturel immatériel.",
-    imageUrl: "https://images.unsplash.com/photo-1496158551181-1019ac2ce535?q=80&w=2670&auto=format&fit=crop"
-  },
-  {
-    title: "Festival International des Musiques du Désert",
-    date: "Octobre",
-    location: "Merzouga",
-    description: "Rencontres musicales internationales aux pieds des dunes de l'Erg Chebbi.",
-    imageUrl: "https://images.unsplash.com/photo-1511632765486-a01980e01a18?q=80&w=2670&auto=format&fit=crop"
-  },
-  {
-    title: "Aïd el-Adha",
-    date: "Variable (calendrier lunaire)",
-    location: "Tout le territoire",
-    description: "Fête du sacrifice célébrée par les familles sahraouies avec des rituels spécifiques au désert.",
-    imageUrl: "https://images.unsplash.com/photo-1660239268642-e8c5c3aa04b2?q=80&w=2670&auto=format&fit=crop"
-  }
-];
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const Festivals = () => {
   const sectionRef = useRef<HTMLElement>(null);
+  const { t, language } = useLanguage();
+
+  const events = [
+    {
+      title: "Festival des Nomades",
+      date: "Mars",
+      location: "M'hamid El Ghizlane",
+      description: "Célébration des traditions nomades avec musique, danse et artisanat dans les dunes de M'hamid.",
+      imageUrl: "https://images.unsplash.com/photo-1548374797-d1562ddf4412?q=80&w=2670&auto=format&fit=crop"
+    },
+    {
+      title: "Moussem de Tan-Tan",
+      date: "Mai",
+      location: "Tan-Tan",
+      description: "Grand rassemblement annuel des tribus nomades, reconnu par l'UNESCO comme patrimoine culturel immatériel.",
+      imageUrl: "https://images.unsplash.com/photo-1496158551181-1019ac2ce535?q=80&w=2670&auto=format&fit=crop"
+    },
+    {
+      title: "Festival International des Musiques du Désert",
+      date: "Octobre",
+      location: "Merzouga",
+      description: "Rencontres musicales internationales aux pieds des dunes de l'Erg Chebbi.",
+      imageUrl: "https://images.unsplash.com/photo-1511632765486-a01980e01a18?q=80&w=2670&auto=format&fit=crop"
+    },
+    {
+      title: "Aïd el-Adha",
+      date: "Variable (calendrier lunaire)",
+      location: "Tout le territoire",
+      description: "Fête du sacrifice célébrée par les familles sahraouies avec des rituels spécifiques au désert.",
+      imageUrl: "https://images.unsplash.com/photo-1660239268642-e8c5c3aa04b2?q=80&w=2670&auto=format&fit=crop"
+    }
+  ];
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -67,10 +69,10 @@ const Festivals = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <section id="festivals" ref={sectionRef} className="section-container">
+    <section id="festivals" ref={sectionRef} className="section-container" dir={language === 'ar' ? 'rtl' : 'ltr'}>
       <SectionTitle
-        title="Festivals & Célébrations"
-        subtitle="Découvrez les événements qui animent la culture sahraouie tout au long de l'année"
+        title={t("festivals.title")}
+        subtitle={t("festivals.subtitle")}
         className="reveal-on-scroll"
       />
 
@@ -86,6 +88,11 @@ const Festivals = () => {
                 alt={event.title} 
                 className="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
                 style={{ minHeight: "200px" }}
+                loading="lazy"
+                onError={(e) => {
+                  e.currentTarget.onerror = null;
+                  e.currentTarget.src = "https://images.unsplash.com/photo-1469041797191-50ace28483c3?q=80&w=3024&auto=format&fit=crop";
+                }}
               />
               <div className="absolute inset-0 bg-gradient-to-r from-black/50 to-transparent md:bg-gradient-to-b"></div>
               <div className="absolute bottom-0 left-0 p-4 text-white md:hidden">
@@ -123,7 +130,7 @@ const Festivals = () => {
                   <span className="md:hidden">{event.location}</span>
                 </div>
                 <button className="ml-auto bg-sahara-sand hover:bg-sahara-orange hover:text-white transition-colors duration-300 px-4 py-2 rounded-md text-sm font-medium">
-                  En savoir plus
+                  {t("festivals.more")}
                 </button>
               </div>
             </div>
@@ -132,34 +139,34 @@ const Festivals = () => {
       </div>
 
       <div className="mt-16 p-8 bg-gradient-to-r from-sahara-orange/10 to-sahara-terracotta/10 rounded-lg border border-sahara-sand/30 reveal-on-scroll">
-        <h3 className="text-2xl font-bold text-sahara-brown mb-4 text-center">Calendrier des Festivals</h3>
+        <h3 className="text-2xl font-bold text-sahara-brown mb-4 text-center">{t("festivals.calendar")}</h3>
         <p className="text-center mb-8">
-          Planifiez votre voyage pour vivre ces expériences culturelles uniques
+          {t("festivals.calendar.description")}
         </p>
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 text-center">
           <div className="p-4 bg-white/70 dark:bg-sahara-brown/10 rounded-md">
-            <h4 className="font-bold text-sahara-terracotta mb-2">Printemps</h4>
+            <h4 className="font-bold text-sahara-terracotta mb-2">{t("festivals.seasons.spring")}</h4>
             <ul>
               <li className="mb-2">Festival des Nomades (Mars)</li>
               <li>Moussem de Tan-Tan (Mai)</li>
             </ul>
           </div>
           <div className="p-4 bg-white/70 dark:bg-sahara-brown/10 rounded-md">
-            <h4 className="font-bold text-sahara-terracotta mb-2">Été</h4>
+            <h4 className="font-bold text-sahara-terracotta mb-2">{t("festivals.seasons.summer")}</h4>
             <ul>
               <li>Célébrations du solstice (Juin)</li>
               <li className="mb-2">Festival des Dunes (Juillet)</li>
             </ul>
           </div>
           <div className="p-4 bg-white/70 dark:bg-sahara-brown/10 rounded-md">
-            <h4 className="font-bold text-sahara-terracotta mb-2">Automne</h4>
+            <h4 className="font-bold text-sahara-terracotta mb-2">{t("festivals.seasons.autumn")}</h4>
             <ul>
               <li className="mb-2">Festival des Musiques du Désert (Octobre)</li>
               <li>Festival de la Poésie Hassanie (Novembre)</li>
             </ul>
           </div>
           <div className="p-4 bg-white/70 dark:bg-sahara-brown/10 rounded-md">
-            <h4 className="font-bold text-sahara-terracotta mb-2">Hiver</h4>
+            <h4 className="font-bold text-sahara-terracotta mb-2">{t("festivals.seasons.winter")}</h4>
             <ul>
               <li className="mb-2">Moussem de Sidi Kaouki (Janvier)</li>
               <li>Festival du Dromadaire (Février)</li>

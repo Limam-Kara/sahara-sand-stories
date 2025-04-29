@@ -1,9 +1,11 @@
 
 import { useEffect, useRef, useState } from "react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const Hero = () => {
   const [isLoaded, setIsLoaded] = useState(false);
   const scrollIndicatorRef = useRef<HTMLDivElement>(null);
+  const { t, language } = useLanguage();
 
   useEffect(() => {
     setIsLoaded(true);
@@ -30,13 +32,18 @@ const Hero = () => {
   };
 
   return (
-    <section className="relative h-screen w-full overflow-hidden">
+    <section className="relative h-screen w-full overflow-hidden" dir={language === 'ar' ? 'rtl' : 'ltr'}>
       {/* Background Image */}
       <div className="absolute inset-0 bg-black">
         <img
           src="https://images.unsplash.com/photo-1482881497185-d4a9ddbe4151?q=80&w=3024&auto=format&fit=crop"
           alt="Desert landscape"
           className="w-full h-full object-cover opacity-80"
+          loading="eager"
+          onError={(e) => {
+            e.currentTarget.onerror = null;
+            e.currentTarget.src = "https://images.unsplash.com/photo-1469041797191-50ace28483c3?q=80&w=3024&auto=format&fit=crop";
+          }}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
       </div>
@@ -49,7 +56,7 @@ const Hero = () => {
           }`}
           style={{ transitionDelay: "300ms" }}
         >
-          Culture Sahraouie
+          {t("hero.title")}
         </h1>
         <p
           className={`text-xl md:text-2xl text-white/90 max-w-3xl mb-12 transition-all duration-1000 ${
@@ -57,7 +64,7 @@ const Hero = () => {
           }`}
           style={{ transitionDelay: "600ms" }}
         >
-          Découvrez l'héritage ancestral du peuple du désert, une culture riche en traditions, hospitalité et liens profonds avec la nature.
+          {t("hero.subtitle")}
         </p>
         <button
           onClick={scrollToContent}
@@ -66,7 +73,7 @@ const Hero = () => {
           }`}
           style={{ transitionDelay: "900ms" }}
         >
-          Découvrir
+          {t("hero.button")}
         </button>
       </div>
 
@@ -76,7 +83,7 @@ const Hero = () => {
         className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex flex-col items-center text-white transition-opacity duration-300"
         onClick={scrollToContent}
       >
-        <span className="text-sm mb-2">Défiler</span>
+        <span className="text-sm mb-2">{t("hero.scroll")}</span>
         <div className="w-6 h-10 border-2 border-white/60 rounded-full flex justify-center p-1">
           <div className="w-1 h-2 bg-white rounded-full animate-bounce mt-1"></div>
         </div>

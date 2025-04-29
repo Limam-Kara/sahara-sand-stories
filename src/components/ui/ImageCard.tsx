@@ -21,6 +21,7 @@ const ImageCard = ({
 }: ImageCardProps) => {
   const cardRef = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
+  const [imgSrc, setImgSrc] = useState(src);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -43,6 +44,10 @@ const ImageCard = ({
     };
   }, []);
 
+  const handleImageError = () => {
+    setImgSrc("https://images.unsplash.com/photo-1469041797191-50ace28483c3?q=80&w=3024&auto=format&fit=crop");
+  };
+
   return (
     <div
       ref={cardRef}
@@ -54,12 +59,14 @@ const ImageCard = ({
     >
       <div className="relative overflow-hidden aspect-[4/3]">
         <img
-          src={src}
+          src={imgSrc}
           alt={alt}
           className={cn(
             "w-full h-full object-cover transition-transform duration-500 hover:scale-105",
             imageClassName
           )}
+          loading="lazy"
+          onError={handleImageError}
         />
       </div>
       {(title || description) && (

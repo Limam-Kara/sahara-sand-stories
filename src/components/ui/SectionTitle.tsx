@@ -1,5 +1,6 @@
 
 import { cn } from "@/lib/utils";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 interface SectionTitleProps {
   title: string;
@@ -16,8 +17,10 @@ const SectionTitle = ({
   titleClassName,
   subtitleClassName,
 }: SectionTitleProps) => {
+  const { language } = useLanguage();
+  
   return (
-    <div className={cn("mb-12 text-center", className)}>
+    <div className={cn("mb-12 text-center", className)} dir={language === 'ar' ? 'rtl' : 'ltr'}>
       <h2 className={cn("text-3xl md:text-4xl lg:text-5xl font-bold text-sahara-terracotta", titleClassName)}>
         {title}
       </h2>

@@ -111,4 +111,41 @@
   .reveal-on-scroll.revealed {
     @apply opacity-100 translate-y-0;
   }
+  
+  /* RTL Support */
+  html.rtl {
+    direction: rtl;
+  }
+  
+  .rtl .space-x-8 > :not([hidden]) ~ :not([hidden]) {
+    --tw-space-x-reverse: 1;
+  }
+  
+  .rtl .space-x-4 > :not([hidden]) ~ :not([hidden]) {
+    --tw-space-x-reverse: 1;
+  }
+  
+  .rtl .space-x-2 > :not([hidden]) ~ :not([hidden]) {
+    --tw-space-x-reverse: 1;
+  }
+  
+  .rtl .mr-1,
+  .rtl .mr-2,
+  .rtl .mr-4 {
+    margin-right: 0;
+    margin-left: 0.25rem;
+  }
+  
+  .rtl .mr-2 {
+    margin-left: 0.5rem;
+  }
+  
+  .rtl .mr-4 {
+    margin-left: 1rem;
+  }
+  
+  .rtl .ml-auto {
+    margin-left: 0;
+    margin-right: auto;
+  }
 }

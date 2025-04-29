@@ -7,7 +7,7 @@ import LanguageSelector from "./LanguageSelector";
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
 
   const navItems = [
     { label: t("nav.history"), href: "#histoire" },
@@ -44,6 +44,7 @@ const Navbar = () => {
           ? "bg-white/90 dark:bg-sahara-brown/90 backdrop-blur-md shadow-md py-3"
           : "bg-transparent py-6"
       )}
+      dir={language === 'ar' ? 'rtl' : 'ltr'}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center">
@@ -58,8 +59,8 @@ const Navbar = () => {
             Sahara<span className="text-sahara-orange">Stories</span>
           </a>
 
-          <div className="hidden md:flex items-center space-x-8">
-            <div className="flex space-x-8">
+          <div className="hidden md:flex items-center">
+            <div className={cn("flex", language === "ar" ? "space-x-reverse" : "", "space-x-8")}>
               {navItems.map((item) => (
                 <button
                   key={item.label}
@@ -70,7 +71,9 @@ const Navbar = () => {
                 </button>
               ))}
             </div>
-            <LanguageSelector />
+            <div className="ml-8">
+              <LanguageSelector />
+            </div>
           </div>
 
           <div className="flex items-center space-x-4">

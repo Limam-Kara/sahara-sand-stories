@@ -10,30 +10,58 @@ const Festivals = () => {
   const events = [
     {
       title: "Festival des Nomades",
-      date: "Mars",
+      date: language === 'en' ? "March" : language === 'fr' ? "Mars" : "مارس",
       location: "M'hamid El Ghizlane",
-      description: "Célébration des traditions nomades avec musique, danse et artisanat dans les dunes de M'hamid.",
+      description: language === 'en' 
+        ? "Celebration of nomadic traditions with music, dance and crafts in the dunes of M'hamid."
+        : language === 'fr' 
+        ? "Célébration des traditions nomades avec musique, danse et artisanat dans les dunes de M'hamid."
+        : "الاحتفال بالتقاليد البدوية مع الموسيقى والرقص والحرف اليدوية في كثبان امحاميد.",
       imageUrl: "https://images.unsplash.com/photo-1548374797-d1562ddf4412?q=80&w=2670&auto=format&fit=crop"
     },
     {
       title: "Moussem de Tan-Tan",
-      date: "Mai",
+      date: language === 'en' ? "May" : language === 'fr' ? "Mai" : "مايو",
       location: "Tan-Tan",
-      description: "Grand rassemblement annuel des tribus nomades, reconnu par l'UNESCO comme patrimoine culturel immatériel.",
+      description: language === 'en'
+        ? "Annual gathering of nomadic tribes, recognized by UNESCO as intangible cultural heritage."
+        : language === 'fr'
+        ? "Grand rassemblement annuel des tribus nomades, reconnu par l'UNESCO comme patrimoine culturel immatériel."
+        : "التجمع السنوي الكبير للقبائل البدوية، معترف به من قبل اليونسكو كتراث ثقافي غير مادي.",
       imageUrl: "https://images.unsplash.com/photo-1496158551181-1019ac2ce535?q=80&w=2670&auto=format&fit=crop"
     },
     {
-      title: "Festival International des Musiques du Désert",
-      date: "Octobre",
+      title: language === 'en' 
+        ? "International Desert Music Festival" 
+        : language === 'fr' 
+        ? "Festival International des Musiques du Désert"
+        : "مهرجان موسيقى الصحراء الدولي",
+      date: language === 'en' ? "October" : language === 'fr' ? "Octobre" : "أكتوبر",
       location: "Merzouga",
-      description: "Rencontres musicales internationales aux pieds des dunes de l'Erg Chebbi.",
+      description: language === 'en' 
+        ? "International music gatherings at the foot of the Erg Chebbi dunes." 
+        : language === 'fr' 
+        ? "Rencontres musicales internationales aux pieds des dunes de l'Erg Chebbi."
+        : "لقاءات موسيقية دولية عند سفح كثبان عرق الشبي.",
       imageUrl: "https://images.unsplash.com/photo-1511632765486-a01980e01a18?q=80&w=2670&auto=format&fit=crop"
     },
     {
       title: "Aïd el-Adha",
-      date: "Variable (calendrier lunaire)",
-      location: "Tout le territoire",
-      description: "Fête du sacrifice célébrée par les familles sahraouies avec des rituels spécifiques au désert.",
+      date: language === 'en' 
+        ? "Variable (lunar calendar)" 
+        : language === 'fr' 
+        ? "Variable (calendrier lunaire)"
+        : "متغير (التقويم القمري)",
+      location: language === 'en' 
+        ? "Throughout the territory" 
+        : language === 'fr' 
+        ? "Tout le territoire"
+        : "في جميع أنحاء الأراضي",
+      description: language === 'en' 
+        ? "Feast of sacrifice celebrated by Sahrawi families with specific desert rituals." 
+        : language === 'fr' 
+        ? "Fête du sacrifice célébrée par les familles sahraouies avec des rituels spécifiques au désert."
+        : "عيد الأضحى الذي تحتفل به العائلات الصحراوية بطقوس صحراوية خاصة.",
       imageUrl: "https://images.unsplash.com/photo-1660239268642-e8c5c3aa04b2?q=80&w=2670&auto=format&fit=crop"
     }
   ];
@@ -71,8 +99,7 @@ const Festivals = () => {
   return (
     <section id="festivals" ref={sectionRef} className="section-container" dir={language === 'ar' ? 'rtl' : 'ltr'}>
       <SectionTitle
-        title={t("festivals.title")}
-        subtitle={t("festivals.subtitle")}
+        translationKey="festivals"
         className="reveal-on-scroll"
       />
 
@@ -147,29 +174,29 @@ const Festivals = () => {
           <div className="p-4 bg-white/70 dark:bg-sahara-brown/10 rounded-md">
             <h4 className="font-bold text-sahara-terracotta mb-2">{t("festivals.seasons.spring")}</h4>
             <ul>
-              <li className="mb-2">Festival des Nomades (Mars)</li>
-              <li>Moussem de Tan-Tan (Mai)</li>
+              <li className="mb-2">Festival des Nomades ({language === 'en' ? "March" : language === 'fr' ? "Mars" : "مارس"})</li>
+              <li>Moussem de Tan-Tan ({language === 'en' ? "May" : language === 'fr' ? "Mai" : "مايو"})</li>
             </ul>
           </div>
           <div className="p-4 bg-white/70 dark:bg-sahara-brown/10 rounded-md">
             <h4 className="font-bold text-sahara-terracotta mb-2">{t("festivals.seasons.summer")}</h4>
             <ul>
-              <li>Célébrations du solstice (Juin)</li>
-              <li className="mb-2">Festival des Dunes (Juillet)</li>
+              <li>{language === 'en' ? "Solstice Celebrations" : language === 'fr' ? "Célébrations du solstice" : "احتفالات الانقلاب الصيفي"} ({language === 'en' ? "June" : language === 'fr' ? "Juin" : "يونيو"})</li>
+              <li className="mb-2">{language === 'en' ? "Dunes Festival" : language === 'fr' ? "Festival des Dunes" : "مهرجان الكثبان"} ({language === 'en' ? "July" : language === 'fr' ? "Juillet" : "يوليو"})</li>
             </ul>
           </div>
           <div className="p-4 bg-white/70 dark:bg-sahara-brown/10 rounded-md">
             <h4 className="font-bold text-sahara-terracotta mb-2">{t("festivals.seasons.autumn")}</h4>
             <ul>
-              <li className="mb-2">Festival des Musiques du Désert (Octobre)</li>
-              <li>Festival de la Poésie Hassanie (Novembre)</li>
+              <li className="mb-2">{language === 'en' ? "Desert Music Festival" : language === 'fr' ? "Festival des Musiques du Désert" : "مهرجان موسيقى الصحراء"} ({language === 'en' ? "October" : language === 'fr' ? "Octobre" : "أكتوبر"})</li>
+              <li>{language === 'en' ? "Hassani Poetry Festival" : language === 'fr' ? "Festival de la Poésie Hassanie" : "مهرجان الشعر الحساني"} ({language === 'en' ? "November" : language === 'fr' ? "Novembre" : "نوفمبر"})</li>
             </ul>
           </div>
           <div className="p-4 bg-white/70 dark:bg-sahara-brown/10 rounded-md">
             <h4 className="font-bold text-sahara-terracotta mb-2">{t("festivals.seasons.winter")}</h4>
             <ul>
-              <li className="mb-2">Moussem de Sidi Kaouki (Janvier)</li>
-              <li>Festival du Dromadaire (Février)</li>
+              <li className="mb-2">Moussem de Sidi Kaouki ({language === 'en' ? "January" : language === 'fr' ? "Janvier" : "يناير"})</li>
+              <li>{language === 'en' ? "Camel Festival" : language === 'fr' ? "Festival du Dromadaire" : "مهرجان الإبل"} ({language === 'en' ? "February" : language === 'fr' ? "Février" : "فبراير"})</li>
             </ul>
           </div>
         </div>

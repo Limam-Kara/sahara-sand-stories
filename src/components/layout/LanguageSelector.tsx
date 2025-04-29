@@ -1,9 +1,11 @@
 
 import { useLanguage, Language } from "@/contexts/LanguageContext";
 import { cn } from "@/lib/utils";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Languages } from "lucide-react";
 
 const LanguageSelector = ({ className }: { className?: string }) => {
-  const { language, setLanguage } = useLanguage();
+  const { language, setLanguage, t } = useLanguage();
 
   const languages = [
     { code: "en", label: "English" },
@@ -23,21 +25,25 @@ const LanguageSelector = ({ className }: { className?: string }) => {
   };
 
   return (
-    <div className={cn("flex items-center space-x-2", language === "ar" ? "space-x-reverse" : "", className)}>
-      {languages.map((lang) => (
-        <button
-          key={lang.code}
-          onClick={() => handleLanguageChange(lang.code as Language)}
-          className={cn(
-            "px-2 py-1 text-sm rounded-md transition-colors",
-            language === lang.code
-              ? "bg-sahara-orange text-white"
-              : "hover:bg-sahara-sand/30 text-foreground"
-          )}
-        >
-          {lang.label}
-        </button>
-      ))}
+    <div className={className}>
+      <Select
+        value={language}
+        onValueChange={(value) => handleLanguageChange(value as Language)}
+      >
+        <SelectTrigger className="w-[140px] bg-background/80 border-sahara-sand">
+          <div className="flex items-center">
+            <Languages className="mr-2 h-4 w-4 text-sahara-orange" />
+            <SelectValue placeholder={t("language.select")} />
+          </div>
+        </SelectTrigger>
+        <SelectContent>
+          {languages.map((lang) => (
+            <SelectItem key={lang.code} value={lang.code}>
+              {lang.label}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
     </div>
   );
 };

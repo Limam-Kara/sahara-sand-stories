@@ -21,6 +21,9 @@ const LanguageContext = createContext<LanguageContextType>({
 // Define translations
 const translations = {
   en: {
+    // Language selector
+    "language.select": "Language",
+    
     // Navbar
     "nav.history": "History",
     "nav.lifestyle": "Lifestyle",
@@ -36,10 +39,15 @@ const translations = {
 
     // Section titles
     "section.history": "History & Traditions",
+    "section.history.subtitle": "Discover the origins and customs of the Sahrawi people",
     "section.lifestyle": "Lifestyle & Cuisine",
+    "section.lifestyle.subtitle": "Explore the traditional way of life and culinary arts",
     "section.festivals": "Festivals & Celebrations",
+    "section.festivals.subtitle": "Discover the events that animate Sahrawi culture throughout the year",
     "section.art": "Art & Music",
+    "section.art.subtitle": "Immerse yourself in Sahrawi artistic expressions",
     "section.explore": "Explore the Sahara",
+    "section.explore.subtitle": "Tips and information for traveling in the Sahrawi desert",
     
     // Art section
     "art.expression": "Musical Expression",
@@ -49,6 +57,12 @@ const translations = {
     "art.instruments": "Traditional Instruments",
     "art.crafts": "Sahrawi Crafts",
     "art.crafts.description": "Sahrawi craftsmanship is characterized by vibrant geometric patterns reflecting the desert environment and conveying important cultural symbols. Each piece tells a story and preserves ancestral techniques.",
+    "art.instrument.tidinit": "Tidinit",
+    "art.instrument.tidinit.description": "Traditional string instrument similar to a lute, central to Sahrawi musical tradition.",
+    "art.instrument.tbal": "Tbal",
+    "art.instrument.tbal.description": "Large drum that provides the rhythmic foundation for Sahrawi music.",
+    "art.instrument.bendir": "Bendir",
+    "art.instrument.bendir.description": "Frame drum with snares that creates a buzzing sound, used in festive music.",
 
     // Festivals section
     "festivals.title": "Festivals & Celebrations",
@@ -71,12 +85,29 @@ const translations = {
     "explore.cultural": "Cultural respect",
     "explore.safety": "Desert safety",
     "explore.tip": "Good to know",
+    
+    // History section
+    "history.origins": "Origins",
+    "history.traditions": "Traditions",
+    "history.nomadic": "Nomadic Heritage",
+    "history.read.more": "Read more",
+    
+    // Lifestyle section
+    "lifestyle.daily": "Daily Life",
+    "lifestyle.clothing": "Traditional Clothing",
+    "lifestyle.cuisine": "Cuisine",
+    "lifestyle.tea": "Tea Ceremony",
+    "lifestyle.recipe": "View Recipe",
 
     // Footer
     "footer.sections": "Sections",
-    "footer.contact": "Contact"
+    "footer.contact": "Contact",
+    "footer.rights": "All rights reserved."
   },
   fr: {
+    // Language selector
+    "language.select": "Langue",
+    
     // Navbar
     "nav.history": "Histoire",
     "nav.lifestyle": "Mode de Vie",
@@ -92,10 +123,15 @@ const translations = {
 
     // Section titles
     "section.history": "Histoire & Traditions",
+    "section.history.subtitle": "Découvrez les origines et les coutumes du peuple sahraoui",
     "section.lifestyle": "Mode de Vie & Cuisine",
+    "section.lifestyle.subtitle": "Explorez le mode de vie traditionnel et les arts culinaires",
     "section.festivals": "Festivals & Célébrations",
+    "section.festivals.subtitle": "Découvrez les événements qui animent la culture sahraouie tout au long de l'année",
     "section.art": "Art & Musique",
+    "section.art.subtitle": "Plongez dans les expressions artistiques sahraouies",
     "section.explore": "Explorer le Sahara",
+    "section.explore.subtitle": "Conseils et informations pour voyager dans le désert sahraoui",
     
     // Art section
     "art.expression": "Expression Musicale",
@@ -105,6 +141,12 @@ const translations = {
     "art.instruments": "Instruments Traditionnels",
     "art.crafts": "Artisanat Sahraoui",
     "art.crafts.description": "L'artisanat sahraoui est caractérisé par des motifs géométriques aux couleurs vives, reflétant l'environnement désertique et transmettant des symboles culturels importants. Chaque pièce raconte une histoire et préserve les techniques ancestrales.",
+    "art.instrument.tidinit": "Tidinit",
+    "art.instrument.tidinit.description": "Instrument à cordes traditionnel semblable à un luth, central dans la tradition musicale sahraouie.",
+    "art.instrument.tbal": "Tbal",
+    "art.instrument.tbal.description": "Grand tambour qui fournit la base rythmique de la musique sahraouie.",
+    "art.instrument.bendir": "Bendir",
+    "art.instrument.bendir.description": "Tambour sur cadre avec timbre qui crée un son bourdonnant, utilisé dans la musique festive.",
 
     // Festivals section
     "festivals.title": "Festivals & Célébrations",
@@ -127,12 +169,29 @@ const translations = {
     "explore.cultural": "Respect culturel",
     "explore.safety": "Sécurité dans le désert",
     "explore.tip": "Bon à savoir",
+    
+    // History section
+    "history.origins": "Origines",
+    "history.traditions": "Traditions",
+    "history.nomadic": "Héritage Nomade",
+    "history.read.more": "Lire plus",
+    
+    // Lifestyle section
+    "lifestyle.daily": "Vie Quotidienne",
+    "lifestyle.clothing": "Vêtements Traditionnels",
+    "lifestyle.cuisine": "Cuisine",
+    "lifestyle.tea": "Cérémonie du Thé",
+    "lifestyle.recipe": "Voir la Recette",
 
     // Footer
     "footer.sections": "Sections",
-    "footer.contact": "Contact"
+    "footer.contact": "Contact",
+    "footer.rights": "Tous droits réservés."
   },
   ar: {
+    // Language selector
+    "language.select": "اللغة",
+    
     // Navbar
     "nav.history": "التاريخ",
     "nav.lifestyle": "نمط الحياة",
@@ -148,10 +207,15 @@ const translations = {
 
     // Section titles
     "section.history": "التاريخ والتقاليد",
+    "section.history.subtitle": "اكتشف أصول وعادات الشعب الصحراوي",
     "section.lifestyle": "نمط الحياة والمطبخ",
+    "section.lifestyle.subtitle": "استكشف نمط الحياة التقليدي وفنون الطهي",
     "section.festivals": "المهرجانات والاحتفالات",
+    "section.festivals.subtitle": "اكتشف الأحداث التي تنشط الثقافة الصحراوية على مدار العام",
     "section.art": "الفن والموسيقى",
+    "section.art.subtitle": "انغمس في التعبيرات الفنية الصحراوية",
     "section.explore": "استكشف الصحراء",
+    "section.explore.subtitle": "نصائح ومعلومات للسفر في الصحراء الغربية",
     
     // Art section
     "art.expression": "التعبير الموسيقي",
@@ -161,6 +225,12 @@ const translations = {
     "art.instruments": "الآلات التقليدية",
     "art.crafts": "الحرف الصحراوية",
     "art.crafts.description": "تتميز الحرف اليدوية الصحراوية بأنماط هندسية نابضة بالحياة تعكس البيئة الصحراوية وتنقل رموزًا ثقافية مهمة. كل قطعة تروي قصة وتحافظ على التقنيات القديمة.",
+    "art.instrument.tidinit": "تيدينيت",
+    "art.instrument.tidinit.description": "آلة وترية تقليدية تشبه العود، محورية في التقليد الموسيقي الصحراوي.",
+    "art.instrument.tbal": "طبل",
+    "art.instrument.tbal.description": "طبل كبير يوفر الأساس الإيقاعي للموسيقى الصحراوية.",
+    "art.instrument.bendir": "بندير",
+    "art.instrument.bendir.description": "طبل إطار مع أوتار يخلق صوتًا طنانًا، يستخدم في الموسيقى الاحتفالية.",
 
     // Festivals section
     "festivals.title": "المهرجانات والاحتفالات",
@@ -183,10 +253,24 @@ const translations = {
     "explore.cultural": "احترام الثقافة",
     "explore.safety": "السلامة في الصحراء",
     "explore.tip": "معلومات مفيدة",
+    
+    // History section
+    "history.origins": "الأصول",
+    "history.traditions": "التقاليد",
+    "history.nomadic": "التراث البدوي",
+    "history.read.more": "اقرأ المزيد",
+    
+    // Lifestyle section
+    "lifestyle.daily": "الحياة اليومية",
+    "lifestyle.clothing": "الملابس التقليدية",
+    "lifestyle.cuisine": "المطبخ",
+    "lifestyle.tea": "مراسم الشاي",
+    "lifestyle.recipe": "عرض الوصفة",
 
     // Footer
     "footer.sections": "الأقسام",
-    "footer.contact": "اتصل بنا"
+    "footer.contact": "اتصل بنا",
+    "footer.rights": "جميع الحقوق محفوظة."
   }
 };
 

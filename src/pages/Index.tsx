@@ -7,8 +7,11 @@ import Lifestyle from "@/components/sections/Lifestyle";
 import Festivals from "@/components/sections/Festivals";
 import Art from "@/components/sections/Art";
 import Explore from "@/components/sections/Explore";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const Index = () => {
+  const { t, language } = useLanguage();
+
   useEffect(() => {
     // Intersection Observer for scroll animations
     const observer = new IntersectionObserver(
@@ -40,7 +43,7 @@ const Index = () => {
       <Art />
       <Explore />
       
-      <footer className="bg-sahara-brown/90 text-white py-12">
+      <footer className="bg-sahara-brown/90 text-white py-12" dir={language === 'ar' ? 'rtl' : 'ltr'}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row justify-between gap-8">
             <div className="md:w-1/3">
@@ -48,7 +51,9 @@ const Index = () => {
                 Sahara<span className="text-sahara-orange">Stories</span>
               </h2>
               <p className="mb-4">
-                Explorez la richesse de la culture sahraouie à travers nos pages dédiées aux traditions, à l'art et à l'histoire de ce peuple fascinant.
+                {language === 'en' && "Explore the richness of Sahrawi culture through our pages dedicated to the traditions, art, and history of this fascinating people."}
+                {language === 'fr' && "Explorez la richesse de la culture sahraouie à travers nos pages dédiées aux traditions, à l'art et à l'histoire de ce peuple fascinant."}
+                {language === 'ar' && "اكتشف ثراء الثقافة الصحراوية من خلال صفحاتنا المخصصة للتقاليد والفن وتاريخ هذا الشعب الرائع."}
               </p>
               <div className="flex space-x-4">
                 <a href="#" className="text-white hover:text-sahara-orange transition-colors">
@@ -73,17 +78,17 @@ const Index = () => {
             </div>
             <div className="grid grid-cols-2 gap-8 md:gap-12">
               <div>
-                <h3 className="text-lg font-semibold mb-3">Sections</h3>
+                <h3 className="text-lg font-semibold mb-3">{t("footer.sections")}</h3>
                 <ul className="space-y-2">
-                  <li><a href="#histoire" className="hover:text-sahara-orange transition-colors">Histoire & Traditions</a></li>
-                  <li><a href="#lifestyle" className="hover:text-sahara-orange transition-colors">Mode de Vie & Cuisine</a></li>
-                  <li><a href="#festivals" className="hover:text-sahara-orange transition-colors">Festivals & Célébrations</a></li>
-                  <li><a href="#art" className="hover:text-sahara-orange transition-colors">Art & Musique</a></li>
-                  <li><a href="#explorer" className="hover:text-sahara-orange transition-colors">Explorer le Sahara</a></li>
+                  <li><a href="#histoire" className="hover:text-sahara-orange transition-colors">{t("section.history")}</a></li>
+                  <li><a href="#lifestyle" className="hover:text-sahara-orange transition-colors">{t("section.lifestyle")}</a></li>
+                  <li><a href="#festivals" className="hover:text-sahara-orange transition-colors">{t("section.festivals")}</a></li>
+                  <li><a href="#art" className="hover:text-sahara-orange transition-colors">{t("section.art")}</a></li>
+                  <li><a href="#explorer" className="hover:text-sahara-orange transition-colors">{t("section.explore")}</a></li>
                 </ul>
               </div>
               <div>
-                <h3 className="text-lg font-semibold mb-3">Contact</h3>
+                <h3 className="text-lg font-semibold mb-3">{t("footer.contact")}</h3>
                 <ul className="space-y-2">
                   <li>info@saharastories.com</li>
                   <li>+212 612 345 678</li>
@@ -93,7 +98,7 @@ const Index = () => {
             </div>
           </div>
           <div className="mt-8 pt-8 border-t border-white/20 text-center text-sm">
-            <p>© {new Date().getFullYear()} SaharaStories. Tous droits réservés.</p>
+            <p>© {new Date().getFullYear()} SaharaStories. {t("footer.rights")}</p>
           </div>
         </div>
       </footer>

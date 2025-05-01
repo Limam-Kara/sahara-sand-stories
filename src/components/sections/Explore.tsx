@@ -1,4 +1,3 @@
-
 import { useEffect, useRef, useState } from "react";
 import SectionTitle from "../ui/SectionTitle";
 import DesertMap from "../maps/DesertMap";
@@ -91,7 +90,7 @@ const TravelInfo = () => {
       <ul className="space-y-2 text-sm">
         <li>
           {language === 'en' ? 'The Sahara can be extremely hot during the day and cold at night' : 
-           language === 'ar' ? 'يمكن أن تكون الصحراء شديدة الحرارة خلال النهار وباردة في الليل' : 
+           language === 'ar' ? 'يمكن أن تكون ال��حراء شديدة الحرارة خلال النهار وباردة في الليل' : 
            'Le Sahara peut être extrêmement chaud le jour et froid la nuit'}
         </li>
         <li>
@@ -152,7 +151,7 @@ const Explore = () => {
     <section id="explorer" ref={sectionRef} className="section-container" dir={language === 'ar' ? 'rtl' : 'ltr'}>
       <SectionTitle
         title="Explorer le Sahara"
-        subtitle="Découvrez les régions sahraouies et leurs statistiques"
+        subtitle="Découvrez les régions sahraouies et leurs caractéristiques"
         className="reveal-on-scroll"
         translationKey="explore"
       />
@@ -178,11 +177,6 @@ const Explore = () => {
           
           <TabsContent value="map" className="mt-0 focus-visible:outline-none focus-visible:ring-0">
             <div className="mb-6">
-              <h3 className="text-2xl font-bold text-sahara-brown mb-4 text-center">
-                {language === 'en' ? 'Sahrawi Regions of Morocco' : 
-                 language === 'ar' ? 'مناطق الصحراء المغربية' : 
-                 'Régions Sahraouies du Maroc'}
-              </h3>
               <DesertMap />
             </div>
           </TabsContent>

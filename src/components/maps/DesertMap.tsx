@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Card } from "@/components/ui/card";
-import { Map, Navigation, Layers } from "lucide-react";
+import { Layers } from "lucide-react";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -313,7 +313,7 @@ const DesertMap = () => {
         {!mapLoaded && (
           <div className="absolute inset-0 flex items-center justify-center bg-sahara-sand/20">
             <div className="flex flex-col items-center gap-2 text-sahara-brown">
-              <Map className="h-8 w-8 animate-pulse" />
+              <div className="h-8 w-8 animate-pulse bg-sahara-sand/50 rounded-full"></div>
               <p>Loading map...</p>
             </div>
           </div>
@@ -327,18 +327,11 @@ const DesertMap = () => {
       </Card>
 
       <Card className="p-5 rounded-lg shadow-md">
-        <div className="flex items-center gap-2 mb-4">
-          <Navigation className="text-sahara-terracotta h-5 w-5" />
-          <h3 className="text-lg font-semibold">
-            {language === 'ar' ? 'إحصاءات المنطقة' : 
-             language === 'fr' ? 'Statistiques Régionales' : 
-             'Regional Statistics'}
-          </h3>
-        </div>
-
         {!selectedRegion ? (
           <div className="flex flex-col items-center justify-center h-[380px] text-center p-6 bg-sahara-sand/10 rounded-lg">
-            <Map className="h-16 w-16 text-sahara-sand mb-4" />
+            <div className="h-16 w-16 text-sahara-sand mb-4">
+              <img src="/lovable-uploads/137080bb-a9f9-4db6-b059-9fc6377d1d62.png" alt="Map icon" className="w-full h-full object-contain" />
+            </div>
             <p className="text-sahara-brown">{labels.clickRegion}</p>
           </div>
         ) : (

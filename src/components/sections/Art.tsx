@@ -6,6 +6,15 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "../ui/accordion";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../ui/table";
 import { Book, MessageSquare, Users, Gamepad } from "lucide-react";
+import { 
+  Pagination, 
+  PaginationContent, 
+  PaginationEllipsis, 
+  PaginationItem, 
+  PaginationLink, 
+  PaginationNext, 
+  PaginationPrevious 
+} from "../ui/pagination";
 
 // Sample proverbs data (in a real application, this would come from an admin panel)
 const proverbs = [
@@ -28,6 +37,26 @@ const proverbs = [
     original: "الصبر مفتاح الفرج",
     translation: "La patience est la clé du soulagement",
     meaning: "La patience mène à la résolution des problèmes"
+  },
+  {
+    original: "لي خدم يوم الجمعة، سبعة أيام جمعة",
+    translation: "Celui qui travaille le vendredi travaillera sept vendredis",
+    meaning: "Respecter les jours sacrés apporte la bénédiction"
+  },
+  {
+    original: "شوف بعينيك لا تسمع بودنيك",
+    translation: "Regarde avec tes yeux plutôt que d'écouter avec tes oreilles",
+    meaning: "Il vaut mieux vérifier par soi-même que de croire les rumeurs"
+  },
+  {
+    original: "المكتوب ما منو مهروب",
+    translation: "Ce qui est écrit ne peut être évité",
+    meaning: "Le destin est inévitable"
+  },
+  {
+    original: "الكذاب خبزو ف وسط الدار",
+    translation: "Le menteur a son pain au milieu de la maison",
+    meaning: "Les mensonges sont facilement découverts"
   },
 ];
 
@@ -89,8 +118,87 @@ const mythicalTale = {
 };
 
 const Art = () => {
-  const [activeProverb, setActiveProverb] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
+  const proverbsPerPage = 5;
+  const totalPages = Math.ceil(proverbs.length / proverbsPerPage);
   const sectionRef = useRef<HTMLElement>(null);
+
+  // Calculate the proverbs to display on the current page
+  const indexOfLastProverb = currentPage * proverbsPerPage;
+  const indexOfFirstProverb = indexOfLastProverb - proverbsPerPage;
+  const currentProverbs = proverbs.slice(indexOfFirstProverb, indexOfLastProverb);
+
+  // Handle page change
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+  };
+
+  // Generate page numbers
+  const getPageNumbers = () => {
+    const pages = [];
+    
+    // Always show first page
+    pages.push(
+      <PaginationItem key="page-1">
+        <PaginationLink 
+          onClick={() => handlePageChange(1)} 
+          isActive={currentPage === 1}
+        >
+          1
+        </PaginationLink>
+      </PaginationItem>
+    );
+
+    // Add ellipsis if needed
+    if (currentPage > 3) {
+      pages.push(
+        <PaginationItem key="ellipsis-1">
+          <PaginationEllipsis />
+        </PaginationItem>
+      );
+    }
+
+    // Add pages around current page
+    for (let i = Math.max(2, currentPage - 1); i <= Math.min(totalPages - 1, currentPage + 1); i++) {
+      if (i <= totalPages - 1) {
+        pages.push(
+          <PaginationItem key={`page-${i}`}>
+            <PaginationLink 
+              onClick={() => handlePageChange(i)} 
+              isActive={currentPage === i}
+            >
+              {i}
+            </PaginationLink>
+          </PaginationItem>
+        );
+      }
+    }
+
+    // Add ellipsis if needed
+    if (currentPage < totalPages - 2 && totalPages > 4) {
+      pages.push(
+        <PaginationItem key="ellipsis-2">
+          <PaginationEllipsis />
+        </PaginationItem>
+      );
+    }
+
+    // Always show last page if there is more than one page
+    if (totalPages > 1) {
+      pages.push(
+        <PaginationItem key={`page-${totalPages}`}>
+          <PaginationLink 
+            onClick={() => handlePageChange(totalPages)} 
+            isActive={currentPage === totalPages}
+          >
+            {totalPages}
+          </PaginationLink>
+        </PaginationItem>
+      );
+    }
+
+    return pages;
+  };
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -187,8 +295,8 @@ const Art = () => {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {proverbs.map((proverb, index) => (
-                  <TableRow key={`proverb-${index}`}>
+                {currentProverbs.map((proverb, index) => (
+                  <TableRow key={`proverb-${indexOfFirstProverb + index}`}>
                     <TableCell className="font-medium">{proverb.original}</TableCell>
                     <TableCell>{proverb.translation}</TableCell>
                     <TableCell>{proverb.meaning}</TableCell>
@@ -196,6 +304,29 @@ const Art = () => {
                 ))}
               </TableBody>
             </Table>
+            
+            {/* Pagination */}
+            {proverbs.length > proverbsPerPage && (
+              <Pagination className="mt-6">
+                <PaginationContent>
+                  <PaginationItem>
+                    <PaginationPrevious 
+                      onClick={() => handlePageChange(Math.max(1, currentPage - 1))}
+                      className={currentPage === 1 ? "pointer-events-none opacity-50" : ""}
+                    />
+                  </PaginationItem>
+                  
+                  {getPageNumbers()}
+                  
+                  <PaginationItem>
+                    <PaginationNext 
+                      onClick={() => handlePageChange(Math.min(totalPages, currentPage + 1))}
+                      className={currentPage === totalPages ? "pointer-events-none opacity-50" : ""}
+                    />
+                  </PaginationItem>
+                </PaginationContent>
+              </Pagination>
+            )}
           </TabsContent>
 
           {/* Poetry Content */}
@@ -254,7 +385,7 @@ const Art = () => {
 
           {/* Games Content */}
           <TabsContent value="games" className="bg-white/70 dark:bg-sahara-brown/10 rounded-lg p-6">
-            <h3 className="text-2xl font-bold text-blue-500 mb-4">Jeux Populaires</h3>
+            <h3 className="text-2xl font-bold text-sahara-brown mb-4">Jeux Populaires</h3>
             <p className="mb-6">
               Les jeux traditionnels hassanis sont plus que de simples divertissements ; ils favorisent la cohésion sociale, 
               développent des compétences et transmettent des valeurs culturelles aux jeunes générations.
@@ -287,7 +418,7 @@ const Art = () => {
 
           {/* Beliefs Content */}
           <TabsContent value="beliefs" className="bg-white/70 dark:bg-sahara-brown/10 rounded-lg p-6">
-            <h3 className="text-2xl font-bold text-green-600 mb-4">Croyances</h3>
+            <h3 className="text-2xl font-bold text-sahara-brown mb-4">Croyances</h3>
             <p className="mb-6">
               Les croyances hassanies sont un mélange unique de traditions islamiques et de pratiques culturelles préislamiques. 
               Elles influencent tous les aspects de la vie quotidienne, des rituels de naissance aux cérémonies funéraires.

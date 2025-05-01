@@ -99,6 +99,7 @@ const Festivals = () => {
   return (
     <section id="festivals" ref={sectionRef} className="section-container" dir={language === 'ar' ? 'rtl' : 'ltr'}>
       <SectionTitle
+        title="Festivals & Celebrations"
         translationKey="festivals"
         className="reveal-on-scroll"
       />

@@ -5,7 +5,6 @@ import { MapPin, AlertCircle } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Button } from "@/components/ui/button";
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 
@@ -58,9 +57,64 @@ const DesertMap = () => {
   const [mapLoaded, setMapLoaded] = useState(false);
   const [mapError, setMapError] = useState<string | null>(null);
   const { language } = useLanguage();
+  const mapContainerRef = useRef<HTMLDivElement>(null);
+  const mapInstanceRef = useRef<L.Map | null>(null);
   
   useEffect(() => {
     fixLeafletIcon();
+    
+    // Initialize map only if container exists and map hasn't been initialized
+    if (mapContainerRef.current && !mapInstanceRef.current) {
+      try {
+        // Create map instance
+        const map = L.map(mapContainerRef.current).setView([25.0, -12.5], 4);
+        
+        // Add tile layer
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+        
+        // Add markers for each location
+        locations.forEach((location) => {
+          const marker = L.marker(location.coordinates, { icon: createCustomIcon() })
+            .addTo(map);
+          
+          // Create popup content
+          const popupContent = document.createElement('div');
+          popupContent.className = 'text-sm';
+          
+          const title = document.createElement('h3');
+          title.className = 'font-bold';
+          title.textContent = location.name;
+          
+          const description = document.createElement('p');
+          description.textContent = getLocationDescription(location.name, location.description);
+          
+          popupContent.appendChild(title);
+          popupContent.appendChild(description);
+          
+          // Bind popup to marker
+          marker.bindPopup(popupContent);
+        });
+        
+        // Store map instance in ref
+        mapInstanceRef.current = map;
+        setMapLoaded(true);
+        setMapError(null);
+      } catch (error) {
+        console.error("Error initializing map:", error);
+        setMapError("Erreur de chargement de la carte");
+        setMapLoaded(false);
+      }
+    }
+    
+    // Cleanup function
+    return () => {
+      if (mapInstanceRef.current) {
+        mapInstanceRef.current.remove();
+        mapInstanceRef.current = null;
+      }
+    };
   }, []);
 
   const getLocationDescription = (name: string, description: string): string => {
@@ -90,16 +144,6 @@ const DesertMap = () => {
       "Aousserd": "Sahrawi administrative region"
     };
     return `${name}: ${enDescriptions[name] || description}`;
-  };
-
-  const handleMapReady = () => {
-    setMapLoaded(true);
-    setMapError(null);
-  };
-
-  const handleMapError = () => {
-    setMapError("Erreur de chargement de la carte");
-    setMapLoaded(false);
   };
 
   return (
@@ -138,37 +182,11 @@ const DesertMap = () => {
         </div>
       )}
       
-      <div className="w-full h-[400px]">
-        <MapContainer 
-          center={[25.0, -12.5]} 
-          zoom={4} 
-          style={{ height: "100%", width: "100%" }}
-          whenReady={handleMapReady}
-          className="z-0"
-        >
-          <TileLayer
-            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            eventHandlers={{
-              error: handleMapError
-            }}
-          />
-          {locations.map((location, index) => (
-            <Marker 
-              key={index} 
-              position={location.coordinates} 
-              icon={createCustomIcon()}
-            >
-              <Popup>
-                <div className="text-sm">
-                  <h3 className="font-bold">{location.name}</h3>
-                  <p>{getLocationDescription(location.name, location.description)}</p>
-                </div>
-              </Popup>
-            </Marker>
-          ))}
-        </MapContainer>
-      </div>
+      <div 
+        ref={mapContainerRef} 
+        className="w-full h-[400px]"
+        style={{ zIndex: 0 }}
+      />
       
       <div className="absolute bottom-3 left-3 bg-white/80 dark:bg-sahara-brown/80 px-3 py-2 rounded-md text-xs flex items-center">
         <MapPin className="h-3 w-3 mr-1" />

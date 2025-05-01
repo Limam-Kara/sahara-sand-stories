@@ -122,6 +122,7 @@ const Art = () => {
   const proverbsPerPage = 5;
   const totalPages = Math.ceil(proverbs.length / proverbsPerPage);
   const sectionRef = useRef<HTMLElement>(null);
+  const [activeTab, setActiveTab] = useState("proverbs");
 
   // Calculate the proverbs to display on the current page
   const indexOfLastProverb = currentPage * proverbsPerPage;
@@ -228,6 +229,19 @@ const Art = () => {
     };
   }, []);
 
+  // Handle tab change
+  const handleTabChange = (value: string) => {
+    setActiveTab(value);
+  };
+
+  const tabItems = [
+    { id: "proverbs", name: "Proverbes", icon: MessageSquare },
+    { id: "poetry", name: "Poésie", icon: Book },
+    { id: "myths", name: "Mythes et Contes", icon: Book },
+    { id: "games", name: "Jeux Populaires", icon: Gamepad },
+    { id: "beliefs", name: "Croyances", icon: Users },
+  ];
+
   return (
     <section id="art" ref={sectionRef} className="section-container">
       <SectionTitle
@@ -236,50 +250,30 @@ const Art = () => {
         className="reveal-on-scroll"
       />
 
-      {/* Content Sections - Tabs for each cultural element */}
+      {/* Custom Tab Navigation styled like Explore's Saharan Destinations */}
       <div className="mt-12 reveal-on-scroll">
-        <Tabs defaultValue="proverbs" className="w-full">
-          <TabsList className="w-full flex mb-6 bg-white/70 dark:bg-sahara-brown/10 overflow-x-auto">
-            {/* Reordered tabs - Proverbes first, then Poésie */}
-            <TabsTrigger 
-              value="proverbs"
-              className="flex-1 min-w-max"
-            >
-              <MessageSquare className="mr-2 h-5 w-5" />
-              Proverbes
-            </TabsTrigger>
-            <TabsTrigger 
-              value="poetry"
-              className="flex-1 min-w-max"
-            >
-              <Book className="mr-2 h-5 w-5" />
-              Poésie
-            </TabsTrigger>
-            <TabsTrigger 
-              value="myths"
-              className="flex-1 min-w-max"
-            >
-              <Book className="mr-2 h-5 w-5" />
-              Mythes et Contes
-            </TabsTrigger>
-            <TabsTrigger 
-              value="games"
-              className="flex-1 min-w-max"
-            >
-              <Gamepad className="mr-2 h-5 w-5" />
-              Jeux Populaires
-            </TabsTrigger>
-            <TabsTrigger 
-              value="beliefs"
-              className="flex-1 min-w-max"
-            >
-              <Users className="mr-2 h-5 w-5" />
-              Croyances
-            </TabsTrigger>
-          </TabsList>
-          
-          {/* Proverbs Content */}
-          <TabsContent value="proverbs" className="bg-white/70 dark:bg-sahara-brown/10 rounded-lg p-6">
+        <div className="mb-6">
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-2 mb-6">
+            {tabItems.map((tab) => (
+              <button
+                key={tab.id}
+                onClick={() => handleTabChange(tab.id)}
+                className={`py-2 px-4 text-center rounded-md transition-all duration-300 flex flex-col items-center justify-center ${
+                  activeTab === tab.id
+                    ? "bg-sahara-orange text-white shadow-md"
+                    : "bg-sahara-sand/20 hover:bg-sahara-sand/40"
+                }`}
+              >
+                <tab.icon className="h-5 w-5 mb-1" />
+                <span>{tab.name}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Proverbs Content */}
+        {activeTab === "proverbs" && (
+          <div className="bg-white/70 dark:bg-sahara-brown/10 rounded-lg p-6">
             <h3 className="text-2xl font-bold text-sahara-brown mb-4">Proverbes Hassanis</h3>
             <p className="mb-6">
               Les proverbes hassanis reflètent la sagesse populaire et l'expérience collective du peuple sahraoui. 
@@ -327,10 +321,12 @@ const Art = () => {
                 </PaginationContent>
               </Pagination>
             )}
-          </TabsContent>
+          </div>
+        )}
 
-          {/* Poetry Content */}
-          <TabsContent value="poetry" className="bg-white/70 dark:bg-sahara-brown/10 rounded-lg p-6">
+        {/* Poetry Content */}
+        {activeTab === "poetry" && (
+          <div className="bg-white/70 dark:bg-sahara-brown/10 rounded-lg p-6">
             <h3 className="text-2xl font-bold text-sahara-orange mb-4">Poésie Hassanie</h3>
             <p className="mb-6">
               La poésie occupe une place centrale dans la culture hassanie. Les poèmes sont récités lors des rassemblements sociaux, 
@@ -357,10 +353,12 @@ const Art = () => {
                 </ul>
               </div>
             </div>
-          </TabsContent>
+          </div>
+        )}
 
-          {/* Myths and Tales Content */}
-          <TabsContent value="myths" className="bg-white/70 dark:bg-sahara-brown/10 rounded-lg p-6">
+        {/* Myths and Tales Content */}
+        {activeTab === "myths" && (
+          <div className="bg-white/70 dark:bg-sahara-brown/10 rounded-lg p-6">
             <h3 className="text-2xl font-bold text-sahara-terracotta mb-4">Mythes et Contes</h3>
             <p className="mb-6">
               Les mythes et contes hassanis sont des récits oraux transmis de génération en génération. 
@@ -381,10 +379,12 @@ const Art = () => {
                 <li>Expliquer les phénomènes naturels et sociaux</li>
               </ul>
             </div>
-          </TabsContent>
+          </div>
+        )}
 
-          {/* Games Content */}
-          <TabsContent value="games" className="bg-white/70 dark:bg-sahara-brown/10 rounded-lg p-6">
+        {/* Games Content */}
+        {activeTab === "games" && (
+          <div className="bg-white/70 dark:bg-sahara-brown/10 rounded-lg p-6">
             <h3 className="text-2xl font-bold text-sahara-brown mb-4">Jeux Populaires</h3>
             <p className="mb-6">
               Les jeux traditionnels hassanis sont plus que de simples divertissements ; ils favorisent la cohésion sociale, 
@@ -414,10 +414,12 @@ const Art = () => {
                 </AccordionContent>
               </AccordionItem>
             </Accordion>
-          </TabsContent>
+          </div>
+        )}
 
-          {/* Beliefs Content */}
-          <TabsContent value="beliefs" className="bg-white/70 dark:bg-sahara-brown/10 rounded-lg p-6">
+        {/* Beliefs Content */}
+        {activeTab === "beliefs" && (
+          <div className="bg-white/70 dark:bg-sahara-brown/10 rounded-lg p-6">
             <h3 className="text-2xl font-bold text-sahara-brown mb-4">Croyances</h3>
             <p className="mb-6">
               Les croyances hassanies sont un mélange unique de traditions islamiques et de pratiques culturelles préislamiques. 
@@ -444,8 +446,8 @@ const Art = () => {
                 </ul>
               </div>
             </div>
-          </TabsContent>
-        </Tabs>
+          </div>
+        )}
       </div>
     </section>
   );

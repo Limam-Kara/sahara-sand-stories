@@ -68,7 +68,7 @@ const DesertMap = () => {
       style: "mapbox://styles/mapbox/satellite-streets-v12",
       center: [-5.5, 30.5] as LocationCoordinates, // Type assertion to fix TypeScript error
       zoom: 5.5,
-      projection: "globe" as mapboxgl.Projection // Use the correct type for projection
+      projection: { name: 'globe' } // Fix: Use object with name property instead of string
     });
 
     map.current.addControl(new mapboxgl.NavigationControl(), 'top-right');

@@ -19,13 +19,21 @@ const locations = [
   { name: "Zagora", coordinates: [-5.8384, 30.3324], description: "52 jours à Tombouctou" }
 ];
 
+// Define TypeScript types
+type LocationCoordinates = [number, number];
+interface Location {
+  name: string;
+  coordinates: LocationCoordinates;
+  description: string;
+}
+
 const DesertMap = () => {
   const mapContainer = useRef<HTMLDivElement>(null);
   const map = useRef<mapboxgl.Map | null>(null);
   const [mapLoaded, setMapLoaded] = useState(false);
   const { language } = useLanguage();
 
-  const getLocationDescription = (name: string, description: string) => {
+  const getLocationDescription = (name: string, description: string): string => {
     if (language === 'fr') {
       return `${name}: ${description}`;
     } else if (language === 'ar') {
@@ -58,9 +66,9 @@ const DesertMap = () => {
     map.current = new mapboxgl.Map({
       container: mapContainer.current,
       style: "mapbox://styles/mapbox/satellite-streets-v12",
-      center: [-5.5, 30.5] as [number, number], // Type assertion to fix TypeScript error
+      center: [-5.5, 30.5] as LocationCoordinates, // Type assertion to fix TypeScript error
       zoom: 5.5,
-      projection: 'globe'
+      projection: "globe" as mapboxgl.Projection // Use the correct type for projection
     });
 
     map.current.addControl(new mapboxgl.NavigationControl(), 'top-right');
@@ -78,7 +86,7 @@ const DesertMap = () => {
       });
       
       // Add markers for each location
-      locations.forEach(location => {
+      locations.forEach((location) => {
         if (!map.current) return;
         
         // Create a marker element
@@ -94,7 +102,7 @@ const DesertMap = () => {
         
         // Add marker to map with properly typed coordinates
         new mapboxgl.Marker(markerEl)
-          .setLngLat(location.coordinates as [number, number])
+          .setLngLat(location.coordinates as LocationCoordinates)
           .setPopup(popup)
           .addTo(map.current);
       });
@@ -130,7 +138,7 @@ const DesertMap = () => {
       );
       
       new mapboxgl.Marker(markerEl)
-        .setLngLat(location.coordinates as [number, number])
+        .setLngLat(location.coordinates as LocationCoordinates)
         .setPopup(popup)
         .addTo(map.current);
     });

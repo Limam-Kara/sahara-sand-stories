@@ -58,7 +58,7 @@ const DesertMap = () => {
     map.current = new mapboxgl.Map({
       container: mapContainer.current,
       style: "mapbox://styles/mapbox/satellite-streets-v12",
-      center: [-5.5, 30.5], // Center on southern Morocco
+      center: [-5.5, 30.5] as [number, number], // Type assertion to fix TypeScript error
       zoom: 5.5,
       projection: 'globe'
     });
@@ -92,9 +92,9 @@ const DesertMap = () => {
            <p class="text-xs">${getLocationDescription(location.name, location.description)}</p>`
         );
         
-        // Add marker to map
+        // Add marker to map with properly typed coordinates
         new mapboxgl.Marker(markerEl)
-          .setLngLat(location.coordinates)
+          .setLngLat(location.coordinates as [number, number])
           .setPopup(popup)
           .addTo(map.current);
       });
@@ -130,7 +130,7 @@ const DesertMap = () => {
       );
       
       new mapboxgl.Marker(markerEl)
-        .setLngLat(location.coordinates)
+        .setLngLat(location.coordinates as [number, number])
         .setPopup(popup)
         .addTo(map.current);
     });

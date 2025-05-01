@@ -34,20 +34,20 @@ const proverbs = [
 // Cultural elements nodes for the network visualization
 const culturalElements = [
   {
-    id: "poetry",
-    name: "Poésie",
-    icon: Book,
-    color: "bg-sahara-orange",
-    description: "La poésie hassanie est une expression artistique qui véhicule l'identité, l'histoire et les valeurs du peuple sahraoui. Les poèmes, souvent récités lors de rassemblements, abordent des thèmes comme l'amour, la bravoure, le désert et l'honneur.",
-    connections: ["proverbs", "myths"]
-  },
-  {
     id: "proverbs",
     name: "Proverbes",
     icon: MessageSquare,
     color: "bg-sahara-brown",
     description: "Les proverbes hassanis sont des expressions de sagesse populaire transmises de génération en génération. Ils reflètent les valeurs morales, les normes sociales et l'expérience collective du peuple sahraoui dans son environnement désertique.",
     connections: ["poetry", "beliefs", "games"]
+  },
+  {
+    id: "poetry",
+    name: "Poésie",
+    icon: Book,
+    color: "bg-sahara-orange",
+    description: "La poésie hassanie est une expression artistique qui véhicule l'identité, l'histoire et les valeurs du peuple sahraoui. Les poèmes, souvent récités lors de rassemblements, abordent des thèmes comme l'amour, la bravoure, le désert et l'honneur.",
+    connections: ["proverbs", "myths"]
   },
   {
     id: "myths",
@@ -89,7 +89,6 @@ const mythicalTale = {
 };
 
 const Art = () => {
-  const [selectedElement, setSelectedElement] = useState(culturalElements[0].id);
   const [activeProverb, setActiveProverb] = useState(0);
   const sectionRef = useRef<HTMLElement>(null);
 
@@ -121,20 +120,6 @@ const Art = () => {
     };
   }, []);
 
-  // Get connections for visualization
-  const getConnections = () => {
-    const connections: { source: string; target: string }[] = [];
-    culturalElements.forEach(element => {
-      element.connections.forEach(targetId => {
-        connections.push({
-          source: element.id,
-          target: targetId
-        });
-      });
-    });
-    return connections;
-  };
-
   return (
     <section id="art" ref={sectionRef} className="section-container">
       <SectionTitle
@@ -143,128 +128,46 @@ const Art = () => {
         className="reveal-on-scroll"
       />
 
-      {/* Network Visualization */}
-      <div className="mt-12 bg-white/70 dark:bg-sahara-brown/10 rounded-lg p-6 shadow-md reveal-on-scroll">
-        <h3 className="text-2xl font-bold text-center text-sahara-brown mb-6">
-          Réseau des Éléments Culturels Hassanis
-        </h3>
-        <p className="text-lg text-center mb-8">
-          Les éléments suivants constituent l'héritage culturel immatériel du peuple sahraoui et s'influencent mutuellement.
-        </p>
-        
-        <div className="flex flex-wrap justify-center mb-6">
-          {culturalElements.map((element) => (
-            <button
-              key={element.id}
-              onClick={() => setSelectedElement(element.id)}
-              className={cn(
-                "flex items-center m-2 p-3 rounded-lg shadow-sm transition-all",
-                selectedElement === element.id
-                  ? `${element.color} text-white`
-                  : "bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700"
-              )}
-            >
-              <element.icon className="mr-2 h-5 w-5" />
-              <span className="font-medium">{element.name}</span>
-            </button>
-          ))}
-        </div>
-
-        {/* Network Visualization - Simple Version */}
-        <div className="relative w-full h-60 md:h-80 mb-8">
-          <div className="absolute inset-0 flex items-center justify-center">
-            {/* Center Element */}
-            {culturalElements.map((element) => (
-              element.id === selectedElement && (
-                <div 
-                  key={`node-${element.id}`}
-                  className={`${element.color} text-white p-4 rounded-full z-20 shadow-lg flex items-center justify-center w-24 h-24 md:w-32 md:h-32 transition-all duration-500`}
-                >
-                  <div className="text-center">
-                    <element.icon className="mx-auto h-8 w-8 mb-1" />
-                    <span className="font-bold">{element.name}</span>
-                  </div>
-                </div>
-              )
-            ))}
-            
-            {/* Connected Elements */}
-            {culturalElements.find(e => e.id === selectedElement)?.connections.map((connectionId, idx) => {
-              const connectedElement = culturalElements.find(e => e.id === connectionId);
-              if (!connectedElement) return null;
-              
-              // Calculate position in a circle around the center
-              const angle = (2 * Math.PI * idx) / culturalElements.find(e => e.id === selectedElement)!.connections.length;
-              const radius = 100; // distance from center
-              const xPos = Math.cos(angle) * radius;
-              const yPos = Math.sin(angle) * radius;
-              
-              return (
-                <div key={`connection-${connectionId}`}>
-                  {/* Line connecting elements */}
-                  <div 
-                    className="absolute h-0.5 bg-gray-300 origin-left transform transition-all duration-500" 
-                    style={{
-                      width: `${radius}px`,
-                      left: '50%',
-                      top: '50%',
-                      transform: `rotate(${angle}rad) translateY(-50%)`
-                    }}
-                  />
-                  
-                  {/* Connected element node */}
-                  <div 
-                    className={`${connectedElement.color} text-white absolute p-2 rounded-full shadow-md flex items-center justify-center w-16 h-16 transition-all duration-500`}
-                    style={{
-                      left: `calc(50% + ${xPos}px)`,
-                      top: `calc(50% + ${yPos}px)`,
-                      transform: 'translate(-50%, -50%)'
-                    }}
-                    onClick={() => setSelectedElement(connectionId)}
-                  >
-                    <div className="text-center">
-                      <connectedElement.icon className="mx-auto h-5 w-5" />
-                      <span className="text-xs font-medium">{connectedElement.name}</span>
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-
-        {/* Selected Element Description */}
-        <div className="bg-gray-50 dark:bg-gray-900/30 p-4 rounded-lg">
-          {culturalElements.map((element) => (
-            element.id === selectedElement && (
-              <div key={`desc-${element.id}`} className="reveal-on-scroll">
-                <h4 className={`text-xl font-semibold ${element.id === 'poetry' ? 'text-sahara-orange' : 
-                  element.id === 'proverbs' ? 'text-sahara-brown' : 
-                  element.id === 'myths' ? 'text-sahara-terracotta' : 
-                  element.id === 'games' ? 'text-blue-500' : 'text-green-600'}`}>
-                  {element.name}
-                </h4>
-                <p className="mt-2 text-gray-700 dark:text-gray-300">{element.description}</p>
-              </div>
-            )
-          ))}
-        </div>
-      </div>
-
       {/* Content Sections - Tabs for each cultural element */}
       <div className="mt-12 reveal-on-scroll">
         <Tabs defaultValue="proverbs" className="w-full">
           <TabsList className="w-full flex mb-6 bg-white/70 dark:bg-sahara-brown/10 overflow-x-auto">
-            {culturalElements.map((element) => (
-              <TabsTrigger 
-                key={`tab-${element.id}`}
-                value={element.id}
-                className="flex-1 min-w-max"
-              >
-                <element.icon className="mr-2 h-5 w-5" />
-                {element.name}
-              </TabsTrigger>
-            ))}
+            {/* Reordered tabs - Proverbes first, then Poésie */}
+            <TabsTrigger 
+              value="proverbs"
+              className="flex-1 min-w-max"
+            >
+              <MessageSquare className="mr-2 h-5 w-5" />
+              Proverbes
+            </TabsTrigger>
+            <TabsTrigger 
+              value="poetry"
+              className="flex-1 min-w-max"
+            >
+              <Book className="mr-2 h-5 w-5" />
+              Poésie
+            </TabsTrigger>
+            <TabsTrigger 
+              value="myths"
+              className="flex-1 min-w-max"
+            >
+              <Book className="mr-2 h-5 w-5" />
+              Mythes et Contes
+            </TabsTrigger>
+            <TabsTrigger 
+              value="games"
+              className="flex-1 min-w-max"
+            >
+              <Gamepad className="mr-2 h-5 w-5" />
+              Jeux Populaires
+            </TabsTrigger>
+            <TabsTrigger 
+              value="beliefs"
+              className="flex-1 min-w-max"
+            >
+              <Users className="mr-2 h-5 w-5" />
+              Croyances
+            </TabsTrigger>
           </TabsList>
           
           {/* Proverbs Content */}

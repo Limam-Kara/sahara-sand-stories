@@ -3,6 +3,7 @@ import { useEffect, useRef } from "react";
 import SectionTitle from "../ui/SectionTitle";
 import ImageCard from "../ui/ImageCard";
 import { useLanguage } from "@/contexts/LanguageContext";
+import DesertMap from "../maps/DesertMap";
 
 const History = () => {
   const sectionRef = useRef<HTMLElement>(null);
@@ -129,6 +130,23 @@ const History = () => {
             </div>
           </div>
         </div>
+      </div>
+
+      {/* New section: Map of Sahrawi cities */}
+      <div className="mt-16 reveal-on-scroll">
+        <div className="mb-8 text-center">
+          <h3 className="text-2xl font-bold text-sahara-brown mb-2">Cartographie des Villes Sahraouies</h3>
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            Découvrez les principales villes et sites d'importance culturelle et historique pour le peuple sahraoui.
+          </p>
+          <div className="w-16 h-1 bg-sahara-sand mx-auto mt-4"></div>
+        </div>
+        <div className="mt-8">
+          <DesertMap />
+        </div>
+        <p className="text-center text-sm text-muted-foreground mt-4">
+          Explorez la carte pour découvrir les lieux emblématiques du territoire sahraoui.
+        </p>
       </div>
     </section>
   );

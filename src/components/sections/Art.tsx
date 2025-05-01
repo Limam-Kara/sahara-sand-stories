@@ -2,56 +2,95 @@
 import { useState, useRef, useEffect } from "react";
 import SectionTitle from "../ui/SectionTitle";
 import { cn } from "@/lib/utils";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "../ui/accordion";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../ui/table";
+import { Book, MessageSquare, Users, Gamepad } from "lucide-react";
 
-const instruments = [
+// Sample proverbs data (in a real application, this would come from an admin panel)
+const proverbs = [
   {
-    name: "Ghaita",
-    description: "Instrument à vent traditionnel au son puissant, utilisé lors des cérémonies et fêtes.",
-    image: "https://images.unsplash.com/photo-1609920645737-9296d1c04708?q=80&w=2670&auto=format&fit=crop"
+    original: "لي بغا العسل يصبر لقريص النحل",
+    translation: "Celui qui veut du miel doit supporter les piqûres d'abeilles",
+    meaning: "Il faut endurer des difficultés pour atteindre ses objectifs"
   },
   {
-    name: "Bendir",
-    description: "Tambour sur cadre avec des cordes vibrantes, créant un son distinctif lors des performances.",
-    image: "https://images.unsplash.com/photo-1619597361832-a568b1e0555f?q=80&w=2670&auto=format&fit=crop"
+    original: "الكلام لي ما ينفع، سكوت منو أنفع",
+    translation: "Si les mots ne sont pas utiles, le silence est plus bénéfique",
+    meaning: "Parfois il vaut mieux se taire que parler sans but"
   },
   {
-    name: "Rbab",
-    description: "Instrument à cordes frottées, souvent utilisé pour accompagner les récits et poèmes.",
-    image: "https://images.unsplash.com/photo-1560913478-7d557a840c0e?q=80&w=2670&auto=format&fit=crop"
+    original: "الجمل ما كاشوف عوجت رقبتو",
+    translation: "Le chameau ne voit pas la courbure de son cou",
+    meaning: "On remarque souvent les défauts des autres mais pas les siens"
+  },
+  {
+    original: "الصبر مفتاح الفرج",
+    translation: "La patience est la clé du soulagement",
+    meaning: "La patience mène à la résolution des problèmes"
+  },
+];
+
+// Cultural elements nodes for the network visualization
+const culturalElements = [
+  {
+    id: "poetry",
+    name: "Poésie",
+    icon: Book,
+    color: "bg-sahara-orange",
+    description: "La poésie hassanie est une expression artistique qui véhicule l'identité, l'histoire et les valeurs du peuple sahraoui. Les poèmes, souvent récités lors de rassemblements, abordent des thèmes comme l'amour, la bravoure, le désert et l'honneur.",
+    connections: ["proverbs", "myths"]
+  },
+  {
+    id: "proverbs",
+    name: "Proverbes",
+    icon: MessageSquare,
+    color: "bg-sahara-brown",
+    description: "Les proverbes hassanis sont des expressions de sagesse populaire transmises de génération en génération. Ils reflètent les valeurs morales, les normes sociales et l'expérience collective du peuple sahraoui dans son environnement désertique.",
+    connections: ["poetry", "beliefs", "games"]
+  },
+  {
+    id: "myths",
+    name: "Mythes et Contes",
+    icon: Book,
+    color: "bg-sahara-terracotta",
+    description: "Les mythes et contes hassanis sont des récits traditionnels qui expliquent les phénomènes naturels, transmettent les valeurs culturelles et divertissent. Ils jouent un rôle crucial dans la préservation de l'identité culturelle sahraouie.",
+    connections: ["poetry", "beliefs"]
+  },
+  {
+    id: "games",
+    name: "Jeux Populaires",
+    icon: Gamepad,
+    color: "bg-blue-500",
+    description: "Les jeux populaires hassanis sont des activités ludiques traditionnelles qui renforcent les liens communautaires, développent des compétences et divertissent. Ces jeux reflètent souvent l'environnement désertique et les ressources disponibles.",
+    connections: ["proverbs"]
+  },
+  {
+    id: "beliefs",
+    name: "Croyances",
+    icon: Users,
+    color: "bg-green-600",
+    description: "Les croyances sahraouies sont un mélange de pratiques islamiques et de traditions préislamiques. Elles incluent des rituels, des superstitions et des cérémonies qui guident la vie quotidienne et les moments importants de l'existence.",
+    connections: ["proverbs", "myths"]
   }
 ];
 
-const galleryImages = [
-  {
-    src: "https://images.unsplash.com/photo-1464219789935-c2d9d9eb75eb?q=80&w=2670&auto=format&fit=crop",
-    alt: "Motifs géométriques sahraouis",
-    caption: "Motifs géométriques"
-  },
-  {
-    src: "https://images.unsplash.com/photo-1595503240812-7286dafaddc1?q=80&w=2670&auto=format&fit=crop",
-    alt: "Tapis traditionnel sahraoui",
-    caption: "Tapis traditionnel"
-  },
-  {
-    src: "https://images.unsplash.com/photo-1623196152364-8d92f09c56ba?q=80&w=2670&auto=format&fit=crop",
-    alt: "Bijoux sahraouis en argent",
-    caption: "Bijoux en argent"
-  },
-  {
-    src: "https://images.unsplash.com/photo-1598811629267-faffa0027fe3?q=80&w=2670&auto=format&fit=crop",
-    alt: "Poterie traditionnelle",
-    caption: "Poterie"
-  },
-  {
-    src: "https://images.unsplash.com/photo-1494183703727-74e0657fa0fa?q=80&w=2670&auto=format&fit=crop",
-    alt: "Artisanat en cuir sahraoui",
-    caption: "Artisanat en cuir"
-  }
-];
+// Tale example
+const mythicalTale = {
+  title: "La Légende du Puits de Tiris",
+  content: `Dans les vastes étendues du désert sahraoui, il existe un puits ancien connu sous le nom de Puits de Tiris. 
+  Selon la légende, ce puits fut créé par un saint homme qui, voyant la souffrance de son peuple durant une longue sécheresse, 
+  planta son bâton dans le sable et pria toute la nuit. À l'aube, l'eau jaillit de cet endroit, créant une source qui ne s'est jamais tarie.
+  
+  On dit que l'eau de ce puits possède des propriétés curatives et que quiconque boit avec un cœur pur verra ses souhaits exaucés. 
+  Cependant, ceux qui s'approchent avec de mauvaises intentions verront l'eau se retirer dans les profondeurs du sable.
+  
+  Cette légende enseigne l'importance de la pureté d'intention, de la foi et du respect des ressources naturelles dans la culture sahraouie.`
+};
 
 const Art = () => {
-  const [activeInstrument, setActiveInstrument] = useState(0);
-  const [currentImage, setCurrentImage] = useState(0);
+  const [selectedElement, setSelectedElement] = useState(culturalElements[0].id);
+  const [activeProverb, setActiveProverb] = useState(0);
   const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -82,136 +121,297 @@ const Art = () => {
     };
   }, []);
 
-  const nextImage = () => {
-    setCurrentImage((prev) => (prev + 1) % galleryImages.length);
-  };
-
-  const prevImage = () => {
-    setCurrentImage((prev) => (prev - 1 + galleryImages.length) % galleryImages.length);
+  // Get connections for visualization
+  const getConnections = () => {
+    const connections: { source: string; target: string }[] = [];
+    culturalElements.forEach(element => {
+      element.connections.forEach(targetId => {
+        connections.push({
+          source: element.id,
+          target: targetId
+        });
+      });
+    });
+    return connections;
   };
 
   return (
     <section id="art" ref={sectionRef} className="section-container">
       <SectionTitle
-        title="Art & Musique"
-        subtitle="Découvrez les expressions artistiques et musicales de la culture sahraouie"
+        title="Patrimoine Culturel Immatériel"
+        subtitle="Explorez les éléments culturels non matériels qui définissent l'identité hassanie"
         className="reveal-on-scroll"
       />
 
-      <div className="mt-16 grid grid-cols-1 md:grid-cols-2 gap-12">
-        <div className="reveal-on-scroll">
-          <h3 className="text-2xl font-bold text-sahara-brown mb-4">Expression Musicale</h3>
-          <p className="text-lg mb-6">
-            La musique sahraouie est profondément liée à la tradition orale, transmettant l'histoire, les valeurs et les émotions du peuple du désert. Les mélodies envoûtantes et les rythmes hypnotiques évoquent les vastes étendues du Sahara et la vie nomade.
-          </p>
+      {/* Network Visualization */}
+      <div className="mt-12 bg-white/70 dark:bg-sahara-brown/10 rounded-lg p-6 shadow-md reveal-on-scroll">
+        <h3 className="text-2xl font-bold text-center text-sahara-brown mb-6">
+          Réseau des Éléments Culturels Hassanis
+        </h3>
+        <p className="text-lg text-center mb-8">
+          Les éléments suivants constituent l'héritage culturel immatériel du peuple sahraoui et s'influencent mutuellement.
+        </p>
+        
+        <div className="flex flex-wrap justify-center mb-6">
+          {culturalElements.map((element) => (
+            <button
+              key={element.id}
+              onClick={() => setSelectedElement(element.id)}
+              className={cn(
+                "flex items-center m-2 p-3 rounded-lg shadow-sm transition-all",
+                selectedElement === element.id
+                  ? `${element.color} text-white`
+                  : "bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700"
+              )}
+            >
+              <element.icon className="mr-2 h-5 w-5" />
+              <span className="font-medium">{element.name}</span>
+            </button>
+          ))}
+        </div>
 
-          <div className="w-16 h-1 bg-sahara-sand mb-6"></div>
-
-          <h3 className="text-2xl font-bold text-sahara-brown mb-4">Poésie & Récits</h3>
-          <p className="text-lg mb-6">
-            La poésie est au cœur de la culture sahraouie. Les poèmes, appelés "talab" ou "lghna", sont récités lors des rassemblements et célébrations. Ils abordent des thèmes comme l'amour, l'honneur, la bravoure et la beauté du désert.
-          </p>
-
-          <div className="mt-8">
-            <h4 className="text-xl font-semibold text-sahara-terracotta mb-4">Instruments Traditionnels</h4>
-            <div className="grid grid-cols-3 gap-2 mb-6">
-              {instruments.map((instrument, index) => (
-                <button 
-                  key={index}
-                  onClick={() => setActiveInstrument(index)}
-                  className={cn(
-                    "py-2 px-4 text-center rounded-md transition-all duration-300",
-                    activeInstrument === index 
-                      ? "bg-sahara-orange text-white shadow-md" 
-                      : "bg-sahara-sand/20 hover:bg-sahara-sand/40"
-                  )}
+        {/* Network Visualization - Simple Version */}
+        <div className="relative w-full h-60 md:h-80 mb-8">
+          <div className="absolute inset-0 flex items-center justify-center">
+            {/* Center Element */}
+            {culturalElements.map((element) => (
+              element.id === selectedElement && (
+                <div 
+                  key={`node-${element.id}`}
+                  className={`${element.color} text-white p-4 rounded-full z-20 shadow-lg flex items-center justify-center w-24 h-24 md:w-32 md:h-32 transition-all duration-500`}
                 >
-                  {instrument.name}
-                </button>
-              ))}
-            </div>
-            <div className="bg-white/70 dark:bg-sahara-brown/10 rounded-lg p-4 shadow-sm flex flex-col md:flex-row items-center">
-              <div className="mb-4 md:mb-0 md:mr-4 w-full md:w-1/2 h-48 rounded-md overflow-hidden">
-                <img 
-                  src={instruments[activeInstrument].image} 
-                  alt={instruments[activeInstrument].name}
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <div className="md:w-1/2">
-                <h5 className="text-lg font-semibold text-sahara-terracotta">{instruments[activeInstrument].name}</h5>
-                <p className="mt-2">{instruments[activeInstrument].description}</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="reveal-on-scroll">
-          <h3 className="text-2xl font-bold text-sahara-brown mb-4">Artisanat Sahraoui</h3>
-          <p className="text-lg mb-6">
-            L'artisanat sahraoui est caractérisé par des motifs géométriques aux couleurs vives, reflétant l'environnement désertique et transmettant des symboles culturels importants. Chaque pièce raconte une histoire et préserve les techniques ancestrales.
-          </p>
-
-          <div className="mt-8 relative rounded-lg overflow-hidden shadow-lg">
-            <div className="w-full h-80 bg-sahara-brown/10">
-              <img
-                src={galleryImages[currentImage].src}
-                alt={galleryImages[currentImage].alt}
-                className="w-full h-full object-cover"
-              />
-            </div>
-            <div className="absolute inset-0 flex items-center justify-between px-4">
-              <button 
-                onClick={prevImage}
-                className="bg-black/40 hover:bg-black/60 text-white w-10 h-10 rounded-full flex items-center justify-center"
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
-                </svg>
-              </button>
-              <button 
-                onClick={nextImage}
-                className="bg-black/40 hover:bg-black/60 text-white w-10 h-10 rounded-full flex items-center justify-center"
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-                </svg>
-              </button>
-            </div>
-            <div className="absolute bottom-0 inset-x-0 bg-black/60 text-white p-3">
-              <p className="text-center">{galleryImages[currentImage].caption}</p>
-            </div>
-            <div className="absolute bottom-14 inset-x-0 flex justify-center space-x-2 p-2">
-              {galleryImages.map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => setCurrentImage(index)}
-                  className={`w-2 h-2 rounded-full ${
-                    index === currentImage ? "bg-white" : "bg-white/40"
-                  }`}
-                />
-              ))}
-            </div>
-          </div>
-
-          <div className="mt-6 grid grid-cols-5 gap-2">
-            {galleryImages.map((image, index) => (
-              <button
-                key={index}
-                onClick={() => setCurrentImage(index)}
-                className={`aspect-square rounded-md overflow-hidden ${
-                  index === currentImage ? "ring-2 ring-sahara-orange" : ""
-                }`}
-              >
-                <img
-                  src={image.src}
-                  alt={image.alt}
-                  className="w-full h-full object-cover"
-                />
-              </button>
+                  <div className="text-center">
+                    <element.icon className="mx-auto h-8 w-8 mb-1" />
+                    <span className="font-bold">{element.name}</span>
+                  </div>
+                </div>
+              )
             ))}
+            
+            {/* Connected Elements */}
+            {culturalElements.find(e => e.id === selectedElement)?.connections.map((connectionId, idx) => {
+              const connectedElement = culturalElements.find(e => e.id === connectionId);
+              if (!connectedElement) return null;
+              
+              // Calculate position in a circle around the center
+              const angle = (2 * Math.PI * idx) / culturalElements.find(e => e.id === selectedElement)!.connections.length;
+              const radius = 100; // distance from center
+              const xPos = Math.cos(angle) * radius;
+              const yPos = Math.sin(angle) * radius;
+              
+              return (
+                <div key={`connection-${connectionId}`}>
+                  {/* Line connecting elements */}
+                  <div 
+                    className="absolute h-0.5 bg-gray-300 origin-left transform transition-all duration-500" 
+                    style={{
+                      width: `${radius}px`,
+                      left: '50%',
+                      top: '50%',
+                      transform: `rotate(${angle}rad) translateY(-50%)`
+                    }}
+                  />
+                  
+                  {/* Connected element node */}
+                  <div 
+                    className={`${connectedElement.color} text-white absolute p-2 rounded-full shadow-md flex items-center justify-center w-16 h-16 transition-all duration-500`}
+                    style={{
+                      left: `calc(50% + ${xPos}px)`,
+                      top: `calc(50% + ${yPos}px)`,
+                      transform: 'translate(-50%, -50%)'
+                    }}
+                    onClick={() => setSelectedElement(connectionId)}
+                  >
+                    <div className="text-center">
+                      <connectedElement.icon className="mx-auto h-5 w-5" />
+                      <span className="text-xs font-medium">{connectedElement.name}</span>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
+
+        {/* Selected Element Description */}
+        <div className="bg-gray-50 dark:bg-gray-900/30 p-4 rounded-lg">
+          {culturalElements.map((element) => (
+            element.id === selectedElement && (
+              <div key={`desc-${element.id}`} className="reveal-on-scroll">
+                <h4 className={`text-xl font-semibold ${element.id === 'poetry' ? 'text-sahara-orange' : 
+                  element.id === 'proverbs' ? 'text-sahara-brown' : 
+                  element.id === 'myths' ? 'text-sahara-terracotta' : 
+                  element.id === 'games' ? 'text-blue-500' : 'text-green-600'}`}>
+                  {element.name}
+                </h4>
+                <p className="mt-2 text-gray-700 dark:text-gray-300">{element.description}</p>
+              </div>
+            )
+          ))}
+        </div>
+      </div>
+
+      {/* Content Sections - Tabs for each cultural element */}
+      <div className="mt-12 reveal-on-scroll">
+        <Tabs defaultValue="proverbs" className="w-full">
+          <TabsList className="w-full flex mb-6 bg-white/70 dark:bg-sahara-brown/10 overflow-x-auto">
+            {culturalElements.map((element) => (
+              <TabsTrigger 
+                key={`tab-${element.id}`}
+                value={element.id}
+                className="flex-1 min-w-max"
+              >
+                <element.icon className="mr-2 h-5 w-5" />
+                {element.name}
+              </TabsTrigger>
+            ))}
+          </TabsList>
+          
+          {/* Proverbs Content */}
+          <TabsContent value="proverbs" className="bg-white/70 dark:bg-sahara-brown/10 rounded-lg p-6">
+            <h3 className="text-2xl font-bold text-sahara-brown mb-4">Proverbes Hassanis</h3>
+            <p className="mb-6">
+              Les proverbes hassanis reflètent la sagesse populaire et l'expérience collective du peuple sahraoui. 
+              Ils sont utilisés dans la conversation quotidienne pour illustrer des idées, donner des conseils ou enseigner des valeurs.
+            </p>
+
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Proverbe original</TableHead>
+                  <TableHead>Traduction</TableHead>
+                  <TableHead>Signification</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {proverbs.map((proverb, index) => (
+                  <TableRow key={`proverb-${index}`}>
+                    <TableCell className="font-medium">{proverb.original}</TableCell>
+                    <TableCell>{proverb.translation}</TableCell>
+                    <TableCell>{proverb.meaning}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TabsContent>
+
+          {/* Poetry Content */}
+          <TabsContent value="poetry" className="bg-white/70 dark:bg-sahara-brown/10 rounded-lg p-6">
+            <h3 className="text-2xl font-bold text-sahara-orange mb-4">Poésie Hassanie</h3>
+            <p className="mb-6">
+              La poésie occupe une place centrale dans la culture hassanie. Les poèmes sont récités lors des rassemblements sociaux, 
+              des cérémonies et des fêtes. Ils abordent des thèmes variés tels que l'amour, l'héroïsme, la nature désertique et l'identité culturelle.
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="bg-sahara-sand/20 p-4 rounded-lg">
+                <h4 className="font-semibold mb-2">Types de poésie</h4>
+                <ul className="list-disc pl-5 space-y-1">
+                  <li>Tebraa - poésie amoureuse</li>
+                  <li>Fagru - poésie de louange</li>
+                  <li>Lghna - poésie chantée</li>
+                  <li>Thaydin - poésie de guerre</li>
+                </ul>
+              </div>
+              <div className="bg-sahara-sand/20 p-4 rounded-lg">
+                <h4 className="font-semibold mb-2">Thèmes principaux</h4>
+                <ul className="list-disc pl-5 space-y-1">
+                  <li>L'amour et la beauté</li>
+                  <li>Le courage et l'honneur</li>
+                  <li>La nature du désert</li>
+                  <li>L'histoire et l'identité</li>
+                  <li>La spiritualité</li>
+                </ul>
+              </div>
+            </div>
+          </TabsContent>
+
+          {/* Myths and Tales Content */}
+          <TabsContent value="myths" className="bg-white/70 dark:bg-sahara-brown/10 rounded-lg p-6">
+            <h3 className="text-2xl font-bold text-sahara-terracotta mb-4">Mythes et Contes</h3>
+            <p className="mb-6">
+              Les mythes et contes hassanis sont des récits oraux transmis de génération en génération. 
+              Ils servent à expliquer les phénomènes naturels, transmettre des leçons morales et divertir.
+            </p>
+            
+            <div className="border-l-4 border-sahara-terracotta pl-4 py-2 mb-6">
+              <h4 className="text-xl font-medium mb-2">{mythicalTale.title}</h4>
+              <p className="whitespace-pre-line">{mythicalTale.content}</p>
+            </div>
+            
+            <div className="bg-sahara-sand/20 p-4 rounded-lg">
+              <h4 className="font-semibold mb-2">Rôle des contes dans la société hassanie</h4>
+              <ul className="list-disc pl-5 space-y-1">
+                <li>Enseigner des valeurs morales</li>
+                <li>Préserver l'histoire et l'identité culturelle</li>
+                <li>Divertir et rassembler la communauté</li>
+                <li>Expliquer les phénomènes naturels et sociaux</li>
+              </ul>
+            </div>
+          </TabsContent>
+
+          {/* Games Content */}
+          <TabsContent value="games" className="bg-white/70 dark:bg-sahara-brown/10 rounded-lg p-6">
+            <h3 className="text-2xl font-bold text-blue-500 mb-4">Jeux Populaires</h3>
+            <p className="mb-6">
+              Les jeux traditionnels hassanis sont plus que de simples divertissements ; ils favorisent la cohésion sociale, 
+              développent des compétences et transmettent des valeurs culturelles aux jeunes générations.
+            </p>
+            
+            <Accordion type="single" collapsible className="w-full">
+              <AccordionItem value="siggan">
+                <AccordionTrigger>Siggan (Jeu des cinq pierres)</AccordionTrigger>
+                <AccordionContent>
+                  Ce jeu d'adresse consiste à lancer et à attraper de petites pierres dans différentes configurations. 
+                  Il développe la coordination œil-main et la concentration, tout en étant une activité sociale populaire parmi les enfants.
+                </AccordionContent>
+              </AccordionItem>
+              <AccordionItem value="damah">
+                <AccordionTrigger>Damah (Jeu de plateau)</AccordionTrigger>
+                <AccordionContent>
+                  Similaire aux dames mais avec des règles spécifiques, ce jeu de stratégie est populaire parmi les hommes. 
+                  Il développe la pensée stratégique et constitue un passe-temps social important.
+                </AccordionContent>
+              </AccordionItem>
+              <AccordionItem value="kharbga">
+                <AccordionTrigger>Kharbga</AccordionTrigger>
+                <AccordionContent>
+                  Un jeu de plateau traditionnel joué avec des pions sur un tableau dessiné dans le sable. 
+                  Ce jeu de stratégie développe la réflexion tactique et est souvent joué lors des rassemblements sociaux.
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
+          </TabsContent>
+
+          {/* Beliefs Content */}
+          <TabsContent value="beliefs" className="bg-white/70 dark:bg-sahara-brown/10 rounded-lg p-6">
+            <h3 className="text-2xl font-bold text-green-600 mb-4">Croyances</h3>
+            <p className="mb-6">
+              Les croyances hassanies sont un mélange unique de traditions islamiques et de pratiques culturelles préislamiques. 
+              Elles influencent tous les aspects de la vie quotidienne, des rituels de naissance aux cérémonies funéraires.
+            </p>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="bg-sahara-sand/20 p-4 rounded-lg">
+                <h4 className="font-semibold mb-2">Pratiques spirituelles</h4>
+                <ul className="list-disc pl-5 space-y-1">
+                  <li>Rituels de protection contre le mauvais œil</li>
+                  <li>Célébrations liées aux cycles lunaires</li>
+                  <li>Traditions de guérison par les plantes</li>
+                  <li>Interprétation des rêves</li>
+                </ul>
+              </div>
+              <div className="bg-sahara-sand/20 p-4 rounded-lg">
+                <h4 className="font-semibold mb-2">Moments de vie</h4>
+                <ul className="list-disc pl-5 space-y-1">
+                  <li>Rituels de naissance</li>
+                  <li>Cérémonies de mariage</li>
+                  <li>Rites de passage à l'âge adulte</li>
+                  <li>Traditions funéraires</li>
+                </ul>
+              </div>
+            </div>
+          </TabsContent>
+        </Tabs>
       </div>
     </section>
   );

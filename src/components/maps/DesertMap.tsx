@@ -1,4 +1,3 @@
-
 import { useEffect, useRef, useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Map, Navigation, Layers } from "lucide-react";
@@ -15,7 +14,7 @@ const regions = [
   {
     id: "laayoune",
     name: "Laâyoune-Sakia El Hamra",
-    center: [-13.2050, 27.1568],
+    center: [-13.2050, 27.1568] as [number, number],
     color: "#D7713D",
     stats: {
       population: 367758,
@@ -27,12 +26,12 @@ const regions = [
     polygon: [
       [-13.5, 26.7], [-12.8, 26.7], [-12.3, 27.2], 
       [-12.1, 28.0], [-13.0, 28.4], [-13.6, 27.8], [-13.5, 26.7]
-    ]
+    ] as [number, number][]
   },
   {
     id: "dakhla",
     name: "Dakhla-Oued Ed-Dahab",
-    center: [-15.9374, 23.7136],
+    center: [-15.9374, 23.7136] as [number, number],
     color: "#BA5536",
     stats: {
       population: 142955,
@@ -44,12 +43,12 @@ const regions = [
     polygon: [
       [-17.0, 25.5], [-15.5, 25.5], [-14.8, 24.5], 
       [-14.8, 22.5], [-16.0, 21.2], [-17.0, 21.8], [-17.0, 25.5]
-    ]
+    ] as [number, number][]
   },
   {
     id: "guelmim",
     name: "Guelmim-Oued Noun",
-    center: [-10.0569, 28.9870],
+    center: [-10.0569, 28.9870] as [number, number],
     color: "#5D4037",
     stats: {
       population: 433757,
@@ -61,12 +60,12 @@ const regions = [
     polygon: [
       [-11.5, 27.8], [-10.2, 27.8], [-9.5, 28.5], 
       [-9.8, 29.6], [-10.5, 30.1], [-11.8, 29.8], [-11.5, 27.8]
-    ]
+    ] as [number, number][]
   },
   {
     id: "souss",
     name: "Souss-Massa",
-    center: [-9.1384, 30.4198],
+    center: [-9.1384, 30.4198] as [number, number],
     color: "#E6CCB2",
     stats: {
       population: 2676847,
@@ -78,7 +77,7 @@ const regions = [
     polygon: [
       [-10.5, 30.1], [-9.5, 29.8], [-8.8, 30.2], 
       [-8.5, 31.1], [-9.2, 31.5], [-10.3, 31.2], [-10.5, 30.1]
-    ]
+    ] as [number, number][]
   }
 ];
 
@@ -101,6 +100,13 @@ interface Region {
   stats: RegionStats;
   polygon: Polygon;
 }
+
+// Convert regions to proper typed regions
+const typedRegions: Region[] = regions.map(region => ({
+  ...region,
+  center: region.center as Coordinates,
+  polygon: region.polygon as Polygon
+}));
 
 const DesertMap = () => {
   const mapContainer = useRef<HTMLDivElement>(null);
@@ -182,7 +188,7 @@ const DesertMap = () => {
       setMapLoaded(true);
 
       // Add region polygons
-      regions.forEach((region) => {
+      typedRegions.forEach((region) => {
         if (!map.current) return;
 
         // Convert the simple polygon to GeoJSON format
@@ -265,15 +271,19 @@ const DesertMap = () => {
 
         // Click event to show region stats
         map.current.on('click', `${region.id}-fill`, () => {
-          setSelectedRegion(region);
+          // Use the typed region from typedRegions instead of the original regions array
+          const selectedTypedRegion = typedRegions.find(r => r.id === region.id);
+          if (selectedTypedRegion) {
+            setSelectedRegion(selectedTypedRegion);
 
-          // Fly to the region
-          if (map.current) {
-            map.current.flyTo({
-              center: region.center,
-              zoom: 6.5,
-              duration: 2000
-            });
+            // Fly to the region with properly typed coordinates
+            if (map.current) {
+              map.current.flyTo({
+                center: selectedTypedRegion.center,
+                zoom: 6.5,
+                duration: 2000
+              });
+            }
           }
         });
       });

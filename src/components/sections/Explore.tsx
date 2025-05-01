@@ -1,5 +1,5 @@
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import SectionTitle from "../ui/SectionTitle";
 import DesertMap from "../maps/DesertMap";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -39,8 +39,8 @@ const Explore = () => {
   return (
     <section id="explorer" ref={sectionRef} className="section-container" dir={language === 'ar' ? 'rtl' : 'ltr'}>
       <SectionTitle
-        title="Explorer le Sahara"
-        subtitle="Découvrez les régions sahraouies et leurs caractéristiques"
+        title="Explorer le Maroc"
+        subtitle="Découvrez la beauté et la diversité du Maroc"
         className="reveal-on-scroll"
         translationKey="explore"
       />

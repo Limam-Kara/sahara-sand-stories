@@ -11,13 +11,13 @@ import L from "leaflet";
 
 // Define location coordinates for the map - Sahrawi cities and significant locations
 const locations = [
-  { name: "Laayoune", coordinates: [27.1536, -13.1990], description: "La plus grande ville du Sahara occidental" },
-  { name: "Dakhla", coordinates: [23.6848, -15.9378], description: "Ville côtière avec une péninsule spectaculaire" },
-  { name: "Smara", coordinates: [26.7384, -11.6719], description: "Ville historique avec une zaouia ancienne" },
-  { name: "Boujdour", coordinates: [26.1221, -14.4933], description: "Port de pêche important" },
-  { name: "Tindouf", coordinates: [27.6741, -8.1276], description: "Abrite des camps de réfugiés sahraouis" },
-  { name: "Tifariti", coordinates: [26.1568, -10.5969], description: "Centre culturel et politique" },
-  { name: "Aousserd", coordinates: [22.5503, -14.3266], description: "Région administrative sahraouie" }
+  { name: "Laayoune", coordinates: [27.1536, -13.1990] as [number, number], description: "La plus grande ville du Sahara occidental" },
+  { name: "Dakhla", coordinates: [23.6848, -15.9378] as [number, number], description: "Ville côtière avec une péninsule spectaculaire" },
+  { name: "Smara", coordinates: [26.7384, -11.6719] as [number, number], description: "Ville historique avec une zaouia ancienne" },
+  { name: "Boujdour", coordinates: [26.1221, -14.4933] as [number, number], description: "Port de pêche important" },
+  { name: "Tindouf", coordinates: [27.6741, -8.1276] as [number, number], description: "Abrite des camps de réfugiés sahraouis" },
+  { name: "Tifariti", coordinates: [26.1568, -10.5969] as [number, number], description: "Centre culturel et politique" },
+  { name: "Aousserd", coordinates: [22.5503, -14.3266] as [number, number], description: "Région administrative sahraouie" }
 ];
 
 // Define TypeScript types
@@ -149,7 +149,9 @@ const DesertMap = () => {
           <TileLayer
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            onError={handleMapError}
+            eventHandlers={{
+              error: handleMapError
+            }}
           />
           {locations.map((location, index) => (
             <Marker 

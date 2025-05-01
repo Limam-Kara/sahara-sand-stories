@@ -5,10 +5,10 @@ import { Globe, MapPin } from "lucide-react";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { Skeleton } from "@/components/ui/skeleton";
 
-// This is a temporary token for development purposes
-// In production, this should be stored securely in environment variables
-const MAPBOX_TOKEN = "pk.eyJ1IjoibG92YWJsZSIsImEiOiJjbDRyemYxMDUwN3U4M2RtcDdlcTA0aGg1In0.MCrj7OSu0AY_JdCGF9o4ww";
+// Updated Mapbox token - This should be replaced with an environment variable in production
+const MAPBOX_TOKEN = "pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4M29iazA2Z2gycXA4N2pmbDZmangifQ.-g_vE53SD2WrJ6tFX7QHmA";
 
 // Define location coordinates for the map - Sahrawi cities and significant locations
 const locations = [
@@ -114,6 +114,15 @@ const DesertMap = () => {
       });
     });
 
+    // Handle errors
+    map.current.on('error', (e) => {
+      console.error('Mapbox error:', e);
+      // If we get an error loading the map, we should try a different style
+      if (!mapLoaded && map.current) {
+        map.current.setStyle('mapbox://styles/mapbox/outdoors-v12');
+      }
+    });
+
     return () => {
       if (map.current) {
         map.current.remove();
@@ -157,6 +166,7 @@ const DesertMap = () => {
           <div className="flex flex-col items-center gap-2 text-sahara-brown">
             <Globe className="h-8 w-8 animate-pulse" />
             <p>Chargement de la carte...</p>
+            <Skeleton className="h-4 w-48 rounded-full mt-2" />
           </div>
         </div>
       )}

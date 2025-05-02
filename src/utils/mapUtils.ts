@@ -30,13 +30,3 @@ export const SAHARA_CITIES = [
 
 // Combined list of cities to show on the map (only Morocco and Saharan cities)
 export const MAP_CITIES = [...MOROCCO_CITIES, ...SAHARA_CITIES];
-
-// Coordinates approximatives pour masquer la République Arabe Sahraouie Démocratique (RASD)
-// Ces coordonnées définissent un polygone qui couvre la zone revendiquée par la RASD
-export const RASD_POLYGON_COORDINATES: [number, number][] = [
-  [27.7, -13.2], // Nord-ouest
-  [27.7, -8.6],  // Nord-est
-  [21.3, -8.6],  // Sud-est
-  [21.3, -17.0], // Sud-ouest
-  [27.7, -13.2]  // Fermer le polygone
-];

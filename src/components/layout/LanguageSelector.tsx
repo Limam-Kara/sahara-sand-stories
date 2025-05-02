@@ -32,7 +32,7 @@ const LanguageSelector = ({ className }: { className?: string }) => {
       >
         <SelectTrigger className="w-[140px] bg-background/80 border-sahara-sand">
           <div className="flex items-center">
-            <Languages className={cn("h-4 w-4 text-sahara-orange", language === "ar" ? "ml-2" : "mr-2")} />
+            <Languages className={cn("h-4 w-4", language === "ar" ? "ml-2" : "mr-2")} />
             <SelectValue placeholder={t("language.select")} />
           </div>
         </SelectTrigger>

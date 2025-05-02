@@ -3,29 +3,12 @@ import { useEffect, useRef, useState } from "react";
 import SectionTitle from "../ui/SectionTitle";
 import ImageCard from "../ui/ImageCard";
 import { cn } from "@/lib/utils";
-
-const steps = [
-  {
-    title: "Faire bouillir l'eau",
-    description: "Portez de l'eau à ébullition dans une théière traditionnelle."
-  },
-  {
-    title: "Première infusion",
-    description: "Ajoutez le thé vert et laissez infuser 2-3 minutes. Cette première infusion est versée puis reversée plusieurs fois dans la théière pour mélanger."
-  },
-  {
-    title: "Sucre et menthe",
-    description: "Ajoutez généreusement du sucre et des feuilles de menthe fraîche."
-  },
-  {
-    title: "Service",
-    description: "Versez le thé de haut pour créer une mousse caractéristique. Servez trois verres successifs, de plus en plus sucrés."
-  }
-];
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const Lifestyle = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const [activeStep, setActiveStep] = useState(0);
+  const { t, language } = useLanguage();
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -55,38 +38,57 @@ const Lifestyle = () => {
     };
   }, []);
 
+  const steps = [
+    {
+      title: t("lifestyle.tea.step1"),
+      description: t("lifestyle.tea.step1.description")
+    },
+    {
+      title: t("lifestyle.tea.step2"),
+      description: t("lifestyle.tea.step2.description")
+    },
+    {
+      title: t("lifestyle.tea.step3"),
+      description: t("lifestyle.tea.step3.description")
+    },
+    {
+      title: t("lifestyle.tea.step4"),
+      description: t("lifestyle.tea.step4.description")
+    }
+  ];
+
   return (
-    <section id="lifestyle" ref={sectionRef} className="section-container bg-desert-pattern bg-opacity-5">
+    <section id="lifestyle" ref={sectionRef} className="section-container bg-desert-pattern bg-opacity-5" dir={language === 'ar' ? 'rtl' : 'ltr'}>
       <SectionTitle
-        title="Mode de Vie & Cuisine"
-        subtitle="Découvrez les vêtements traditionnels, la gastronomie du désert et les coutumes quotidiennes"
+        title={t("section.lifestyle")}
+        subtitle={t("section.lifestyle.subtitle")}
         className="reveal-on-scroll"
       />
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mt-16">
         <div className="reveal-on-scroll">
-          <h3 className="text-2xl font-bold text-sahara-brown mb-4">Vêtements Traditionnels</h3>
+          <h3 className="text-2xl font-bold text-sahara-brown mb-4">{t("lifestyle.clothing")}</h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-8">
             <div className="p-4 bg-white/70 dark:bg-sahara-brown/10 rounded-lg shadow-sm">
-              <h4 className="font-bold text-sahara-terracotta mb-2">Mlahfa</h4>
-              <p>Vêtement traditionnel des femmes sahraouies, la Mlahfa est une pièce de tissu colorée de 4 mètres enroulée autour du corps.</p>
+              <h4 className="font-bold text-sahara-terracotta mb-2">{t("lifestyle.mlahfa")}</h4>
+              <p>{t("lifestyle.mlahfa.description")}</p>
             </div>
             <div className="p-4 bg-white/70 dark:bg-sahara-brown/10 rounded-lg shadow-sm">
-              <h4 className="font-bold text-sahara-terracotta mb-2">Daraa</h4>
-              <p>La Daraa est la tenue traditionnelle des hommes, une longue robe ample souvent de couleur bleue indigo avec des broderies.</p>
+              <h4 className="font-bold text-sahara-terracotta mb-2">{t("lifestyle.daraa")}</h4>
+              <p>{t("lifestyle.daraa.description")}</p>
             </div>
           </div>
 
-          <h3 className="text-2xl font-bold text-sahara-brown mb-4">Habitat Nomade</h3>
+          <h3 className="text-2xl font-bold text-sahara-brown mb-4">{t("lifestyle.housing")}</h3>
           <p className="text-lg mb-6">
-            La tente traditionnelle, appelée "khaïma", est au cœur de la vie nomade sahraouie. Fabriquée en poils de chèvre ou en laine de chameau, elle protège des conditions extrêmes du désert tout en étant facilement transportable.
+            {t("lifestyle.housing.description")}
           </p>
 
           <div className="w-16 h-1 bg-sahara-sand mb-6"></div>
           
-          <h3 className="text-2xl font-bold text-sahara-brown mb-4">Cuisine Sahraouie</h3>
+          <h3 className="text-2xl font-bold text-sahara-brown mb-4">{t("lifestyle.cuisine")}</h3>
           <p className="text-lg">
-            La cuisine sahraouie est adaptée au mode de vie nomade, combinant des ingrédients simples pour créer des plats nourrissants. Le couscous, les ragoûts de viande et les dattes sont des éléments essentiels. Le thé à la menthe, servi en trois verres, représente l'hospitalité et est partagé lors de chaque rencontre.
+            {t("lifestyle.cuisine.description")}
           </p>
         </div>
 
@@ -94,26 +96,26 @@ const Lifestyle = () => {
           <ImageCard
             src="https://images.unsplash.com/photo-1528825871115-3581a5387919?q=80&w=2930&auto=format&fit=crop"
             alt="Thé à la menthe"
-            title="Thé Sahraoui"
+            title={language === 'en' ? "Sahrawi Tea" : language === 'fr' ? "Thé Sahraoui" : "الشاي الصحراوي"}
             className="reveal-on-scroll"
           />
           <ImageCard
             src="https://images.unsplash.com/photo-1567982625992-87207c6915c8?q=80&w=2670&auto=format&fit=crop"
             alt="Plat traditionnel"
-            title="Couscous"
+            title={language === 'en' ? "Couscous" : language === 'fr' ? "Couscous" : "كسكس"}
             className="reveal-on-scroll"
           />
           <ImageCard
             src="https://images.unsplash.com/photo-1535827841776-24afc1e255ac?q=80&w=2670&auto=format&fit=crop"
             alt="Tente traditionnelle dans le désert"
-            title="Khaïma"
+            title={language === 'en' ? "Khaima" : language === 'fr' ? "Khaïma" : "خيمة"}
             className="reveal-on-scroll col-span-2"
           />
         </div>
       </div>
 
       <div className="mt-16 reveal-on-scroll">
-        <h3 className="text-2xl font-bold text-sahara-brown mb-6 text-center">La Préparation du Thé Sahraoui</h3>
+        <h3 className="text-2xl font-bold text-sahara-brown mb-6 text-center">{t("lifestyle.tea")}</h3>
         <div className="bg-white/70 dark:bg-sahara-brown/10 rounded-lg p-6 shadow-md">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             {steps.map((step, index) => (
@@ -129,8 +131,9 @@ const Lifestyle = () => {
               >
                 <div className="flex items-center mb-2">
                   <span className={cn(
-                    "w-6 h-6 rounded-full flex items-center justify-center text-sm mr-2",
-                    activeStep === index ? "bg-white text-sahara-orange" : "bg-sahara-orange text-white"
+                    "w-6 h-6 rounded-full flex items-center justify-center text-sm",
+                    activeStep === index ? "bg-white text-sahara-orange" : "bg-sahara-orange text-white",
+                    language === 'ar' ? "ml-2" : "mr-2"
                   )}>
                     {index + 1}
                   </span>
@@ -144,9 +147,9 @@ const Lifestyle = () => {
           </div>
           <div className="mt-6 text-center text-muted-foreground">
             <p>
-              "Le premier verre est amer comme la vie, le second est doux comme l'amour, et le troisième est suave comme la mort."
+              "{t("lifestyle.tea.proverb")}"
             </p>
-            <p className="mt-2 italic">— Proverbe sahraoui sur les trois verres de thé</p>
+            <p className="mt-2 italic">{t("lifestyle.tea.proverb.attribution")}</p>
           </div>
         </div>
       </div>

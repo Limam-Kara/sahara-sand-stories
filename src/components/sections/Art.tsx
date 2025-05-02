@@ -15,8 +15,9 @@ import {
   PaginationNext, 
   PaginationPrevious 
 } from "../ui/pagination";
+import { useLanguage } from "@/contexts/LanguageContext"; 
 
-// Sample proverbs data (in a real application, this would come from an admin panel)
+// Les proverbes sont délibérément conservés en français/arabe comme demandé par l'utilisateur
 const proverbs = [
   {
     original: "لي بغا العسل يصبر لقريص النحل",
@@ -123,6 +124,7 @@ const Art = () => {
   const totalPages = Math.ceil(proverbs.length / proverbsPerPage);
   const sectionRef = useRef<HTMLElement>(null);
   const [activeTab, setActiveTab] = useState("proverbs");
+  const { t, language } = useLanguage();
 
   // Calculate the proverbs to display on the current page
   const indexOfLastProverb = currentPage * proverbsPerPage;
@@ -235,18 +237,38 @@ const Art = () => {
   };
 
   const tabItems = [
-    { id: "proverbs", name: "Proverbes", icon: MessageSquare },
-    { id: "poetry", name: "Poésie", icon: Book },
-    { id: "myths", name: "Mythes et Contes", icon: Book },
-    { id: "games", name: "Jeux Populaires", icon: Gamepad },
-    { id: "beliefs", name: "Croyances", icon: Users },
+    { 
+      id: "proverbs", 
+      name: language === 'en' ? "Proverbs" : language === 'fr' ? "Proverbes" : "الأمثال", 
+      icon: MessageSquare 
+    },
+    { 
+      id: "poetry", 
+      name: language === 'en' ? "Poetry" : language === 'fr' ? "Poésie" : "الشعر", 
+      icon: Book 
+    },
+    { 
+      id: "myths", 
+      name: language === 'en' ? "Myths and Tales" : language === 'fr' ? "Mythes et Contes" : "الأساطير والحكايات", 
+      icon: Book 
+    },
+    { 
+      id: "games", 
+      name: language === 'en' ? "Popular Games" : language === 'fr' ? "Jeux Populaires" : "الألعاب الشعبية", 
+      icon: Gamepad 
+    },
+    { 
+      id: "beliefs", 
+      name: language === 'en' ? "Beliefs" : language === 'fr' ? "Croyances" : "المعتقدات", 
+      icon: Users 
+    },
   ];
 
   return (
-    <section id="art" ref={sectionRef} className="section-container">
+    <section id="art" ref={sectionRef} className="section-container" dir={language === 'ar' ? 'rtl' : 'ltr'}>
       <SectionTitle
-        title="Patrimoine Culturel Immatériel"
-        subtitle="Explorez les éléments culturels non matériels qui définissent l'identité hassanie"
+        title={t("art.culture.title")}
+        subtitle={t("art.culture.subtitle")}
         className="reveal-on-scroll"
       />
 
@@ -271,13 +293,12 @@ const Art = () => {
           </div>
         </div>
 
-        {/* Proverbs Content */}
+        {/* Proverbs Content - Cette section n'est pas traduite comme demandé */}
         {activeTab === "proverbs" && (
           <div className="bg-white/70 dark:bg-sahara-brown/10 rounded-lg p-6">
-            <h3 className="text-2xl font-bold text-sahara-brown mb-4">Proverbes Hassanis</h3>
+            <h3 className="text-2xl font-bold text-sahara-brown mb-4">{t("art.proverbs")}</h3>
             <p className="mb-6">
-              Les proverbes hassanis reflètent la sagesse populaire et l'expérience collective du peuple sahraoui. 
-              Ils sont utilisés dans la conversation quotidienne pour illustrer des idées, donner des conseils ou enseigner des valeurs.
+              {t("art.proverbs.description")}
             </p>
 
             <Table>
@@ -327,29 +348,28 @@ const Art = () => {
         {/* Poetry Content */}
         {activeTab === "poetry" && (
           <div className="bg-white/70 dark:bg-sahara-brown/10 rounded-lg p-6">
-            <h3 className="text-2xl font-bold text-sahara-orange mb-4">Poésie Hassanie</h3>
+            <h3 className="text-2xl font-bold text-sahara-orange mb-4">{t("art.poetry.title")}</h3>
             <p className="mb-6">
-              La poésie occupe une place centrale dans la culture hassanie. Les poèmes sont récités lors des rassemblements sociaux, 
-              des cérémonies et des fêtes. Ils abordent des thèmes variés tels que l'amour, l'héroïsme, la nature désertique et l'identité culturelle.
+              {t("art.poetry.description")}
             </p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="bg-sahara-sand/20 p-4 rounded-lg">
-                <h4 className="font-semibold mb-2">Types de poésie</h4>
+                <h4 className="font-semibold mb-2">{t("art.poetry.types")}</h4>
                 <ul className="list-disc pl-5 space-y-1">
-                  <li>Tebraa - poésie amoureuse</li>
-                  <li>Fagru - poésie de louange</li>
-                  <li>Lghna - poésie chantée</li>
-                  <li>Thaydin - poésie de guerre</li>
+                  <li>Tebraa - {language === 'en' ? "love poetry" : language === 'fr' ? "poésie amoureuse" : "شعر الحب"}</li>
+                  <li>Fagru - {language === 'en' ? "praise poetry" : language === 'fr' ? "poésie de louange" : "شعر المديح"}</li>
+                  <li>Lghna - {language === 'en' ? "sung poetry" : language === 'fr' ? "poésie chantée" : "الشعر المغنى"}</li>
+                  <li>Thaydin - {language === 'en' ? "war poetry" : language === 'fr' ? "poésie de guerre" : "شعر الحرب"}</li>
                 </ul>
               </div>
               <div className="bg-sahara-sand/20 p-4 rounded-lg">
-                <h4 className="font-semibold mb-2">Thèmes principaux</h4>
+                <h4 className="font-semibold mb-2">{t("art.poetry.themes")}</h4>
                 <ul className="list-disc pl-5 space-y-1">
-                  <li>L'amour et la beauté</li>
-                  <li>Le courage et l'honneur</li>
-                  <li>La nature du désert</li>
-                  <li>L'histoire et l'identité</li>
-                  <li>La spiritualité</li>
+                  <li>{language === 'en' ? "Love and beauty" : language === 'fr' ? "L'amour et la beauté" : "الحب والجمال"}</li>
+                  <li>{language === 'en' ? "Courage and honor" : language === 'fr' ? "Le courage et l'honneur" : "الشجاعة والشرف"}</li>
+                  <li>{language === 'en' ? "Desert nature" : language === 'fr' ? "La nature du désert" : "طبيعة الصحراء"}</li>
+                  <li>{language === 'en' ? "History and identity" : language === 'fr' ? "L'histoire et l'identité" : "التاريخ والهوية"}</li>
+                  <li>{language === 'en' ? "Spirituality" : language === 'fr' ? "La spiritualité" : "الروحانية"}</li>
                 </ul>
               </div>
             </div>
@@ -359,10 +379,9 @@ const Art = () => {
         {/* Myths and Tales Content */}
         {activeTab === "myths" && (
           <div className="bg-white/70 dark:bg-sahara-brown/10 rounded-lg p-6">
-            <h3 className="text-2xl font-bold text-sahara-terracotta mb-4">Mythes et Contes</h3>
+            <h3 className="text-2xl font-bold text-sahara-terracotta mb-4">{t("art.myths")}</h3>
             <p className="mb-6">
-              Les mythes et contes hassanis sont des récits oraux transmis de génération en génération. 
-              Ils servent à expliquer les phénomènes naturels, transmettre des leçons morales et divertir.
+              {t("art.myths.description")}
             </p>
             
             <div className="border-l-4 border-sahara-terracotta pl-4 py-2 mb-6">
@@ -371,12 +390,12 @@ const Art = () => {
             </div>
             
             <div className="bg-sahara-sand/20 p-4 rounded-lg">
-              <h4 className="font-semibold mb-2">Rôle des contes dans la société hassanie</h4>
+              <h4 className="font-semibold mb-2">{t("art.myths.role")}</h4>
               <ul className="list-disc pl-5 space-y-1">
-                <li>Enseigner des valeurs morales</li>
-                <li>Préserver l'histoire et l'identité culturelle</li>
-                <li>Divertir et rassembler la communauté</li>
-                <li>Expliquer les phénomènes naturels et sociaux</li>
+                <li>{language === 'en' ? "Teach moral values" : language === 'fr' ? "Enseigner des valeurs morales" : "تعليم القيم الأخلاقية"}</li>
+                <li>{language === 'en' ? "Preserve history and cultural identity" : language === 'fr' ? "Préserver l'histoire et l'identité culturelle" : "الحفاظ على التاريخ والهوية الثقافية"}</li>
+                <li>{language === 'en' ? "Entertain and bring the community together" : language === 'fr' ? "Divertir et rassembler la communauté" : "الترفيه وجمع المجتمع"}</li>
+                <li>{language === 'en' ? "Explain natural and social phenomena" : language === 'fr' ? "Expliquer les phénomènes naturels et sociaux" : "شرح الظواهر الطبيعية والاجتماعية"}</li>
               </ul>
             </div>
           </div>
@@ -385,32 +404,40 @@ const Art = () => {
         {/* Games Content */}
         {activeTab === "games" && (
           <div className="bg-white/70 dark:bg-sahara-brown/10 rounded-lg p-6">
-            <h3 className="text-2xl font-bold text-sahara-brown mb-4">Jeux Populaires</h3>
+            <h3 className="text-2xl font-bold text-sahara-brown mb-4">{t("art.games")}</h3>
             <p className="mb-6">
-              Les jeux traditionnels hassanis sont plus que de simples divertissements ; ils favorisent la cohésion sociale, 
-              développent des compétences et transmettent des valeurs culturelles aux jeunes générations.
+              {t("art.games.description")}
             </p>
             
             <Accordion type="single" collapsible className="w-full">
               <AccordionItem value="siggan">
-                <AccordionTrigger>Siggan (Jeu des cinq pierres)</AccordionTrigger>
+                <AccordionTrigger>Siggan ({language === 'en' ? "Five stone game" : language === 'fr' ? "Jeu des cinq pierres" : "لعبة الحجارة الخمسة"})</AccordionTrigger>
                 <AccordionContent>
-                  Ce jeu d'adresse consiste à lancer et à attraper de petites pierres dans différentes configurations. 
-                  Il développe la coordination œil-main et la concentration, tout en étant une activité sociale populaire parmi les enfants.
+                  {language === 'en' 
+                    ? "This game of skill involves throwing and catching small stones in different configurations. It develops eye-hand coordination and concentration, while being a popular social activity among children."
+                    : language === 'fr'
+                    ? "Ce jeu d'adresse consiste à lancer et à attraper de petites pierres dans différentes configurations. Il développe la coordination œil-main et la concentration, tout en étant une activité sociale populaire parmi les enfants."
+                    : "تتضمن هذه اللعبة المهارية رمي والتقاط حجارة صغيرة بأشكال مختلفة. تطور التنسيق بين العين واليد والتركيز، وهي نشاط اجتماعي شعبي بين الأطفال."}
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="damah">
-                <AccordionTrigger>Damah (Jeu de plateau)</AccordionTrigger>
+                <AccordionTrigger>Damah ({language === 'en' ? "Board game" : language === 'fr' ? "Jeu de plateau" : "لعبة اللوح"})</AccordionTrigger>
                 <AccordionContent>
-                  Similaire aux dames mais avec des règles spécifiques, ce jeu de stratégie est populaire parmi les hommes. 
-                  Il développe la pensée stratégique et constitue un passe-temps social important.
+                  {language === 'en'
+                    ? "Similar to checkers but with specific rules, this strategy game is popular among men. It develops strategic thinking and is an important social pastime."
+                    : language === 'fr'
+                    ? "Similaire aux dames mais avec des règles spécifiques, ce jeu de stratégie est populaire parmi les hommes. Il développe la pensée stratégique et constitue un passe-temps social important."
+                    : "مشابهة للداما ولكن بقواعد محددة، هذه اللعبة الاستراتيجية شائعة بين الرجال. تطور التفكير الاستراتيجي وهي هواية اجتماعية مهمة."}
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="kharbga">
                 <AccordionTrigger>Kharbga</AccordionTrigger>
                 <AccordionContent>
-                  Un jeu de plateau traditionnel joué avec des pions sur un tableau dessiné dans le sable. 
-                  Ce jeu de stratégie développe la réflexion tactique et est souvent joué lors des rassemblements sociaux.
+                  {language === 'en'
+                    ? "A traditional board game played with pieces on a board drawn in the sand. This strategy game develops tactical thinking and is often played during social gatherings."
+                    : language === 'fr'
+                    ? "Un jeu de plateau traditionnel joué avec des pions sur un tableau dessiné dans le sable. Ce jeu de stratégie développe la réflexion tactique et est souvent joué lors des rassemblements sociaux."
+                    : "لعبة لوح تقليدية تلعب بقطع على لوحة مرسومة في الرمال. هذه اللعبة الاستراتيجية تطور التفكير التكتيكي وغالبًا ما يتم لعبها خلال التجمعات الاجتماعية."}
                 </AccordionContent>
               </AccordionItem>
             </Accordion>
@@ -420,29 +447,28 @@ const Art = () => {
         {/* Beliefs Content */}
         {activeTab === "beliefs" && (
           <div className="bg-white/70 dark:bg-sahara-brown/10 rounded-lg p-6">
-            <h3 className="text-2xl font-bold text-sahara-brown mb-4">Croyances</h3>
+            <h3 className="text-2xl font-bold text-sahara-brown mb-4">{t("art.beliefs")}</h3>
             <p className="mb-6">
-              Les croyances hassanies sont un mélange unique de traditions islamiques et de pratiques culturelles préislamiques. 
-              Elles influencent tous les aspects de la vie quotidienne, des rituels de naissance aux cérémonies funéraires.
+              {t("art.beliefs.description")}
             </p>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="bg-sahara-sand/20 p-4 rounded-lg">
-                <h4 className="font-semibold mb-2">Pratiques spirituelles</h4>
+                <h4 className="font-semibold mb-2">{t("art.beliefs.spiritual")}</h4>
                 <ul className="list-disc pl-5 space-y-1">
-                  <li>Rituels de protection contre le mauvais œil</li>
-                  <li>Célébrations liées aux cycles lunaires</li>
-                  <li>Traditions de guérison par les plantes</li>
-                  <li>Interprétation des rêves</li>
+                  <li>{language === 'en' ? "Protection rituals against the evil eye" : language === 'fr' ? "Rituels de protection contre le mauvais œil" : "طقوس الحماية من العين الشريرة"}</li>
+                  <li>{language === 'en' ? "Celebrations linked to lunar cycles" : language === 'fr' ? "Célébrations liées aux cycles lunaires" : "احتفالات مرتبطة بدورات القمر"}</li>
+                  <li>{language === 'en' ? "Healing traditions with plants" : language === 'fr' ? "Traditions de guérison par les plantes" : "تقاليد الشفاء بالنباتات"}</li>
+                  <li>{language === 'en' ? "Dream interpretation" : language === 'fr' ? "Interprétation des rêves" : "تفسير الأحلام"}</li>
                 </ul>
               </div>
               <div className="bg-sahara-sand/20 p-4 rounded-lg">
-                <h4 className="font-semibold mb-2">Moments de vie</h4>
+                <h4 className="font-semibold mb-2">{t("art.beliefs.life")}</h4>
                 <ul className="list-disc pl-5 space-y-1">
-                  <li>Rituels de naissance</li>
-                  <li>Cérémonies de mariage</li>
-                  <li>Rites de passage à l'âge adulte</li>
-                  <li>Traditions funéraires</li>
+                  <li>{language === 'en' ? "Birth rituals" : language === 'fr' ? "Rituels de naissance" : "طقوس الولادة"}</li>
+                  <li>{language === 'en' ? "Wedding ceremonies" : language === 'fr' ? "Cérémonies de mariage" : "حفلات الزفاف"}</li>
+                  <li>{language === 'en' ? "Coming of age rites" : language === 'fr' ? "Rites de passage à l'âge adulte" : "طقوس البلوغ"}</li>
+                  <li>{language === 'en' ? "Funeral traditions" : language === 'fr' ? "Traditions funéraires" : "تقاليد الجنازة"}</li>
                 </ul>
               </div>
             </div>

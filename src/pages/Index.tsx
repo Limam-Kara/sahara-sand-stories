@@ -51,9 +51,7 @@ const Index = () => {
                 Sahara<span className="text-sahara-orange">Stories</span>
               </h2>
               <p className="mb-4">
-                {language === 'en' && "Explore the richness of Sahrawi culture through our pages dedicated to the traditions, art, and history of this fascinating people."}
-                {language === 'fr' && "Explorez la richesse de la culture sahraouie à travers nos pages dédiées aux traditions, à l'art et à l'histoire de ce peuple fascinant."}
-                {language === 'ar' && "اكتشف ثراء الثقافة الصحراوية من خلال صفحاتنا المخصصة للتقاليد والفن وتاريخ هذا الشعب الرائع."}
+                {t("footer.brand")}
               </p>
               <div className="flex space-x-4">
                 <a href="#" className="text-white hover:text-sahara-orange transition-colors">

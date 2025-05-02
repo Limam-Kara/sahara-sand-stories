@@ -91,6 +91,15 @@ const translations = {
     "history.traditions": "Traditions",
     "history.nomadic": "Nomadic Heritage",
     "history.read.more": "Read more",
+    "history.language": "Arabic Language & Hassani Dialect",
+    "history.language.origins": "Origins and Influence",
+    "history.language.transmission": "Transmission and Preservation",
+    "history.ceremonies": "Ceremonies & Rituals",
+    "history.marriages": "Marriages",
+    "history.births": "Births",
+    "history.religious": "Religious celebrations",
+    "history.migrations": "Origins & Migrations",
+    "history.values": "Values & Traditions",
     
     // Lifestyle section
     "lifestyle.daily": "Daily Life",
@@ -102,7 +111,8 @@ const translations = {
     // Footer
     "footer.sections": "Sections",
     "footer.contact": "Contact",
-    "footer.rights": "All rights reserved."
+    "footer.rights": "All rights reserved.",
+    "footer.brand": "Explore the richness of Sahrawi culture through our pages dedicated to the traditions, art, and history of this fascinating people."
   },
   fr: {
     // Language selector
@@ -175,6 +185,15 @@ const translations = {
     "history.traditions": "Traditions",
     "history.nomadic": "Héritage Nomade",
     "history.read.more": "Lire plus",
+    "history.language": "Langue Arabe & Dialecte Hassani",
+    "history.language.origins": "Origines et Influence",
+    "history.language.transmission": "Transmission et Préservation",
+    "history.ceremonies": "Cérémonies & Rituels",
+    "history.marriages": "Mariages",
+    "history.births": "Naissances",
+    "history.religious": "Fêtes religieuses",
+    "history.migrations": "Origines & Migrations",
+    "history.values": "Valeurs & Traditions",
     
     // Lifestyle section
     "lifestyle.daily": "Vie Quotidienne",
@@ -186,7 +205,8 @@ const translations = {
     // Footer
     "footer.sections": "Sections",
     "footer.contact": "Contact",
-    "footer.rights": "Tous droits réservés."
+    "footer.rights": "Tous droits réservés.",
+    "footer.brand": "Explorez la richesse de la culture sahraouie à travers nos pages dédiées aux traditions, à l'art et à l'histoire de ce peuple fascinant."
   },
   ar: {
     // Language selector
@@ -259,6 +279,15 @@ const translations = {
     "history.traditions": "التقاليد",
     "history.nomadic": "التراث البدوي",
     "history.read.more": "اقرأ المزيد",
+    "history.language": "اللغة العربية واللهجة الحسانية",
+    "history.language.origins": "الأصول والتأثير",
+    "history.language.transmission": "النقل والحفاظ",
+    "history.ceremonies": "الاحتفالات والطقوس",
+    "history.marriages": "الزواجات",
+    "history.births": "المواليد",
+    "history.religious": "الاحتفالات الدينية",
+    "history.migrations": "الأصول والهجرات",
+    "history.values": "القيم والتقاليد",
     
     // Lifestyle section
     "lifestyle.daily": "الحياة اليومية",
@@ -270,7 +299,8 @@ const translations = {
     // Footer
     "footer.sections": "الأقسام",
     "footer.contact": "اتصل بنا",
-    "footer.rights": "جميع الحقوق محفوظة."
+    "footer.rights": "جميع الحقوق محفوظة.",
+    "footer.brand": "اكتشف ثراء الثقافة الصحراوية من خلال صفحاتنا المخصصة للتقاليد والفن وتاريخ هذا الشعب الرائع."
   }
 };
 

@@ -125,7 +125,13 @@ const History = () => {
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={language === 'ar' ? 'ml-2' : 'mr-2'}>
                 <path d="m8 3 4 8 5-5 5 15H2L8 3Z" />
               </svg>
-              <p className="text-sm italic">Le proverbe hassani dit: "Les mots sont comme le sable, ils changent de forme mais ne disparaissent jamais."</p>
+              <p className="text-sm italic">
+                {language === 'en' ? 
+                  'The Hassani proverb says: "Words are like sand, they change shape but never disappear."' : 
+                language === 'fr' ? 
+                  'Le proverbe hassani dit: "Les mots sont comme le sable, ils changent de forme mais ne disparaissent jamais."' : 
+                  'يقول المثل الحساني: "الكلمات مثل الرمال، تتغير أشكالها لكنها لا تختفي أبدًا."'}
+              </p>
             </div>
           </div>
         </div>

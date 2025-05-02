@@ -1,4 +1,3 @@
-
 import { useState, useRef, useEffect } from "react";
 import SectionTitle from "../ui/SectionTitle";
 import { cn } from "@/lib/utils";
@@ -105,17 +104,45 @@ const culturalElements = [
   }
 ];
 
-// Tale example
-const mythicalTale = {
-  title: "La Légende du Puits de Tiris",
-  content: `Dans les vastes étendues du désert sahraoui, il existe un puits ancien connu sous le nom de Puits de Tiris. 
-  Selon la légende, ce puits fut créé par un saint homme qui, voyant la souffrance de son peuple durant une longue sécheresse, 
-  planta son bâton dans le sable et pria toute la nuit. À l'aube, l'eau jaillit de cet endroit, créant une source qui ne s'est jamais tarie.
-  
-  On dit que l'eau de ce puits possède des propriétés curatives et que quiconque boit avec un cœur pur verra ses souhaits exaucés. 
-  Cependant, ceux qui s'approchent avec de mauvaises intentions verront l'eau se retirer dans les profondeurs du sable.
-  
-  Cette légende enseigne l'importance de la pureté d'intention, de la foi et du respect des ressources naturelles dans la culture sahraouie.`
+// Tale example with translations
+const getMythicalTale = (language) => {
+  if (language === 'en') {
+    return {
+      title: "The Legend of the Tiris Well",
+      content: `In the vast expanses of the Sahrawi desert, there is an ancient well known as the Tiris Well. 
+      According to legend, this well was created by a holy man who, seeing the suffering of his people during a long drought, 
+      planted his staff in the sand and prayed all night. At dawn, water gushed from this spot, creating a spring that has never dried up.
+      
+      It is said that the water from this well has healing properties and that anyone who drinks with a pure heart will see their wishes granted. 
+      However, those who approach with bad intentions will see the water recede into the depths of the sand.
+      
+      This legend teaches the importance of purity of intention, faith, and respect for natural resources in Sahrawi culture.`
+    };
+  } else if (language === 'ar') {
+    return {
+      title: "أسطورة بئر تيريس",
+      content: `في المساحات الشاسعة للصحراء الصحراوية، هناك بئر قديمة تعرف باسم بئر تيريس. 
+      وفقًا للأسطورة، تم إنشاء هذه البئر من قبل رجل مقدس رأى معاناة شعبه خلال فترة جفاف طويلة، 
+      فغرس عصاه في الرمال وصلى طوال الليل. عند الفجر، تدفقت المياه من هذا المكان، مكونة ينبوعًا لم يجف أبدًا.
+      
+      يقال إن ماء هذه البئر له خصائص شفائية وأن أي شخص يشرب بقلب نقي سيرى أمنياته تتحقق. 
+      ومع ذلك، فإن أولئك الذين يقتربون بنوايا سيئة سيرون الماء يتراجع إلى أعماق الرمال.
+      
+      تعلم هذه الأسطورة أهمية نقاء النية والإيمان واحترام الموارد الطبيعية في الثقافة الصحراوية.`
+    };
+  } else {
+    return {
+      title: "La Légende du Puits de Tiris",
+      content: `Dans les vastes étendues du désert sahraoui, il existe un puits ancien connu sous le nom de Puits de Tiris. 
+      Selon la légende, ce puits fut créé par un saint homme qui, voyant la souffrance de son peuple durant une longue sécheresse, 
+      planta son bâton dans le sable et pria toute la nuit. À l'aube, l'eau jaillit de cet endroit, créant une source qui ne s'est jamais tarie.
+      
+      On dit que l'eau de ce puits possède des propriétés curatives et que quiconque boit avec un cœur pur verra ses souhaits exaucés. 
+      Cependant, ceux qui s'approchent avec de mauvaises intentions verront l'eau se retirer dans les profondeurs du sable.
+      
+      Cette légende enseigne l'importance de la pureté d'intention, de la foi et du respect des ressources naturelles dans la culture sahraouie.`
+    };
+  }
 };
 
 const Art = () => {
@@ -130,6 +157,9 @@ const Art = () => {
   const indexOfLastProverb = currentPage * proverbsPerPage;
   const indexOfFirstProverb = indexOfLastProverb - proverbsPerPage;
   const currentProverbs = proverbs.slice(indexOfFirstProverb, indexOfLastProverb);
+  
+  // Get the appropriate tale for the current language
+  const mythicalTale = getMythicalTale(language);
 
   // Handle page change
   const handlePageChange = (page: number) => {
@@ -264,6 +294,31 @@ const Art = () => {
     },
   ];
 
+  // Get translated table headers
+  const getTableHeaders = () => {
+    if (language === 'en') {
+      return {
+        original: "Original Proverb",
+        translation: "Translation",
+        meaning: "Meaning"
+      };
+    } else if (language === 'ar') {
+      return {
+        original: "المثل الأصلي",
+        translation: "الترجمة",
+        meaning: "المعنى"
+      };
+    } else {
+      return {
+        original: "Proverbe original",
+        translation: "Traduction",
+        meaning: "Signification"
+      };
+    }
+  };
+
+  const tableHeaders = getTableHeaders();
+
   return (
     <section id="art" ref={sectionRef} className="section-container" dir={language === 'ar' ? 'rtl' : 'ltr'}>
       <SectionTitle
@@ -304,9 +359,9 @@ const Art = () => {
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead>Proverbe original</TableHead>
-                  <TableHead>Traduction</TableHead>
-                  <TableHead>Signification</TableHead>
+                  <TableHead>{tableHeaders.original}</TableHead>
+                  <TableHead>{tableHeaders.translation}</TableHead>
+                  <TableHead>{tableHeaders.meaning}</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -416,7 +471,7 @@ const Art = () => {
                   {language === 'en' 
                     ? "This game of skill involves throwing and catching small stones in different configurations. It develops eye-hand coordination and concentration, while being a popular social activity among children."
                     : language === 'fr'
-                    ? "Ce jeu d'adresse consiste à lancer et à attraper de petites pierres dans différentes configurations. Il développe la coordination œil-main et la concentration, tout en étant une activité sociale populaire parmi les enfants."
+                    ? "Ce jeu d'adresse consiste à lancer et à attrapper de petites pierres dans différentes configurations. Il développe la coordination œil-main et la concentration, tout en étant une activité sociale populaire parmi les enfants."
                     : "تتضمن هذه اللعبة المهارية رمي والتقاط حجارة صغيرة بأشكال مختلفة. تطور التنسيق بين العين واليد والتركيز، وهي نشاط اجتماعي شعبي بين الأطفال."}
                 </AccordionContent>
               </AccordionItem>

@@ -1,5 +1,5 @@
 
-import { useRef, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { MOROCCO_BOUNDS } from "@/utils/mapUtils";
 
 export const useLeafletMap = () => {

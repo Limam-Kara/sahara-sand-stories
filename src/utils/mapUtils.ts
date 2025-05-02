@@ -1,13 +1,13 @@
 
-// Morocco bounds - approximate coordinates to focus on Morocco
+// Morocco bounds - focused on the Sahara region
 export const MOROCCO_BOUNDS = {
-  north: 35.9, 
-  south: 27.6,
-  west: -17.5,
-  east: -1.0
+  north: 29.0, 
+  south: 21.5,
+  west: -17.0,
+  east: -8.5
 };
 
-export const MOROCCO_CENTER: [number, number] = [-7.09262, 31.7917];
+export const MOROCCO_CENTER: [number, number] = [-13.0, 25.5];
 
 // City data for Morocco
 export const MOROCCO_CITIES = [

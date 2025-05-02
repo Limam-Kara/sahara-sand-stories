@@ -1,3 +1,4 @@
+
 import { useState, useRef, useEffect } from "react";
 import SectionTitle from "../ui/SectionTitle";
 import { cn } from "@/lib/utils";
@@ -104,10 +105,17 @@ const culturalElements = [
   }
 ];
 
-// Tale example with translated title
+// Tale example
 const mythicalTale = {
-  title: t => t("art.myths.tale.title"),
-  content: t => t("art.myths.tale.content")
+  title: "La Légende du Puits de Tiris",
+  content: `Dans les vastes étendues du désert sahraoui, il existe un puits ancien connu sous le nom de Puits de Tiris. 
+  Selon la légende, ce puits fut créé par un saint homme qui, voyant la souffrance de son peuple durant une longue sécheresse, 
+  planta son bâton dans le sable et pria toute la nuit. À l'aube, l'eau jaillit de cet endroit, créant une source qui ne s'est jamais tarie.
+  
+  On dit que l'eau de ce puits possède des propriétés curatives et que quiconque boit avec un cœur pur verra ses souhaits exaucés. 
+  Cependant, ceux qui s'approchent avec de mauvaises intentions verront l'eau se retirer dans les profondeurs du sable.
+  
+  Cette légende enseigne l'importance de la pureté d'intention, de la foi et du respect des ressources naturelles dans la culture sahraouie.`
 };
 
 const Art = () => {
@@ -296,9 +304,9 @@ const Art = () => {
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead>{t("art.proverbs.table.original")}</TableHead>
-                  <TableHead>{t("art.proverbs.table.translation")}</TableHead>
-                  <TableHead>{t("art.proverbs.table.meaning")}</TableHead>
+                  <TableHead>Proverbe original</TableHead>
+                  <TableHead>Traduction</TableHead>
+                  <TableHead>Signification</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -337,31 +345,6 @@ const Art = () => {
           </div>
         )}
 
-        {/* Myths and Tales Content */}
-        {activeTab === "myths" && (
-          <div className="bg-white/70 dark:bg-sahara-brown/10 rounded-lg p-6">
-            <h3 className="text-2xl font-bold text-sahara-terracotta mb-4">{t("art.myths")}</h3>
-            <p className="mb-6">
-              {t("art.myths.description")}
-            </p>
-            
-            <div className="border-l-4 border-sahara-terracotta pl-4 py-2 mb-6">
-              <h4 className="text-xl font-medium mb-2">{t("art.myths.tale.title")}</h4>
-              <p className="whitespace-pre-line">{t("art.myths.tale.content")}</p>
-            </div>
-            
-            <div className="bg-sahara-sand/20 p-4 rounded-lg">
-              <h4 className="font-semibold mb-2">{t("art.myths.role")}</h4>
-              <ul className="list-disc pl-5 space-y-1">
-                <li>{language === 'en' ? "Teach moral values" : language === 'fr' ? "Enseigner des valeurs morales" : "تعليم القيم الأخلاقية"}</li>
-                <li>{language === 'en' ? "Preserve history and cultural identity" : language === 'fr' ? "Préserver l'histoire et l'identité culturelle" : "الحفاظ على التاريخ والهوية الثقافية"}</li>
-                <li>{language === 'en' ? "Entertain and bring the community together" : language === 'fr' ? "Divertir et rassembler la communauté" : "الترفيه وجمع المجتمع"}</li>
-                <li>{language === 'en' ? "Explain natural and social phenomena" : language === 'fr' ? "Expliquer les phénomènes naturels et sociaux" : "شرح الظواهر الطبيعية والاجتماعية"}</li>
-              </ul>
-            </div>
-          </div>
-        )}
-
         {/* Poetry Content */}
         {activeTab === "poetry" && (
           <div className="bg-white/70 dark:bg-sahara-brown/10 rounded-lg p-6">
@@ -393,6 +376,31 @@ const Art = () => {
           </div>
         )}
 
+        {/* Myths and Tales Content */}
+        {activeTab === "myths" && (
+          <div className="bg-white/70 dark:bg-sahara-brown/10 rounded-lg p-6">
+            <h3 className="text-2xl font-bold text-sahara-terracotta mb-4">{t("art.myths")}</h3>
+            <p className="mb-6">
+              {t("art.myths.description")}
+            </p>
+            
+            <div className="border-l-4 border-sahara-terracotta pl-4 py-2 mb-6">
+              <h4 className="text-xl font-medium mb-2">{mythicalTale.title}</h4>
+              <p className="whitespace-pre-line">{mythicalTale.content}</p>
+            </div>
+            
+            <div className="bg-sahara-sand/20 p-4 rounded-lg">
+              <h4 className="font-semibold mb-2">{t("art.myths.role")}</h4>
+              <ul className="list-disc pl-5 space-y-1">
+                <li>{language === 'en' ? "Teach moral values" : language === 'fr' ? "Enseigner des valeurs morales" : "تعليم القيم الأخلاقية"}</li>
+                <li>{language === 'en' ? "Preserve history and cultural identity" : language === 'fr' ? "Préserver l'histoire et l'identité culturelle" : "الحفاظ على التاريخ والهوية الثقافية"}</li>
+                <li>{language === 'en' ? "Entertain and bring the community together" : language === 'fr' ? "Divertir et rassembler la communauté" : "الترفيه وجمع المجتمع"}</li>
+                <li>{language === 'en' ? "Explain natural and social phenomena" : language === 'fr' ? "Expliquer les phénomènes naturels et sociaux" : "شرح الظواهر الطبيعية والاجتماعية"}</li>
+              </ul>
+            </div>
+          </div>
+        )}
+
         {/* Games Content */}
         {activeTab === "games" && (
           <div className="bg-white/70 dark:bg-sahara-brown/10 rounded-lg p-6">
@@ -408,7 +416,7 @@ const Art = () => {
                   {language === 'en' 
                     ? "This game of skill involves throwing and catching small stones in different configurations. It develops eye-hand coordination and concentration, while being a popular social activity among children."
                     : language === 'fr'
-                    ? "Ce jeu d'adresse consiste à lancer et à attrapper de petites pierres dans différentes configurations. Il développe la coordination œil-main et la concentration, tout en étant une activité sociale populaire parmi les enfants."
+                    ? "Ce jeu d'adresse consiste à lancer et à attraper de petites pierres dans différentes configurations. Il développe la coordination œil-main et la concentration, tout en étant une activité sociale populaire parmi les enfants."
                     : "تتضمن هذه اللعبة المهارية رمي والتقاط حجارة صغيرة بأشكال مختلفة. تطور التنسيق بين العين واليد والتركيز، وهي نشاط اجتماعي شعبي بين الأطفال."}
                 </AccordionContent>
               </AccordionItem>

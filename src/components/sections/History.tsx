@@ -100,6 +100,7 @@ const History = () => {
         </div>
       </div>
 
+      {/* Section sur le dialecte hassani et sa relation avec l'arabe - ne pas traduire le proverbe */}
       <div className="mt-16 p-8 bg-gradient-to-r from-sahara-terracotta/10 to-sahara-brown/10 rounded-lg border border-sahara-sand/30 reveal-on-scroll">
         <h3 className="text-2xl font-bold text-sahara-brown mb-4">{t("history.language")}</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -124,7 +125,7 @@ const History = () => {
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={language === 'ar' ? 'ml-2' : 'mr-2'}>
                 <path d="m8 3 4 8 5-5 5 15H2L8 3Z" />
               </svg>
-              <p className="text-sm italic">{t("history.proverb")}</p>
+              <p className="text-sm italic">Le proverbe hassani dit: "Les mots sont comme le sable, ils changent de forme mais ne disparaissent jamais."</p>
             </div>
           </div>
         </div>

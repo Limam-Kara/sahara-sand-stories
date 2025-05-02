@@ -1,48 +1,52 @@
 
-import { useEffect } from "react";
+import React from "react";
 import { Card } from "@/components/ui/card";
-import "mapbox-gl/dist/mapbox-gl.css";
-import { useMapbox } from "@/hooks/useMapbox";
-import { MOROCCO_CITIES } from "@/utils/mapUtils";
+import { MapContainer, TileLayer } from "react-leaflet";
+import { useLeafletMap } from "@/hooks/useLeafletMap";
+import { SAHARA_CITIES } from "@/utils/mapUtils";
 import MapLoading from "./MapLoading";
 import MapLegend from "./MapLegend";
 import CityMarker from "./CityMarker";
+import "leaflet/dist/leaflet.css";
+
+// Fix for default marker icons in webpack/vite environments
+import L from "leaflet";
+import icon from "leaflet/dist/images/marker-icon.png";
+import iconShadow from "leaflet/dist/images/marker-shadow.png";
+
+let DefaultIcon = L.icon({
+  iconUrl: icon,
+  shadowUrl: iconShadow,
+  iconSize: [25, 41],
+  iconAnchor: [12, 41]
+});
+
+L.Marker.prototype.options.icon = DefaultIcon;
 
 const DesertMap = () => {
-  const { mapContainer, map, mapLoaded } = useMapbox();
-
-  // Add city markers when map is loaded
-  useEffect(() => {
-    if (mapLoaded && map.current) {
-      MOROCCO_CITIES.forEach(city => {
-        // Using the CityMarker component logic directly here since it's DOM manipulation
-        // and not React rendering
-        const el = document.createElement('div');
-        el.className = 'city-marker';
-        el.style.width = '12px';
-        el.style.height = '12px';
-        el.style.borderRadius = '50%';
-        el.style.backgroundColor = '#BA5536';
-        el.style.border = '2px solid white';
-        el.style.cursor = 'pointer';
-        
-        // Add markers to map
-        new mapboxgl.Marker(el)
-          .setLngLat(city.coordinates as [number, number])
-          .setPopup(
-            new mapboxgl.Popup({ offset: 25 })
-              .setHTML(`<h3>${city.name}</h3>`)
-          )
-          .addTo(map.current);
-      });
-    }
-  }, [mapLoaded]);
+  const { mapLoaded, mapBounds } = useLeafletMap();
 
   return (
     <div className="grid grid-cols-1 gap-6">
       <Card className="relative rounded-lg overflow-hidden shadow-md h-[500px]">
         {!mapLoaded && <MapLoading />}
-        <div ref={mapContainer} className="w-full h-full" />
+        <MapContainer 
+          bounds={mapBounds}
+          style={{ height: "100%", width: "100%" }}
+          zoom={6}
+          minZoom={5}
+          maxZoom={10}
+          scrollWheelZoom={false}
+          className="z-0"
+        >
+          <TileLayer
+            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          />
+          {SAHARA_CITIES.map((city, index) => (
+            <CityMarker key={`city-${index}`} city={city} />
+          ))}
+        </MapContainer>
         <MapLegend />
       </Card>
     </div>

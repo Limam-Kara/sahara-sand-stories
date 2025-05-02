@@ -39,8 +39,8 @@ const Explore = () => {
   return (
     <section id="explorer" ref={sectionRef} className="section-container" dir={language === 'ar' ? 'rtl' : 'ltr'}>
       <SectionTitle
-        title="Explorer le Maroc"
-        subtitle="Découvrez la beauté et la diversité du Maroc"
+        title={language === 'ar' ? 'استكشف الصحراء المغربية' : language === 'fr' ? 'Explorer le Sahara Marocain' : 'Explore the Moroccan Sahara'}
+        subtitle={language === 'ar' ? 'اكتشف جمال وتنوع الصحراء المغربية' : language === 'fr' ? 'Découvrez la beauté et la diversité du Sahara Marocain' : 'Discover the beauty and diversity of the Moroccan Sahara'}
         className="reveal-on-scroll"
         translationKey="explore"
       />

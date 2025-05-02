@@ -1,33 +1,32 @@
 
 import React from "react";
-import mapboxgl from "mapbox-gl";
+import { Marker, Popup } from "react-leaflet";
+import L from "leaflet";
 
 interface CityMarkerProps {
   city: { name: string; coordinates: number[] };
-  map: mapboxgl.Map;
 }
 
-const CityMarker = ({ city, map }: CityMarkerProps) => {
-  // Create a DOM element for the marker
-  const el = document.createElement('div');
-  el.className = 'city-marker';
-  el.style.width = '12px';
-  el.style.height = '12px';
-  el.style.borderRadius = '50%';
-  el.style.backgroundColor = '#BA5536';
-  el.style.border = '2px solid white';
-  el.style.cursor = 'pointer';
-  
-  // Add markers to map
-  new mapboxgl.Marker(el)
-    .setLngLat(city.coordinates as [number, number])
-    .setPopup(
-      new mapboxgl.Popup({ offset: 25 }) // add popups
-        .setHTML(`<h3>${city.name}</h3>`)
-    )
-    .addTo(map);
-  
-  return null; // This component doesn't render anything directly
+const CityMarker = ({ city }: CityMarkerProps) => {
+  const customIcon = new L.Icon({
+    iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+    shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+    iconSize: [25, 41],
+    iconAnchor: [12, 41],
+    popupAnchor: [1, -34],
+    shadowSize: [41, 41]
+  });
+
+  return (
+    <Marker 
+      position={[city.coordinates[1], city.coordinates[0]]} 
+      icon={customIcon}
+    >
+      <Popup>
+        <h3 className="font-medium">{city.name}</h3>
+      </Popup>
+    </Marker>
+  );
 };
 
 export default CityMarker;

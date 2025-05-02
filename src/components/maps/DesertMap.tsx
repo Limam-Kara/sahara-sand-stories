@@ -7,6 +7,7 @@ import { MAP_CITIES } from "@/utils/mapUtils";
 import MapLoading from "./MapLoading";
 import MapLegend from "./MapLegend";
 import CityMarker from "./CityMarker";
+import GeoMask from "./GeoMask";
 import "leaflet/dist/leaflet.css";
 
 // Fix for default marker icons in webpack/vite environments
@@ -43,6 +44,7 @@ const DesertMap = () => {
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
+          <GeoMask />
           {MAP_CITIES.map((city, index) => (
             <CityMarker key={`city-${index}`} city={city} />
           ))}

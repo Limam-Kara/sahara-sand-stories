@@ -3,7 +3,7 @@ import React from "react";
 import { Card } from "@/components/ui/card";
 import { MapContainer, TileLayer } from "react-leaflet";
 import { useLeafletMap } from "@/hooks/useLeafletMap";
-import { SAHARA_CITIES } from "@/utils/mapUtils";
+import { MAP_CITIES } from "@/utils/mapUtils";
 import MapLoading from "./MapLoading";
 import MapLegend from "./MapLegend";
 import CityMarker from "./CityMarker";
@@ -43,7 +43,7 @@ const DesertMap = () => {
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
-          {SAHARA_CITIES.map((city, index) => (
+          {MAP_CITIES.map((city, index) => (
             <CityMarker key={`city-${index}`} city={city} />
           ))}
         </MapContainer>

@@ -1,13 +1,13 @@
 
-// Morocco bounds - focused on the Sahara region
+// Morocco bounds - focused on Morocco and the Sahara region
 export const MOROCCO_BOUNDS = {
-  north: 29.0, 
-  south: 21.5,
+  north: 35.9, 
+  south: 21.0,
   west: -17.0,
-  east: -8.5
+  east: -1.0
 };
 
-export const MOROCCO_CENTER: [number, number] = [-13.0, 25.5];
+export const MOROCCO_CENTER: [number, number] = [-8.0, 28.5];
 
 // City data for Morocco
 export const MOROCCO_CITIES = [
@@ -16,9 +16,7 @@ export const MOROCCO_CITIES = [
   { name: "Marrakech", coordinates: [-8.0083, 31.6295] },
   { name: "Fes", coordinates: [-4.9998, 34.0181] },
   { name: "Tangier", coordinates: [-5.8326, 35.7595] },
-  { name: "Agadir", coordinates: [-9.5982, 30.4278] },
-  { name: "Dakhla", coordinates: [-15.9374, 23.7136] },
-  { name: "Laayoune", coordinates: [-13.2050, 27.1568] }
+  { name: "Agadir", coordinates: [-9.5982, 30.4278] }
 ];
 
 // Sahara region specific cities
@@ -29,3 +27,6 @@ export const SAHARA_CITIES = [
   { name: "Smara", coordinates: [-11.6714, 26.7384] },
   { name: "Tan-Tan", coordinates: [-11.1004, 28.4380] }
 ];
+
+// Combined list of cities to show on the map (only Morocco and Saharan cities)
+export const MAP_CITIES = [...MOROCCO_CITIES, ...SAHARA_CITIES];

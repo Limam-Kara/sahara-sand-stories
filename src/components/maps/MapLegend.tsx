@@ -10,7 +10,7 @@ const MapLegend = () => {
     <div className="absolute bottom-4 left-4 flex items-center gap-1 bg-white/80 px-2 py-1 rounded shadow-sm z-20">
       <MapIcon className="w-4 h-4 text-sahara-terracotta" />
       <span className="text-xs font-medium">
-        {language === 'ar' ? 'الصحراء المغربية' : language === 'fr' ? 'Sahara Marocain' : 'Moroccan Sahara'}
+        {language === 'ar' ? 'المغرب ومدن الصحراء' : language === 'fr' ? 'Maroc et villes sahraouies' : 'Morocco and Saharan cities'}
       </span>
     </div>
   );

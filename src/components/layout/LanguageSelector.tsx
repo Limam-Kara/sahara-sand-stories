@@ -38,7 +38,7 @@ const LanguageSelector = ({ className }: { className?: string }) => {
         </SelectTrigger>
         <SelectContent>
           {languages.map((lang) => (
-            <SelectItem key={lang.code} value={lang.code}>
+            <SelectItem key={lang.code} value={lang.code} className={language === "ar" ? "text-right" : ""}>
               {lang.label}
             </SelectItem>
           ))}

@@ -1,202 +1,474 @@
+import { createContext, useContext, useState, ReactNode } from "react";
 
-import { createContext, useState, useContext, ReactNode } from "react";
+// Define available languages
+export type Language = "en" | "fr" | "ar";
 
-interface LanguageContextType {
-  language: string;
-  setLanguage: (lang: string) => void;
+// Language context type
+type LanguageContextType = {
+  language: Language;
+  setLanguage: (language: Language) => void;
   t: (key: string) => string;
-}
+};
 
-const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
+// Create the context with default values
+const LanguageContext = createContext<LanguageContextType>({
+  language: "en",
+  setLanguage: () => {},
+  t: () => "",
+});
 
+// Define translations
 const translations = {
   en: {
-    "site.title": "Saharan Heritage",
+    // Language selector
+    "language.select": "Language",
+    
+    // Navbar
     "nav.history": "History",
-    "nav.art": "Art & Culture",
-    "nav.explore": "Explore",
     "nav.lifestyle": "Lifestyle",
     "nav.festivals": "Festivals",
-    "nav.contact": "Contact Us",
-    "nav.dashboard": "Dashboard",
-    "section.history": "Historical Background",
-    "section.history.subtitle": "The fascinating past of Sahrawi culture",
-    "section.art": "Art & Culture",
-    "section.explore": "Explore the Saharan Destinations",
-    "section.lifestyle": "Sahrawi Lifestyle",
+    "nav.art": "Art & Music",
+    "nav.explore": "Explore",
+
+    // Hero
+    "hero.title": "Sahrawi Culture",
+    "hero.subtitle": "Discover the ancestral heritage of the desert people, a culture rich in traditions, hospitality, and deep connections with nature.",
+    "hero.button": "Discover",
+    "hero.scroll": "Scroll",
+
+    // Section titles
+    "section.history": "History & Traditions",
+    "section.history.subtitle": "Discover the origins and customs of the Sahrawi people",
+    "section.lifestyle": "Lifestyle & Cuisine",
+    "section.lifestyle.subtitle": "Explore the traditional way of life and culinary arts",
     "section.festivals": "Festivals & Celebrations",
-    "section.festivals.subtitle": "Traditional gatherings and celebrations",
-    "history.migrations": "Migrations and Origins",
-    "history.migrations.text1": "The Sahrawi people are the indigenous inhabitants of Western Sahara. Their origins trace back to a mixture of Berber, Arab, and African populations that have traversed and settled in the region for thousands of years.",
-    "history.migrations.text2": "Historically nomadic, Sahrawis moved across the deserts following seasonal patterns, establishing critical trade routes connecting sub-Saharan Africa with the Mediterranean world.",
-    "history.values": "Cultural Values",
-    "history.values.text": "Sahrawi society values hospitality, solidarity, and resilience. These core values developed from the harsh desert environment, where survival often depended on cooperation and assistance to fellow travelers.",
-    "history.ceremonies": "Traditional Ceremonies",
-    "history.marriages": "Marriage Celebrations",
-    "history.marriages.text": "Traditional weddings can last up to seven days, with elaborate ceremonies featuring music, poetry, and feasts under large tents.",
-    "history.births": "Birth Rituals",
-    "history.births.text": "When a child is born, the family organizes a naming ceremony after seven days, accompanied by prayers and community celebration.",
-    "history.religious": "Religious Celebrations",
-    "history.religious.text": "Islamic holidays are celebrated with special meals, prayers, and visiting family members. Eid al-Fitr and Eid al-Adha hold particular importance.",
-    "history.language": "The Hassani Language",
-    "history.language.origins": "Origins and Influence",
-    "history.language.origins.text1": "Hassaniya is a variety of Maghrebi Arabic spoken by the Sahrawi people. It has evolved over centuries, incorporating elements from Berber languages, standard Arabic, and various African languages.",
-    "history.language.origins.text2": "Despite modern influences, the language maintains its distinctive character and serves as a crucial marker of Sahrawi identity.",
-    "history.language.transmission": "Oral Tradition",
-    "history.language.transmission.text1": "The Hassani dialect has been primarily transmitted through oral tradition, with poetry, stories, and proverbs serving as vehicles for cultural preservation.",
-    "history.language.transmission.text2": "Elders play a vital role in preserving linguistic purity and teaching younger generations the subtleties of expression and vocabulary that are unique to Hassaniya.",
-    "history.nomadic": "Nomadic Traditions",
-    "lifestyle.clothing": "Traditional Clothing",
-    "art.crafts": "Craftsmanship",
-    "art.culture.title": "Cultural Heritage",
-    "art.culture.subtitle": "Discovering the rich intangible heritage of the Sahara",
+    "section.festivals.subtitle": "Discover the events that animate Sahrawi culture throughout the year",
+    "section.art": "Art & Music",
+    "section.art.subtitle": "Immerse yourself in Sahrawi artistic expressions",
+    "section.explore": "Explore the Sahara",
+    "section.explore.subtitle": "Tips and information for traveling in the Sahrawi desert",
+    
+    // Art section
+    "art.expression": "Musical Expression",
+    "art.description": "Sahrawi music is deeply connected to oral tradition, transmitting the history, values, and emotions of the desert people. The enchanting melodies and hypnotic rhythms evoke the vast expanses of the Sahara and nomadic life.",
+    "art.poetry": "Poetry & Stories",
+    "art.poetry.description": "Poetry is at the heart of Sahrawi culture. Poems, called \"talab\" or \"lghna\", are recited during gatherings and celebrations. They address themes such as love, honor, bravery, and the beauty of the desert.",
+    "art.instruments": "Traditional Instruments",
+    "art.crafts": "Sahrawi Crafts",
+    "art.crafts.description": "Sahrawi craftsmanship is characterized by vibrant geometric patterns reflecting the desert environment and conveying important cultural symbols. Each piece tells a story and preserves ancestral techniques.",
+    "art.instrument.tidinit": "Tidinit",
+    "art.instrument.tidinit.description": "Traditional string instrument similar to a lute, central to Sahrawi musical tradition.",
+    "art.instrument.tbal": "Tbal",
+    "art.instrument.tbal.description": "Large drum that provides the rhythmic foundation for Sahrawi music.",
+    "art.instrument.bendir": "Bendir",
+    "art.instrument.bendir.description": "Frame drum with snares that creates a buzzing sound, used in festive music.",
+    
+    // Art Cultural Heritage section
+    "art.culture.title": "Intangible Cultural Heritage",
+    "art.culture.subtitle": "Explore the intangible cultural elements that define Hassani identity",
     "art.proverbs": "Hassani Proverbs",
-    "art.proverbs.description": "Proverbs form an essential part of Sahrawi oral tradition, conveying wisdom and cultural values across generations. These concise expressions reflect the worldview and lived experiences of desert communities.",
+    "art.proverbs.description": "Hassani proverbs reflect the folk wisdom and collective experience of the Sahrawi people. They are used in everyday conversation to illustrate ideas, give advice, or teach values.",
     "art.poetry.title": "Hassani Poetry",
-    "art.poetry.description": "Poetry holds a special place in Sahrawi culture as a medium for preserving history, expressing emotions, and celebrating cultural identity. Oral poetry performances are common during social gatherings and celebrations.",
-    "art.poetry.types": "Types of Poetry",
-    "art.poetry.themes": "Common Themes",
+    "art.poetry.types": "Types of poetry",
+    "art.poetry.themes": "Main themes",
     "art.myths": "Myths and Tales",
-    "art.myths.description": "Folktales and myths have been passed down through generations, often told around evening fires in desert encampments. These narratives explain natural phenomena, teach moral lessons, and entertain while strengthening community bonds.",
-    "art.myths.role": "Role in Society",
-    "art.games": "Traditional Games",
-    "art.games.description": "Traditional games played an important role in Sahrawi society, developing skills necessary for desert life while providing entertainment and strengthening social bonds.",
-    "art.beliefs": "Traditional Beliefs",
-    "art.beliefs.description": "Sahrawi spiritual beliefs blend Islamic practices with pre-Islamic traditions, creating a unique cultural perspective that guides daily life and special occasions.",
-    "art.beliefs.spiritual": "Spiritual Practices",
-    "art.beliefs.life": "Life Cycle Rituals"
+    "art.myths.description": "Hassani myths and tales are oral narratives passed down from generation to generation. They serve to explain natural phenomena, convey moral lessons, and entertain.",
+    "art.myths.role": "Role of tales in Hassani society",
+    "art.games": "Popular Games",
+    "art.games.description": "Traditional Hassani games are more than just entertainment; they promote social cohesion, develop skills, and transmit cultural values to younger generations.",
+    "art.beliefs": "Beliefs",
+    "art.beliefs.description": "Hassani beliefs are a unique blend of Islamic traditions and pre-Islamic cultural practices. They influence all aspects of daily life, from birth rituals to funeral ceremonies.",
+    "art.beliefs.spiritual": "Spiritual practices",
+    "art.beliefs.life": "Life moments",
+
+    // Lifestyle section
+    "lifestyle.title": "Lifestyle & Cuisine",
+    "lifestyle.subtitle": "Discover the traditional clothes, desert gastronomy, and daily customs",
+    "lifestyle.clothing": "Traditional Clothing",
+    "lifestyle.mlahfa": "Mlahfa",
+    "lifestyle.mlahfa.description": "Traditional garment of Sahrawi women, the Mlahfa is a colorful 4-meter piece of fabric wrapped around the body.",
+    "lifestyle.daraa": "Daraa",
+    "lifestyle.daraa.description": "The Daraa is the traditional men's attire, a long loose-fitting robe often in indigo blue with embroidery.",
+    "lifestyle.housing": "Nomadic Housing",
+    "lifestyle.housing.description": "The traditional tent, called \"khaïma\", is at the heart of Sahrawi nomadic life. Made of goat hair or camel wool, it protects from the extreme desert conditions while being easily transportable.",
+    "lifestyle.cuisine": "Sahrawi Cuisine",
+    "lifestyle.cuisine.description": "Sahrawi cuisine is adapted to the nomadic lifestyle, combining simple ingredients to create nourishing dishes. Couscous, meat stews, and dates are essential elements. Mint tea, served in three glasses, represents hospitality and is shared at every meeting.",
+    "lifestyle.tea": "Sahrawi Tea Preparation",
+    "lifestyle.tea.step1": "Boil the water",
+    "lifestyle.tea.step1.description": "Bring water to a boil in a traditional teapot.",
+    "lifestyle.tea.step2": "First infusion",
+    "lifestyle.tea.step2.description": "Add the green tea and let it steep for 2-3 minutes. This first infusion is poured and then poured back into the teapot several times to mix.",
+    "lifestyle.tea.step3": "Sugar and mint",
+    "lifestyle.tea.step3.description": "Add generous amounts of sugar and fresh mint leaves.",
+    "lifestyle.tea.step4": "Service",
+    "lifestyle.tea.step4.description": "Pour the tea from a height to create a characteristic foam. Serve three successive glasses, increasingly sweet.",
+    "lifestyle.tea.proverb": "The first glass is bitter like life, the second is sweet like love, and the third is smooth like death.",
+    "lifestyle.tea.proverb.attribution": "Sahrawi proverb on the three glasses of tea",
+
+    // Festivals section
+    "festivals.title": "Festivals & Celebrations",
+    "festivals.subtitle": "Discover the events that animate Sahrawi culture throughout the year",
+    "festivals.calendar": "Festival Calendar",
+    "festivals.calendar.description": "Plan your trip to experience these unique cultural experiences",
+    "festivals.seasons.spring": "Spring",
+    "festivals.seasons.summer": "Summer",
+    "festivals.seasons.autumn": "Autumn",
+    "festivals.seasons.winter": "Winter",
+    "festivals.more": "Learn more",
+
+    // Explore section
+    "explore.title": "Explore the Sahara",
+    "explore.subtitle": "Tips and information for traveling in the Sahrawi desert",
+    "explore.destinations": "Sahrawi Destinations",
+    "explore.map": "Interactive Map of Saharan Regions",
+    "explore.tips": "Travel Tips",
+    "explore.preparation": "Preparing your trip",
+    "explore.cultural": "Cultural respect",
+    "explore.safety": "Desert safety",
+    "explore.tip": "Good to know",
+    
+    // History section
+    "history.origins": "Origins",
+    "history.traditions": "Traditions",
+    "history.nomadic": "Nomadic Heritage",
+    "history.read.more": "Read more",
+    "history.language": "Arabic Language & Hassani Dialect",
+    "history.language.origins": "Origins and Influence",
+    "history.language.origins.text1": "The Hassani dialect, spoken by the Sahrawis, is a variant of Arabic that developed in the Saharan regions through contact with Berber and African languages. It takes its name from the Beni Hassan tribe that settled in the region in the 13th century.",
+    "history.language.origins.text2": "Although fundamentally Arabic in structure, Hassani is distinguished by specific vocabulary related to the desert environment, nomadic herding, and local traditions. Its pronunciation is also characteristic, with softer sounds than classical Arabic.",
+    "history.language.transmission": "Transmission and Preservation",
+    "history.language.transmission.text1": "Traditionally transmitted orally through poetry, tales, and songs, Hassani is an essential vector of Sahrawi culture. Hassani poems (tidinit) occupy an important place in gatherings and celebrations.",
+    "history.language.transmission.text2": "Today, while modern standard Arabic is used in formal education and media, the Hassani dialect remains the language of everyday life and authentic cultural expression. Efforts are being made to document and preserve this unique linguistic heritage, a witness to the nomadic history of the Sahrawi people.",
+    "history.ceremonies": "Ceremonies & Rituals",
+    "history.marriages": "Marriages",
+    "history.marriages.text": "Wedding ceremonies last several days and involve many traditions, including music, dance, and elaborate feasts.",
+    "history.births": "Births",
+    "history.births.text": "The birth of a child is celebrated by the entire community, with specific rituals to protect the newborn from desert spirits.",
+    "history.religious": "Religious celebrations",
+    "history.religious.text": "Eid al-Fitr and Eid al-Adha are important times of the year, celebrated with collective prayers and shared meals.",
+    "history.migrations": "Origins & Migrations",
+    "history.migrations.text1": "The Sahrawis are a people of nomadic origin inhabiting the desert regions of Western Sahara. Their history is marked by seasonal migrations, following the rains and pastures for their herds.",
+    "history.migrations.text2": "Sahrawi culture has developed over the centuries through exchanges with various civilizations of the Maghreb and sub-Saharan Africa. Their oral traditions, poetry, and music bear witness to this rich history.",
+    "history.values": "Values & Traditions",
+    "history.values.text": "Hospitality is a fundamental value of Sahrawi culture. Strangers are always welcomed with generosity, even in the difficult conditions of the desert. Respect for elders and tribal solidarity are also pillars of this society.",
+    
+    // Footer
+    "footer.sections": "Sections",
+    "footer.contact": "Contact",
+    "footer.rights": "All rights reserved.",
+    "footer.brand": "Explore the richness of Sahrawi culture through our pages dedicated to the traditions, art, and history of this fascinating people."
   },
   fr: {
-    "site.title": "Patrimoine Saharien",
+    // Language selector
+    "language.select": "Langue",
+    
+    // Navbar
     "nav.history": "Histoire",
-    "nav.art": "Art & Culture",
-    "nav.explore": "Explorer",
-    "nav.lifestyle": "Mode de vie",
+    "nav.lifestyle": "Mode de Vie",
     "nav.festivals": "Festivals",
-    "nav.contact": "Contactez-nous",
-    "nav.dashboard": "Tableau de bord",
-    "section.history": "Contexte Historique",
-    "section.history.subtitle": "Le passé fascinant de la culture sahraouie",
-    "section.art": "Art & Culture",
-    "section.explore": "Explorez les Destinations Sahariennes",
-    "section.lifestyle": "Mode de Vie Sahraoui",
+    "nav.art": "Art & Musique",
+    "nav.explore": "Explorer",
+
+    // Hero
+    "hero.title": "Culture Sahraouie",
+    "hero.subtitle": "Découvrez l'héritage ancestral du peuple du désert, une culture riche en traditions, hospitalité et liens profonds avec la nature.",
+    "hero.button": "Découvrir",
+    "hero.scroll": "Défiler",
+
+    // Section titles
+    "section.history": "Histoire & Traditions",
+    "section.history.subtitle": "Découvrez les origines et les coutumes du peuple sahraoui",
+    "section.lifestyle": "Mode de Vie & Cuisine",
+    "section.lifestyle.subtitle": "Explorez le mode de vie traditionnel et les arts culinaires",
     "section.festivals": "Festivals & Célébrations",
-    "section.festivals.subtitle": "Rassemblements et célébrations traditionnels",
-    "history.migrations": "Migrations et Origines",
-    "history.migrations.text1": "Le peuple sahraoui est la population autochtone du Sahara occidental. Ses origines remontent à un mélange de populations berbères, arabes et africaines qui ont traversé et se sont installées dans la région depuis des milliers d'années.",
-    "history.migrations.text2": "Historiquement nomades, les Sahraouis se déplaçaient à travers les déserts selon des schémas saisonniers, établissant des routes commerciales cruciales reliant l'Afrique subsaharienne au monde méditerranéen.",
-    "history.values": "Valeurs Culturelles",
-    "history.values.text": "La société sahraouie valorise l'hospitalité, la solidarité et la résilience. Ces valeurs fondamentales se sont développées dans l'environnement désertique hostile, où la survie dépendait souvent de la coopération et de l'assistance aux voyageurs.",
-    "history.ceremonies": "Cérémonies Traditionnelles",
-    "history.marriages": "Célébrations de Mariage",
-    "history.marriages.text": "Les mariages traditionnels peuvent durer jusqu'à sept jours, avec des cérémonies élaborées comprenant musique, poésie et festins sous de grandes tentes.",
-    "history.births": "Rituels de Naissance",
-    "history.births.text": "À la naissance d'un enfant, la famille organise une cérémonie de nomination après sept jours, accompagnée de prières et de célébrations communautaires.",
-    "history.religious": "Célébrations Religieuses",
-    "history.religious.text": "Les fêtes islamiques sont célébrées avec des repas spéciaux, des prières et des visites aux membres de la famille. L'Aïd al-Fitr et l'Aïd al-Adha ont une importance particulière.",
-    "history.language": "Le Dialecte Hassani",
-    "history.language.origins": "Origines et Influence",
-    "history.language.origins.text1": "Le hassaniya est une variété d'arabe maghrébin parlée par le peuple sahraoui. Il a évolué au cours des siècles, incorporant des éléments des langues berbères, de l'arabe standard et de diverses langues africaines.",
-    "history.language.origins.text2": "Malgré les influences modernes, la langue conserve son caractère distinctif et constitue un marqueur crucial de l'identité sahraouie.",
-    "history.language.transmission": "Tradition Orale",
-    "history.language.transmission.text1": "Le dialecte hassani a été principalement transmis par tradition orale, la poésie, les histoires et les proverbes servant de véhicules pour la préservation culturelle.",
-    "history.language.transmission.text2": "Les anciens jouent un rôle vital dans la préservation de la pureté linguistique et l'enseignement aux jeunes générations des subtilités d'expression et du vocabulaire propres au hassaniya.",
-    "history.nomadic": "Traditions Nomades",
-    "lifestyle.clothing": "Vêtements Traditionnels",
-    "art.crafts": "Artisanat",
-    "art.culture.title": "Patrimoine Culturel",
-    "art.culture.subtitle": "À la découverte du riche patrimoine immatériel du Sahara",
+    "section.festivals.subtitle": "Découvrez les événements qui animent la culture sahraouie tout au long de l'année",
+    "section.art": "Art & Musique",
+    "section.art.subtitle": "Plongez dans les expressions artistiques sahraouies",
+    "section.explore": "Explorer le Sahara",
+    "section.explore.subtitle": "Conseils et informations pour voyager dans le désert sahraoui",
+    
+    // Art section
+    "art.expression": "Expression Musicale",
+    "art.description": "La musique sahraouie est profondément liée à la tradition orale, transmettant l'histoire, les valeurs et les émotions du peuple du désert. Les mélodies envoûtantes et les rythmes hypnotiques évoquent les vastes étendues du Sahara et la vie nomade.",
+    "art.poetry": "Poésie & Récits",
+    "art.poetry.description": "La poésie est au cœur de la culture sahraouie. Les poèmes, appelés \"talab\" ou \"lghna\", sont récités lors des rassemblements et célébrations. Ils abordent des thèmes comme l'amour, l'honneur, la bravoure et la beauté du désert.",
+    "art.instruments": "Instruments Traditionnels",
+    "art.crafts": "Artisanat Sahraoui",
+    "art.crafts.description": "L'artisanat sahraoui est caractérisé par des motifs géométriques aux couleurs vives, reflétant l'environnement désertique et transmettant des symboles culturels importants. Chaque piece raconte une histoire et préserve les techniques ancestrales.",
+    "art.instrument.tidinit": "Tidinit",
+    "art.instrument.tidinit.description": "Instrument à cordes traditionnel semblable à un luth, central dans la tradition musicale sahraouie.",
+    "art.instrument.tbal": "Tbal",
+    "art.instrument.tbal.description": "Grand tambour qui fournit la base rythmique de la musique sahraouie.",
+    "art.instrument.bendir": "Bendir",
+    "art.instrument.bendir.description": "Tambour sur cadre avec timbre qui crée un son bourdonnant, utilisé dans la musique festive.",
+    
+    // Art Cultural Heritage section
+    "art.culture.title": "Patrimoine Culturel Immatériel",
+    "art.culture.subtitle": "Explorez les éléments culturels non matériels qui définissent l'identité hassanie",
     "art.proverbs": "Proverbes Hassanis",
-    "art.proverbs.description": "Les proverbes constituent une part essentielle de la tradition orale sahraouie, transmettant sagesse et valeurs culturelles à travers les générations. Ces expressions concises reflètent la vision du monde et les expériences vécues des communautés désertiques.",
+    "art.proverbs.description": "Les proverbes hassanis reflètent la sagesse populaire et l'expérience collective du peuple sahraoui. Ils sont utilisés dans la conversation quotidienne pour illustrer des idées, donner des conseils ou enseigner des valeurs.",
     "art.poetry.title": "Poésie Hassanie",
-    "art.poetry.description": "La poésie occupe une place spéciale dans la culture sahraouie en tant que moyen de préserver l'histoire, d'exprimer des émotions et de célébrer l'identité culturelle. Les performances de poésie orale sont courantes lors de rassemblements sociaux et de célébrations.",
-    "art.poetry.types": "Types de Poésie",
-    "art.poetry.themes": "Thèmes Communs",
+    "art.poetry.types": "Types de poésie",
+    "art.poetry.themes": "Thèmes principaux",
     "art.myths": "Mythes et Contes",
-    "art.myths.description": "Les contes populaires et les mythes ont été transmis de génération en génération, souvent racontés autour de feux du soir dans les campements du désert. Ces récits expliquent les phénomènes naturels, enseignent des leçons morales et divertissent tout en renforçant les liens communautaires.",
-    "art.myths.role": "Rôle dans la Société",
-    "art.games": "Jeux Traditionnels",
-    "art.games.description": "Les jeux traditionnels jouaient un rôle important dans la société sahraouie, développant des compétences nécessaires à la vie désertique tout en fournissant divertissement et renforcement des liens sociaux.",
-    "art.beliefs": "Croyances Traditionnelles",
-    "art.beliefs.description": "Les croyances spirituelles sahraouies mélangent les pratiques islamiques avec des traditions préislamiques, créant une perspective culturelle unique qui guide la vie quotidienne et les occasions spéciales.",
-    "art.beliefs.spiritual": "Pratiques Spirituelles",
-    "art.beliefs.life": "Rituels du Cycle de Vie"
+    "art.myths.description": "Les mythes et contes hassanis sont des récits oraux transmis de génération en génération. Ils servent à expliquer les phénomènes naturels, transmettre des leçons morales et divertir.",
+    "art.myths.role": "Rôle des contes dans la société hassanie",
+    "art.games": "Jeux Populaires",
+    "art.games.description": "Les jeux traditionnels hassanis sont plus que de simples divertissements ; ils favorisent la cohésion sociale, développent des compétences et transmettent des valeurs culturelles aux jeunes générations.",
+    "art.beliefs": "Croyances",
+    "art.beliefs.description": "Les croyances hassanies sont un mélange unique de traditions islamiques et de pratiques culturelles préislamiques. Elles influencent tous les aspects de la vie quotidienne, des rituels de naissance aux cérémonies funéraires.",
+    "art.beliefs.spiritual": "Pratiques spirituelles",
+    "art.beliefs.life": "Moments de vie",
+
+    // Lifestyle section
+    "lifestyle.title": "Mode de Vie & Cuisine",
+    "lifestyle.subtitle": "Découvrez les vêtements traditionnels, la gastronomie du désert et les coutumes quotidiennes",
+    "lifestyle.clothing": "Vêtements Traditionnels",
+    "lifestyle.mlahfa": "Mlahfa",
+    "lifestyle.mlahfa.description": "Vêtement traditionnel des femmes sahraouies, la Mlahfa est une pièce de tissu colorée de 4 mètres enroulée autour du corps.",
+    "lifestyle.daraa": "Daraa",
+    "lifestyle.daraa.description": "La Daraa est la tenue traditionnelle des hommes, une longue robe ample souvent de couleur bleue indigo avec des broderies.",
+    "lifestyle.housing": "Habitat Nomade",
+    "lifestyle.housing.description": "La tente traditionnelle, appelée \"khaïma\", est au cœur de la vie nomade sahraouie. Fabriquée en poils de chèvre ou en laine de chameau, elle protège des conditions extrêmes du désert tout en étant facilement transportable.",
+    "lifestyle.cuisine": "Cuisine Sahraouie",
+    "lifestyle.cuisine.description": "La cuisine sahraouie est adaptée au mode de vie nomade, combinant des ingrédients simples pour créer des plats nourrissants. Le couscous, les ragoûts de viande et les dattes sont des éléments essentiels. Le thé à la menthe, servi en trois verres, représente l'hospitalité et est partagé lors de chaque rencontre.",
+    "lifestyle.tea": "La Préparation du Thé Sahraoui",
+    "lifestyle.tea.step1": "Faire bouillir l'eau",
+    "lifestyle.tea.step1.description": "Portez de l'eau à ébullition dans une théière traditionnelle.",
+    "lifestyle.tea.step2": "Première infusion",
+    "lifestyle.tea.step2.description": "Ajoutez le thé vert et laissez infuser 2-3 minutes. Cette première infusion est versée puis reversée plusieurs fois dans la théière pour mélanger.",
+    "lifestyle.tea.step3": "Sucre et menthe",
+    "lifestyle.tea.step3.description": "Ajoutez généreusement du sucre et des feuilles de menthe fraîche.",
+    "lifestyle.tea.step4": "Service",
+    "lifestyle.tea.step4.description": "Versez le thé de haut pour créer une mousse caractéristique. Servez trois verres successifs, de plus en plus sucrés.",
+    "lifestyle.tea.proverb": "Le premier verre est amer comme la vie, le second est doux comme l'amour, et le troisième est suave comme la mort.",
+    "lifestyle.tea.proverb.attribution": "Proverbe sahraoui sur les trois verres de thé",
+
+    // Festivals section
+    "festivals.title": "Festivals & Célébrations",
+    "festivals.subtitle": "Découvrez les événements qui animent la culture sahraouie tout au long de l'année",
+    "festivals.calendar": "Calendrier des Festivals",
+    "festivals.calendar.description": "Planifiez votre voyage pour vivre ces expériences culturelles uniques",
+    "festivals.seasons.spring": "Printemps",
+    "festivals.seasons.summer": "Été",
+    "festivals.seasons.autumn": "Automne",
+    "festivals.seasons.winter": "Hiver",
+    "festivals.more": "En savoir plus",
+
+    // Explore section
+    "explore.title": "Explorer le Sahara",
+    "explore.subtitle": "Conseils et informations pour voyager dans le désert sahraoui",
+    "explore.destinations": "Destinations Sahraouies",
+    "explore.map": "Carte Interactive des Régions Sahariennes",
+    "explore.tips": "Conseils de Voyage",
+    "explore.preparation": "Préparer son voyage",
+    "explore.cultural": "Respect culturel",
+    "explore.safety": "Sécurité dans le désert",
+    "explore.tip": "Bon à savoir",
+    
+    // History section
+    "history.origins": "Origines",
+    "history.traditions": "Traditions",
+    "history.nomadic": "Héritage Nomade",
+    "history.read.more": "Lire plus",
+    "history.language": "Langue Arabe & Dialecte Hassani",
+    "history.language.origins": "Origines et Influence",
+    "history.language.origins.text1": "Le dialecte hassani, parlé par les Sahraouis, est une variante de l'arabe qui s'est développée dans les régions sahariennes au contact des langues berbères et africaines. Il tire son nom de la tribu des Beni Hassan qui s'est installée dans la région au XIIIe siècle.",
+    "history.language.origins.text2": "Bien que fondamentalement arabe dans sa structure, le hassani se distingue par un vocabulaire spécifique lié à l'environnement désertique, à l'élevage nomade et aux traditions locales. Sa prononciation est également caractéristique, avec des sonorités plus douces que l'arabe classique.",
+    "history.language.transmission": "Transmission et Préservation",
+    "history.language.transmission.text1": "Traditionnellement transmis oralement à travers la poésie, les contes et les chants, le hassani est un vecteur essentiel de la culture sahraouie. Les poèmes hassanis (tidinit) occupent une place importante dans les rassemblements et célébrations.",
+    "history.language.transmission.text2": "Aujourd'hui, alors que l'arabe standard moderne est utilisé dans l'éducation formelle et les médias, le dialecte hassani demeure la langue du quotidien et de l'expression culturelle authentique. Des efforts sont déployés pour documenter et préserver ce patrimoine linguistique unique, témoin de l'histoire nomade du peuple sahraoui.",
+    "history.ceremonies": "Cérémonies & Rituels",
+    "history.marriages": "Mariages",
+    "history.marriages.text": "Les cérémonies de mariage durent plusieurs jours et impliquent de nombreuses traditions, dont la musique, la danse et des festins élaborés.",
+    "history.births": "Naissances",
+    "history.births.text": "La naissance d'un enfant est célébrée par toute la communauté, avec des rituels spécifiques pour protéger le nouveau-né des esprits du désert.",
+    "history.religious": "Fêtes religieuses",
+    "history.religious.text": "L'Aïd el-Fitr et l'Aïd al-Adha sont des moments importants de l'année, célébrés avec des prières collectives et des repas partagés.",
+    "history.migrations": "Origines & Migrations",
+    "history.migrations.text1": "Les Sahraouis sont un peuple d'origine nomade habitant les régions désertiques du Sahara occidental. Leur histoire est marquée par des migrations saisonnières, suivant les pluies et les pâturages pour leurs troupeaux.",
+    "history.migrations.text2": "La culture sahraouie s'est développée à travers les siècles grâce aux échanges avec les différentes civilisations du Maghreb et de l'Afrique subsaharienne. Leurs traditions orales, leur poésie et leur musique témoignent de cette riche histoire.",
+    "history.values": "Valeurs & Traditions",
+    "history.values.text": "L'hospitalité est une valeur fondamentale de la culture sahraouie. Les étrangers sont toujours accueillis avec générosité, même dans les conditions difficiles du désert. Le respect des aînés et la solidarité tribale sont également des piliers de cette société.",
+    
+    // Footer
+    "footer.sections": "Sections",
+    "footer.contact": "Contact",
+    "footer.rights": "Tous droits réservés.",
+    "footer.brand": "Explorez la richesse de la culture sahraouie à travers nos pages dédiées aux traditions, à l'art et à l'histoire de ce peuple fascinant."
   },
   ar: {
-    "site.title": "التراث الصحراوي",
+    // Language selector
+    "language.select": "اللغة",
+    
+    // Navbar
     "nav.history": "التاريخ",
-    "nav.art": "الفن والثقافة",
-    "nav.explore": "استكشف",
     "nav.lifestyle": "نمط الحياة",
     "nav.festivals": "المهرجانات",
-    "nav.contact": "اتصل بنا",
-    "nav.dashboard": "لوحة التحكم",
-    "section.history": "الخلفية التاريخية",
-    "section.history.subtitle": "الماضي المثير للاهتمام للثقافة الصحراوية",
-    "section.art": "الفن والثقافة",
-    "section.explore": "استكشف الوجهات الصحراوية",
-    "section.lifestyle": "نمط الحياة الصحراوي",
+    "nav.art": "الفن والموسيقى",
+    "nav.explore": "استكشاف",
+
+    // Hero
+    "hero.title": "الثقافة الصحراوية",
+    "hero.subtitle": "اكتشف التراث القديم لشعب الصحراء، ثقافة غنية بالتقاليد والضيافة والروابط العميقة مع الطبيعة.",
+    "hero.button": "اكتشف",
+    "hero.scroll": "مرر للأسفل",
+
+    // Section titles
+    "section.history": "التاريخ والتقاليد",
+    "section.history.subtitle": "اكتشف أصول وعادات الشعب الصحراوي",
+    "section.lifestyle": "نمط الحياة والمطبخ",
+    "section.lifestyle.subtitle": "استكشف نمط الحياة التقليدي وفنون الطهي",
     "section.festivals": "المهرجانات والاحتفالات",
-    "section.festivals.subtitle": "التجمعات والاحتفالات التقليدية",
-    "history.migrations": "الهجرات والأصول",
-    "history.migrations.text1": "الشعب الصحراوي هو السكان الأصليون للصحراء الغربية. تعود أصولهم إلى مزيج من السكان البربر والعرب والأفارقة الذين عبروا واستقروا في المنطقة منذ آلاف السنين.",
-    "history.migrations.text2": "تاريخياً، كان الصحراويون رحّل، يتنقلون عبر الصحاري متبعين الأنماط الموسمية، مؤسسين طرق تجارة حيوية تربط أفريقيا جنوب الصحراء بالعالم المتوسطي.",
-    "history.values": "القيم الثقافية",
-    "history.values.text": "يقدر المجتمع الصحراوي الضيافة والتضامن والمرونة. تطورت هذه القيم الأساسية من بيئة الصحراء القاسية، حيث كان البقاء يعتمد غالبًا على التعاون والمساعدة للمسافرين.",
-    "history.ceremonies": "المراسم التقليدية",
-    "history.marriages": "احتفالات الزواج",
-    "history.marriages.text": "يمكن أن تستمر حفلات الزفاف التقليدية حتى سبعة أيام، مع مراسم مفصلة تضم الموسيقى والشعر والولائم تحت خيام كبيرة.",
-    "history.births": "طقوس الولادة",
-    "history.births.text": "عند ولادة طفل، تنظم العائلة حفل تسمية بعد سبعة أيام، مصحوبًا بالصلوات والاحتفال المجتمعي.",
-    "history.religious": "الاحتفالات الدينية",
-    "history.religious.text": "يتم الاحتفال بالأعياد الإسلامية بوجبات خاصة وصلوات وزيارة أفراد العائلة. يكتسب عيد الفطر وعيد الأضحى أهمية خاصة.",
-    "history.language": "اللغة الحسانية",
-    "history.language.origins": "الأصول والتأثير",
-    "history.language.origins.text1": "الحسانية هي نوع من العربية المغربية يتحدثها الشعب الصحراوي. تطورت على مدى قرون، مدمجة عناصر من اللغات البربرية والعربية الفصحى ومختلف اللغات الأفريقية.",
-    "history.language.origins.text2": "رغم التأثيرات الحديثة، تحافظ اللغة على طابعها المميز وتعد علامة حاسمة على الهوية الصحراوية.",
-    "history.language.transmission": "التقاليد الشفوية",
-    "history.language.transmission.text1": "انتقلت اللهجة الحسانية بشكل أساسي من خلال التقاليد الشفوية، حيث كانت الشعر والقصص والأمثال بمثابة وسائل للحفاظ على الثقافة.",
-    "history.language.transmission.text2": "يلعب الشيوخ دورًا حيويًا في الحفاظ على نقاء اللغة وتعليم الأجيال الشابة دقائق التعبير والمفردات الخاصة بالحسانية.",
-    "history.nomadic": "التقاليد البدوية",
-    "lifestyle.clothing": "الملابس التقليدية",
-    "art.crafts": "الحرف اليدوية",
-    "art.culture.title": "التراث الثقافي",
-    "art.culture.subtitle": "اكتشاف التراث الثقافي غير المادي الغني للصحراء",
+    "section.festivals.subtitle": "اكتشف الأحداث التي تنشط الثقافة الصحراوية على مدار العام",
+    "section.art": "الفن والموسيقى",
+    "section.art.subtitle": "انغمس في التعبيرات الفنية الصحراوية",
+    "section.explore": "استكشف الصحراء",
+    "section.explore.subtitle": "نصائح ومعلومات للسفر في الصحراء الغربية",
+    
+    // Art section
+    "art.expression": "التعبير الموسيقي",
+    "art.description": "ترتبط الموسيقى الصحراوية ارتباطًا وثيقًا بالتقاليد الشفهية، وتنقل تاريخ وقيم ومشاعر أهل الصحراء. تستحضر الألحان الساحرة والإيقاعات المنومة المساحات الشاسعة للصحراء والحياة البدوية.",
+    "art.poetry": "الشعر والقصص",
+    "art.poetry.description": "الشعر هو في صميم الثقافة الصحراوية. تُلقى القصائد، المسماة \"طلب\" أو \"لغنا\", خلال التجمعات والاحتفالات. تتناول موضوعات مثل الحب والشرف والشجاعة وجمال الصحراء.",
+    "art.instruments": "الآلات التقليدية",
+    "art.crafts": "الحرف الصحراوية",
+    "art.crafts.description": "تتميز الحرف اليدوية الصحراوية بأنماط هندسية نابضة بالحياة تعكس البيئة الصحراوية وتنقل رموزًا ثقافية مهمة. كل قطعة تروي قصة وتحافظ على التقنيات القديمة.",
+    "art.instrument.tidinit": "تيدينيت",
+    "art.instrument.tidinit.description": "آلة وترية تقليدية تشبه العود، محورية في التقليد الموسيقي الصحراوي.",
+    "art.instrument.tbal": "طبل",
+    "art.instrument.tbal.description": "طبل كبير يوفر الأساس الإيقاعي للموسيقى الصحراوية.",
+    "art.instrument.bendir": "بندير",
+    "art.instrument.bendir.description": "طبل إطار مع أوتار يخلق صوتًا طنانًا، يستخدم في الموسيقى الاحتفالية.",
+    
+    // Art Cultural Heritage section
+    "art.culture.title": "التراث الثقافي غير المادي",
+    "art.culture.subtitle": "استكشف العناصر الثقافية غير المادية التي تحدد الهوية الحسانية",
     "art.proverbs": "الأمثال الحسانية",
-    "art.proverbs.description": "تشكل الأمثال جزءًا أساسيًا من التقاليد الشفوية الصحراوية، تنقل الحكمة والقيم الثقافية عبر الأجيال. تعكس هذه التعبيرات الموجزة نظرة العالم والتجارب المعيشية لمجتمعات الصحراء.",
+    "art.proverbs.description": "تعكس الأمثال الحسانية الحكمة الشعبية والخبرة الجماعية للشعب الصحراوي. تستخدم في المحادثات اليومية لتوضيح الأفكار وتقديم النصائح أو تعليم القيم.",
     "art.poetry.title": "الشعر الحساني",
-    "art.poetry.description": "يحتل الشعر مكانة خاصة في الثقافة الصحراوية كوسيلة للحفاظ على التاريخ والتعبير عن المشاعر والاحتفال بالهوية الثقافية. عروض الشعر الشفهي شائعة خلال التجمعات الاجتماعية والاحتفالات.",
     "art.poetry.types": "أنواع الشعر",
-    "art.poetry.themes": "المواضيع الشائعة",
+    "art.poetry.themes": "المواضيع الرئيسية",
     "art.myths": "الأساطير والحكايات",
-    "art.myths.description": "تم تناقل الحكايات الشعبية والأساطير عبر الأجيال، وغالباً ما يتم سردها حول نيران المساء في معسكرات الصحراء. تشرح هذه الروايات الظواهر الطبيعية، وتعلم الدروس الأخلاقية، وتسلي مع تعزيز الروابط المجتمعية.",
-    "art.myths.role": "الدور في المجتمع",
-    "art.games": "الألعاب التقليدية",
-    "art.games.description": "لعبت الألعاب التقليدية دوراً مهماً في المجتمع الصحراوي، مطورة المهارات اللازمة للحياة الصحراوية مع توفير الترفيه وتعزيز الروابط الاجتماعية.",
-    "art.beliefs": "المعتقدات التقليدية",
-    "art.beliefs.description": "تمزج المعتقدات الروحية الصحراوية بين الممارسات الإسلامية والتقاليد ما قبل الإسلام، مما يخلق منظوراً ثقافياً فريداً يوجه الحياة اليومية والمناسبات الخاصة.",
-    "art.beliefs.spiritual": "الممارسات الروحية",
-    "art.beliefs.life": "طقوس دورة الحياة"
+    "art.myths.description": "الأساطير والحكايات الحسانية هي روايات شفهية متوارثة عبر الأجيال. تهدف إلى شرح الظواهر الطبيعية ونقل الدروس الأخلاقية والترفيه.",
+    "art.myths.role": "دور الحكايات في المجتمع الحساني",
+    "art.games": "الألعاب الشعبية",
+    "art.games.description": "الألعاب الحسانية التقليدية هي أكثر من مجرد تسلية؛ فهي تعزز التماسك الاجتماعي وتنمي المهارات وتنقل القيم الثقافية للأجيال الشابة.",
+    "art.beliefs": "المعتقدات",
+    "art.beliefs.description": "المعتقدات الحسانية هي مزيج فريد من التقاليد الإسلامية والممارسات الثقافية ما قبل الإسلام. تؤثر على جميع جوانب الحياة اليومية, من طقوس الولادة إلى مراسم الجنازة.",
+    "art.beliefs.spiritual": "الممارسة الروحية",
+    "art.beliefs.life": "لحظات الحياة",
+
+    // Lifestyle section
+    "lifestyle.title": "نمط الحياة والمطبخ",
+    "lifestyle.subtitle": "اكتشف الملابس التقليدية ومطبخ الصحراء والعادات اليومية",
+    "lifestyle.clothing": "الملابس التقليدية",
+    "lifestyle.mlahfa": "ملحفة",
+    "lifestyle.mlahfa.description": "الملبس التقليدي للنساء الصحراويات، الملحفة هي قطعة قماش ملونة بطول 4 أمتار تلف حول الجسم.",
+    "lifestyle.daraa": "دراعة",
+    "lifestyle.daraa.description": "الدراعة هي الزي التقليدي للرجال، وهي عبارة عن ثوب طويل فضفاض غالبًا ما يكون باللون الأزرق النيلي مع تطريز.",
+    "lifestyle.housing": "السكن البدوي",
+    "lifestyle.housing.description": "الخيمة التقليدية، المسماة \"خيمة\", هي في قلب الحياة البدوية الصحراوية. مصنوعة من شعر الماعز أو صوف الجمال، تحمي من الظروف الصحراوية القاسية مع إمكانية نقلها بسهولة.",
+    "lifestyle.cuisine": "المطبخ الصحراوي",
+    "lifestyle.cuisine.description": "المطبخ الصحراوي مكيف مع نمط الحياة البدوي، يجمع بين مكونات بسيطة لإنشاء أطباق مغذية. الكسكس وطواجن اللحم والتمر هي عناصر أساسية. الشاي بالنعناع، الذي يقدم في ثلاثة أكواب، يمثل الضيافة ويشارك في كل لقاء.",
+    "lifestyle.tea": "تحضير الشاي الصحراوي",
+    "lifestyle.tea.step1": "غلي الماء",
+    "lifestyle.tea.step1.description": "يتم غلي الماء في إبريق الشاي التقليدي.",
+    "lifestyle.tea.step2": "النقعة الأولى",
+    "lifestyle.tea.step2.description": "أضف الشاي الأخضر واتركه ينقع لمدة 2-3 دقائق. يتم صب هذه النقعة الأولى ثم إعادة صبها في الإبريق عدة مرات للخلط.",
+    "lifestyle.tea.step3": "السكر والنعناع",
+    "lifestyle.tea.step3.description": "أضف كميات وافرة من السكر وأوراق النعناع الطازجة.",
+    "lifestyle.tea.step4": "التقديم",
+    "lifestyle.tea.step4.description": "صب الشاي من ارتفاع لتكوين رغوة مميزة. قدم ثلاثة أكواب متتالية، تزداد حلاوة.",
+    "lifestyle.tea.proverb": "الكأس الأول مر مثل الحياة، والثاني حلو مثل الحب، والثالث ناعم مثل الموت.",
+    "lifestyle.tea.proverb.attribution": "مثل صحراوي عن أكواب الشاي الثلاثة",
+
+    // Festivals section
+    "festivals.title": "المهرجانات والاحتفالات",
+    "festivals.subtitle": "اكتشف الأحداث التي تنشط الثقافة الصحراوية على مدار العام",
+    "festivals.calendar": "تقويم المهرجانات",
+    "festivals.calendar.description": "خطط لرحلتك لتعيش هذه التجارب الثقافية الفريدة",
+    "festivals.seasons.spring": "الربيع",
+    "festivals.seasons.summer": "الصيف",
+    "festivals.seasons.autumn": "الخريف",
+    "festivals.seasons.winter": "الشتاء",
+    "festivals.more": "اعرف المزيد",
+
+    // Explore section
+    "explore.title": "استكشف الصحراء",
+    "explore.subtitle": "نصائح ومعلومات للسفر في الصحراء الغربية",
+    "explore.destinations": "وجهات صحراوية",
+    "explore.map": "خريطة تفاعلية للمناطق الصحراوية",
+    "explore.tips": "نصائح السفر",
+    "explore.preparation": "تحضير رحلتك",
+    "explore.cultural": "احترام الثقافة",
+    "explore.safety": "السلامة في الصحراء",
+    "explore.tip": "معلومات مفيدة",
+    
+    // History section
+    "history.origins": "الأصول",
+    "history.traditions": "التقاليد",
+    "history.nomadic": "التراث البدوي",
+    "history.read.more": "اقرأ المزيد",
+    "history.language": "اللغة العربية واللهجة الحسانية",
+    "history.language.origins": "الأصول والتأثير",
+    "history.language.origins.text1": "اللهجة الحسانية، التي يتحدث بها الصحراويون، هي نوع من اللغة العربية التي تطورت في المناطق الصحراوية من خلال الاتصال باللغات البربرية والأفريقية. وهي تأخذ اسمها من قبيلة بني حسان التي استقرت في المنطقة في القرن الثالث عشر.",
+    "history.language.origins.text2": "على الرغم من أنها عربية أساسًا في بنيتها، تتميز الحسانية بمفردات محددة تتعلق بالبيئة الصحراوية، والرعي البدوي، والتقاليد المحلية. كما أن نطقها مميز أيضًا، مع أصوات أكثر نعومة من اللغة العربية الكلاسيكية.",
+    "history.language.transmission": "النقل والحفاظ",
+    "history.language.transmission.text1": "تم نقل اللهجة الحسانية تقليديًا شفهيًا من خلال الشعر والقصص والأغاني، وهي وسيلة أساسية للثقافة الصحراوية. تحتل القصائد الحسانية (تيدينيت) مكانًا مهمًا في التجمعات والاحتفالات.",
+    "history.language.transmission.text2": "اليوم، في حين تُستخدم اللغة العربية القياسية الحديثة في التعليم الرسمي ووسائل الإعلام، تظل اللهجة الحسانية لغة الحياة اليومية والتعبير الثقافي الأصيل. يتم بذل جهود لتوثيق والحفاظ على هذا التراث اللغوي الفريد، شاهد على التا��يخ البدوي للشعب الصحراوي.",
+    "history.ceremonies": "الاحتفالات والطقوس",
+    "history.marriages": "الزواجات",
+    "history.marriages.text": "تستمر احتفالات الزفاف عدة أيام وتتضمن العديد من التقاليد، بما في ذلك الموسيقى والرقص والولائم المتقنة.",
+    "history.births": "المواليد",
+    "history.births.text": "يتم الاحتفال بولادة طفل من قبل المجتمع بأكمله، مع طقوس محددة لحماية المولود الجديد من أرواح الصحراء.",
+    "history.religious": "الاحتفالات الدينية",
+    "history.religious.text": "عيد الفطر وعيد الأضحى هما أوقات مهمة من العام، ويتم الاحتفال بهما بصلوات جماعية ووجبات مشتركة.",
+    "history.migrations": "الأصول والهجرات",
+    "history.migrations.text1": "الصحراويون هم شعب من أصل بدوي يسكنون مناطق الصحراء الغربية. يتميز تاريخهم بالهجرات الموسمية، متتبعين الأمطار والمراعي لقطعانهم.",
+    "history.migrations.text2": "تطورت الثقافة الصحراوية على مر القرون من خلال التبادلات مع مختلف الحضارات في المغرب وأفريقيا جنوب الصحراء. تشهد تقاليدهم الشفهية وشعرهم وموسيقاهم على هذا التاريخ الغني.",
+    "history.values": "القيم والتقاليد",
+    "history.values.text": "الضيافة هي قيمة أساسية في الثقافة الصحراوية. يتم الترحيب بالغرباء دائمًا بسخاء، حتى في الظروف الصعبة للصحراء. احترام كبار السن والتضامن القبلي هما أيضًا من ركائز هذا المجتمع.",
+    
+    // Footer
+    "footer.sections": "الأقسام",
+    "footer.contact": "اتصل بنا",
+    "footer.rights": "جميع الحقوق محفوظة.",
+    "footer.brand": "اكتشف ثراء الثقافة الصحراوية من خلال صفحاتنا المخصصة للتقاليد والفن وتاريخ هذا الشعب الرائع."
   }
 };
 
+// Language provider component
 export const LanguageProvider = ({ children }: { children: ReactNode }) => {
-  const [language, setLanguage] = useState("fr");
+  const [language, setLanguage] = useState<Language>("en");
 
+  // Translation function
   const t = (key: string): string => {
-    return translations[language as keyof typeof translations]?.[key] || key;
+    if (!translations[language][key]) {
+      console.warn(`No translation found for key: ${key} in language: ${language}`);
+      return key;
+    }
+    return translations[language][key];
+  };
+
+  // Context value
+  const value = {
+    language,
+    setLanguage,
+    t,
   };
 
   return (
-    <LanguageContext.Provider value={{ language, setLanguage, t }}>
+    <LanguageContext.Provider value={value}>
       {children}
     </LanguageContext.Provider>
   );
 };
 
-export const useLanguage = (): LanguageContextType => {
+// Custom hook to use the language context
+export const useLanguage = () => {
   const context = useContext(LanguageContext);
-  if (!context) {
+  if (context === undefined) {
     throw new Error("useLanguage must be used within a LanguageProvider");
   }
   return context;

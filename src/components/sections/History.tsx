@@ -62,24 +62,33 @@ const History = () => {
 
         <div className="grid grid-cols-2 gap-5">
           <ImageCard
-            src="https://images.unsplash.com/photo-1469041797191-50ace28483c3?q=80&w=3500&auto=format&fit=crop"
-            alt="Caravanes de chameaux dans le désert"
-            title={t("history.nomadic")}
-            className="reveal-on-scroll"
-          />
-          <ImageCard
-            src="https://images.unsplash.com/photo-1591494628768-77a697303ae7?q=80&w=2670&auto=format&fit=crop"
-            alt="Femme portant la tenue traditionnelle sahraouie"
+            src="https://tse3.mm.bing.net/th?id=OIP.wG5ACfjmppjkkyiA9T_2GwHaLF&w=474&h=474&c=7"
+            alt="lifestyle clothing sahraoui"
             title={t("lifestyle.clothing")}
             className="reveal-on-scroll"
           />
           <ImageCard
-            src="https://images.unsplash.com/photo-1630852722264-9495a92d5609?q=80&w=2670&auto=format&fit=crop"
+            src="https://tse1.mm.bing.net/th?id=OIP.DRcoaQ9nPdlozNkblkQ4CgHaEc&pid=Api"
+            alt="lifestyle clothing sahraoui"
+            title={t("lifestyle.clothing")}
+            className="reveal-on-scroll"
+          />
+          <ImageCard
+            src="https://images.unsplash.com/photo-1696578720906-16de0cfb03dd?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8Tm9tYWRlJTIwc2FocmFvdWl8ZW58MHx8MHx8fDA%3D"
+            alt="history nomadic"
+            title={t("history.nomadic")}
+            className="reveal-on-scroll"
+          />
+
+          <ImageCard
+            src="https://www.arrabita.ma/wp-content/uploads/2023/05/%D8%A7%D9%84%D8%AD%D8%B1%D9%81-%D9%88%D8%A7%D9%84%D9%85%D9%87%D9%86-%D8%A7%D9%84%D8%AA%D9%82%D9%84%D9%8A%D8%AF%D9%8A%D8%A9-%D9%81%D9%8A-%D8%A7%D9%84%D8%B5%D8%AD%D8%B1%D8%A7%D8%A1-%D8%A7%D9%84%D9%85%D8%BA%D8%B1%D8%A8%D9%8A%D8%A9.jpg"
             alt="Artisanat sahraoui"
             title={t("art.crafts")}
-            className="reveal-on-scroll col-span-2"
+            className="reveal-on-scroll"
           />
+
         </div>
+
       </div>
 
       <div className="mt-16 p-8 bg-sahara-sand/20 rounded-lg border border-sahara-sand/30 reveal-on-scroll">
@@ -121,16 +130,16 @@ const History = () => {
             <p className="text-base">
               {t("history.language.transmission.text2")}
             </p>
-            <div className="flex items-center mt-4 text-sahara-sand bg-white/70 dark:bg-sahara-brown/20 p-3 rounded-md">
+            <div className="flex items-center mt-4 text-sahara-orange bg-white/70 dark:bg-sahara-brown/20 p-3 rounded-md">
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={language === 'ar' ? 'ml-2' : 'mr-2'}>
                 <path d="m8 3 4 8 5-5 5 15H2L8 3Z" />
               </svg>
               <p className="text-sm italic">
-                {language === 'en' ? 
-                  'The Hassani proverb says: "Words are like sand, they change shape but never disappear."' : 
-                language === 'fr' ? 
-                  'Le proverbe hassani dit: "Les mots sont comme le sable, ils changent de forme mais ne disparaissent jamais."' : 
-                  'يقول المثل الحساني: "الكلمات مثل الرمال، تتغير أشكالها لكنها لا تختفي أبدًا."'}
+                {language === 'en' ?
+                  'The Hassani proverb says: "Words are like sand, they change shape but never disappear."' :
+                  language === 'fr' ?
+                    'Le proverbe hassani dit: "Les mots sont comme le sable, ils changent de forme mais ne disparaissent jamais."' :
+                    'يقول المثل الحساني: "الكلمات مثل الرمال، تتغير أشكالها لكنها لا تختفي أبدًا."'}
               </p>
             </div>
           </div>

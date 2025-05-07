@@ -94,19 +94,19 @@ const Lifestyle = () => {
 
         <div className="grid grid-cols-2 gap-5">
           <ImageCard
-            src="https://images.unsplash.com/photo-1528825871115-3581a5387919?q=80&w=2930&auto=format&fit=crop"
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQUjYwN8hpWQLbuz4jsNtyK9eyyXCxH2wPWmw&s"
             alt="Thé à la menthe"
             title={language === 'en' ? "Sahrawi Tea" : language === 'fr' ? "Thé Sahraoui" : "الشاي الصحراوي"}
             className="reveal-on-scroll"
           />
           <ImageCard
-            src="https://images.unsplash.com/photo-1567982625992-87207c6915c8?q=80&w=2670&auto=format&fit=crop"
+            src="https://febrayer.com/content/uploads/2024/02/%D9%83%D8%B3%D9%83%D8%B3-%D8%A3%D9%87%D9%84-%D8%A7%D9%84%D8%B5%D8%AD%D8%B1%D8%A7%D8%A1-300x168.webp"
             alt="Plat traditionnel"
             title={language === 'en' ? "Couscous" : language === 'fr' ? "Couscous" : "كسكس"}
             className="reveal-on-scroll"
           />
           <ImageCard
-            src="https://images.unsplash.com/photo-1535827841776-24afc1e255ac?q=80&w=2670&auto=format&fit=crop"
+            src="https://images.squarespace-cdn.com/content/v1/56c0b561c6fc08567a776255/1739708651030-XZ516KLV9VPGLND738LL/Nomad-Tent-Sahara-Bivouac-Tuareg-Moroccan-Tents.jpg"
             alt="Tente traditionnelle dans le désert"
             title={language === 'en' ? "Khaima" : language === 'fr' ? "Khaïma" : "خيمة"}
             className="reveal-on-scroll col-span-2"

@@ -50,7 +50,10 @@ const Navbar = () => {
         <div className="flex justify-between items-center">
           <a
             href="#"
-            className="text-xl md:text-2xl font-playfair font-bold text-sahara-terracotta"
+            className={cn(
+              "text-xl md:text-2xl font-playfair font-bold transition-colors duration-200",
+              isScrolled ? "text-sahara-terracotta" : "text-sahara-sand"
+            )}
             onClick={(e) => {
               e.preventDefault();
               window.scrollTo({ top: 0, behavior: "smooth" });
@@ -65,7 +68,10 @@ const Navbar = () => {
                 <button
                   key={item.label}
                   onClick={() => scrollToSection(item.href)}
-                  className="text-foreground hover:text-sahara-terracotta transition-colors duration-200"
+                  className={cn(
+                    "transition-colors duration-200",
+                    isScrolled ? "text-black hover:text-sahara-terracotta" : "text-white hover:text-sahara-terracotta"
+                  )}
                 >
                   {item.label}
                 </button>
@@ -81,7 +87,7 @@ const Navbar = () => {
               <LanguageSelector />
             </div>
             <button
-              className="md:hidden text-foreground"
+              className={cn("md:hidden", isScrolled ? "text-black" : "text-white")}
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             >
               {isMobileMenuOpen ? (
@@ -110,7 +116,10 @@ const Navbar = () => {
             <button
               key={item.label}
               onClick={() => scrollToSection(item.href)}
-              className="block w-full text-left px-3 py-2 rounded-md hover:bg-sahara-sand/30 text-foreground hover:text-sahara-terracotta transition-colors duration-200"
+              className={cn(
+                "block w-full text-left px-3 py-2 rounded-md transition-colors duration-200",
+                isScrolled ? "text-black hover:text-sahara-terracotta" : "text-white hover:text-sahara-terracotta"
+              )}
             >
               {item.label}
             </button>
@@ -118,6 +127,8 @@ const Navbar = () => {
         </div>
       </div>
     </nav>
+
+
   );
 };
 

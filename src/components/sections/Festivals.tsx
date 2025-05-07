@@ -9,25 +9,27 @@ const Festivals = () => {
 
   const events = [
     {
-      title: "Festival des Nomades",
+      title: language === 'en' ? "Festival of the Nomads" : language === 'fr' ? "Festival des Nomades" : "مهرجان الرحل",
       date: language === 'en' ? "March" : language === 'fr' ? "Mars" : "مارس",
       location: "M'hamid El Ghizlane",
       description: language === 'en' 
-        ? "Celebration of nomadic traditions with music, dance and crafts in the dunes of M'hamid."
+        ? "The Festival des Nomades is an immersive celebration of the rich cultural heritage of the Sahrawi people. Held in the stunning desert landscape of M'hamid El Ghizlane, this festival showcases the nomadic traditions through vibrant music, dance, and artisan crafts. Visitors are invited to experience the rhythms of traditional Sahrawi music, the elegance of dances that reflect the nomadic way of life, and the intricate craftsmanship that has been passed down through generations. The festival is not only a cultural gathering but also a profound connection to the desert environment that has shaped the lives of the Sahrawi for centuries."
         : language === 'fr' 
-        ? "Célébration des traditions nomades avec musique, danse et artisanat dans les dunes de M'hamid."
-        : "الاحتفال بالتقاليد البدوية مع الموسيقى والرقص والحرف اليدوية في كثبان امحاميد.",
+        ? "Le Festival des Nomades est une célébration immersive du riche patrimoine culturel des Sahraouis. Organisé dans le magnifique paysage désertique de M'hamid El Ghizlane, ce festival met en avant les traditions nomades à travers une musique vibrante, des danses et des métiers artisanaux. Les visiteurs sont invités à vivre les rythmes de la musique traditionnelle sahraouie, l'élégance des danses qui reflètent le mode de vie nomade, ainsi que l'artisanat complexe transmis de génération en génération. Le festival est non seulement un rassemblement culturel, mais aussi une connexion profonde avec l'environnement désertique qui a façonné la vie des Sahraouis pendant des siècles."
+        : "مهرجان الرحل هو احتفال غامر بالتراث الثقافي الغني لشعب الصحراء. يُعقد في المناظر الطبيعية الصحراوية الرائعة لمحميد الغزلان، ويعرض هذا المهرجان التقاليد البدوية من خلال الموسيقى والرقص والحرف اليدوية. يُدعى الزوار لتجربة إيقاعات الموسيقى الصحراوية التقليدية، ورشاقة الرقصات التي تعكس أسلوب الحياة البدوي، والحرف اليدوية المعقدة التي تم نقلها عبر الأجيال. المهرجان ليس مجرد تجمع ثقافي بل هو اتصال عميق مع البيئة الصحراوية التي شكلت حياة الصحراويين لقرون."
+      ,
       imageUrl: "https://images.unsplash.com/photo-1548374797-d1562ddf4412?q=80&w=2670&auto=format&fit=crop"
     },
     {
-      title: "Moussem de Tan-Tan",
+      title: language === 'en' ? "Moussem of Tan-Tan" : language === 'fr' ? "Moussem de Tan-Tan" : "موسم طانطان",
       date: language === 'en' ? "May" : language === 'fr' ? "Mai" : "مايو",
       location: "Tan-Tan",
       description: language === 'en'
-        ? "Annual gathering of nomadic tribes, recognized by UNESCO as intangible cultural heritage."
+        ? "The Moussem de Tan-Tan is one of the most important cultural and social events in southern Morocco, drawing nomadic tribes from across the region. This annual gathering, which has been recognized by UNESCO as an Intangible Cultural Heritage, is a vibrant celebration of Sahrawi and Berber traditions. The event features a grand parade of camels, horses, and colorful tents, where visitors can experience traditional music, dances, and local cuisine. It is an event that brings together the diverse tribes of the Sahara and is a powerful reminder of the enduring nomadic way of life that has shaped the history of the region."
         : language === 'fr'
-        ? "Grand rassemblement annuel des tribus nomades, reconnu par l'UNESCO comme patrimoine culturel immatériel."
-        : "التجمع السنوي الكبير للقبائل البدوية، معترف به من قبل اليونسكو كتراث ثقافي غير مادي.",
+        ? "Le Moussem de Tan-Tan est l'un des événements culturels et sociaux les plus importants du sud du Maroc, attirant les tribus nomades de toute la région. Ce rassemblement annuel, reconnu par l'UNESCO comme patrimoine culturel immatériel, est une célébration vivante des traditions sahraouies et berbères. L'événement comprend un grand défilé de chameaux, de chevaux et de tentes colorées, où les visiteurs peuvent découvrir la musique traditionnelle, les danses et la cuisine locale. C'est un événement qui réunit les différentes tribus du Sahara et rappelle puissamment le mode de vie nomade qui a façonné l'histoire de la région."
+        : "موسم طانطان هو أحد أهم الأحداث الثقافية والاجتماعية في جنوب المغرب، حيث يجذب القبائل البدوية من جميع أنحاء المنطقة. هذا التجمع السنوي، المعترف به من قبل اليونسكو كتراث ثقافي غير مادي، هو احتفال حي بالتقاليد الصحراوية والأمازيغية. يشمل الحدث موكباً كبيراً من الجمال والخيول والخيام الملونة، حيث يمكن للزوار تجربة الموسيقى التقليدية والرقصات والمأكولات المحلية. إنه حدث يجمع بين قبائل الصحراء المختلفة ويعكس بقوة نمط الحياة البدوي الذي شكل تاريخ المنطقة."
+      ,
       imageUrl: "https://images.unsplash.com/photo-1496158551181-1019ac2ce535?q=80&w=2670&auto=format&fit=crop"
     },
     {
@@ -39,14 +41,15 @@ const Festivals = () => {
       date: language === 'en' ? "October" : language === 'fr' ? "Octobre" : "أكتوبر",
       location: "Merzouga",
       description: language === 'en' 
-        ? "International music gatherings at the foot of the Erg Chebbi dunes." 
+        ? "The International Desert Music Festival is a must-see event for music lovers and desert enthusiasts alike. Held in the stunning dunes of Merzouga, this festival brings together musicians from across the globe to perform under the open sky. With the vast desert as the backdrop, the performances span a wide range of genres, from traditional Sahrawi music to contemporary fusion styles. The festival creates a unique atmosphere where the sounds of the desert blend with global musical influences, making it a one-of-a-kind experience for attendees."
         : language === 'fr' 
-        ? "Rencontres musicales internationales aux pieds des dunes de l'Erg Chebbi."
-        : "لقاءات موسيقية دولية عند سفح كثبان عرق الشبي.",
+        ? "Le Festival International des Musiques du Désert est un événement incontournable pour les amateurs de musique et les passionnés de désert. Organisé dans les dunes spectaculaires de Merzouga, ce festival réunit des musiciens du monde entier pour se produire sous le ciel ouvert. Avec le vaste désert en toile de fond, les performances couvrent une large gamme de genres, de la musique traditionnelle sahraouie aux styles contemporains fusion. Le festival crée une atmosphère unique où les sons du désert se mélangent avec les influences musicales mondiales, offrant ainsi une expérience inoubliable aux participants."
+        : "مهرجان موسيقى الصحراء الدولي هو حدث لا بد من حضوره لمحبي الموسيقى وعشاق الصحراء على حد سواء. يُعقد في كثبان مرزوكة الرائعة، ويجمع هذا المهرجان موسيقيين من جميع أنحاء العالم لتقديم عروضهم تحت السماء المفتوحة. مع الصحراء الواسعة كخلفية، تمتد العروض لتشمل مجموعة متنوعة من الأنماط الموسيقية، من الموسيقى الصحراوية التقليدية إلى الأساليب المعاصرة المدمجة. يخلق المهرجان جوًا فريدًا حيث تختلط أصوات الصحراء مع التأثيرات الموسيقية العالمية، مما يجعله تجربة لا مثيل لها للمشاركين."
+      ,
       imageUrl: "https://images.unsplash.com/photo-1511632765486-a01980e01a18?q=80&w=2670&auto=format&fit=crop"
     },
     {
-      title: "Aïd el-Adha",
+      title: language === 'en' ? "Eid al-Adha" : language === 'fr' ? "Aïd el-Adha" : "عيد الأضحى",
       date: language === 'en' 
         ? "Variable (lunar calendar)" 
         : language === 'fr' 
@@ -58,13 +61,15 @@ const Festivals = () => {
         ? "Tout le territoire"
         : "في جميع أنحاء الأراضي",
       description: language === 'en' 
-        ? "Feast of sacrifice celebrated by Sahrawi families with specific desert rituals." 
+        ? "Aïd el-Adha is one of the most significant religious events in the Sahrawi culture, marked by prayers, feasts, and sacrifices. Celebrated by Sahrawi families, the event is deeply connected to the desert rituals that have been passed down through generations. On this day, families gather to share meals, perform sacrificial rites, and offer blessings. The Aïd is an expression of faith and unity, with desert-specific rituals that reinforce the cultural and spiritual ties of the Sahrawi people to their environment."
         : language === 'fr' 
-        ? "Fête du sacrifice célébrée par les familles sahraouies avec des rituels spécifiques au désert."
-        : "عيد الأضحى الذي تحتفل به العائلات الصحراوية بطقوس صحراوية خاصة.",
+        ? "L'Aïd el-Adha est l'un des événements religieux les plus importants dans la culture sahraouie, marqué par des prières, des festins et des sacrifices. Célébrée par les familles sahraouies, cette fête est profondément liée aux rituels désertiques transmis de génération en génération. En ce jour, les familles se réunissent pour partager des repas, accomplir des rites sacrificiels et offrir des bénédictions. L'Aïd est une expression de foi et d'unité, avec des rituels spécifiques au désert qui renforcent les liens culturels et spirituels des Sahraouis avec leur environnement."
+        : "عيد الأضحى هو أحد أهم الأحداث الدينية في الثقافة الصحراوية، ويتميز بالصلاة والولائم والذبح. تحتفل به العائلات الصحراوية، ويرتبط هذا الحدث ارتباطًا وثيقًا بالطقوس الصحراوية التي تم نقلها عبر الأجيال. في هذا اليوم، تجتمع العائلات لمشاركة الوجبات، وأداء الطقوس التضحية، وتقديم البركات. عيد الأضحى هو تعبير عن الإيمان والوحدة، مع طقوس خاصة بالصحراء تعزز الروابط الثقافية والروحية للشعب الصحراوي مع بيئته."
+      ,
       imageUrl: "https://images.unsplash.com/photo-1660239268642-e8c5c3aa04b2?q=80&w=2670&auto=format&fit=crop"
     }
   ];
+  
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -149,18 +154,7 @@ const Festivals = () => {
                 </div>
               </div>
               <p className="mt-4 text-foreground">{event.description}</p>
-              <div className="mt-6 md:mt-4 flex items-center">
-                <div className="hidden md:flex items-center text-muted-foreground">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 mr-1">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
-                  </svg>
-                  <span className="md:hidden">{event.location}</span>
-                </div>
-                <button className="ml-auto bg-sahara-sand hover:bg-sahara-orange hover:text-white transition-colors duration-300 px-4 py-2 rounded-md text-sm font-medium">
-                  {t("festivals.more")}
-                </button>
-              </div>
+
             </div>
           </div>
         ))}

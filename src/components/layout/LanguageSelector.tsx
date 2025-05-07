@@ -25,26 +25,31 @@ const LanguageSelector = ({ className }: { className?: string }) => {
   };
 
   return (
-    <div className={className}>
-      <Select
-        value={language}
-        onValueChange={(value) => handleLanguageChange(value as Language)}
-      >
-        <SelectTrigger className="w-[140px] bg-background/80 border-sahara-sand">
-          <div className="flex items-center">
-            <Languages className={cn("h-4 w-4", language === "ar" ? "ml-2" : "mr-2")} />
-            <SelectValue placeholder={t("language.select")} />
-          </div>
-        </SelectTrigger>
-        <SelectContent>
-          {languages.map((lang) => (
-            <SelectItem key={lang.code} value={lang.code} className={language === "ar" ? "text-right" : ""}>
-              {lang.label}
-            </SelectItem>
-          ))}
-        </SelectContent>
-      </Select>
-    </div>
+<div className={cn("language-selector", className)}>
+  <Select
+    value={language}
+    onValueChange={(value) => handleLanguageChange(value as Language)}
+  >
+    <SelectTrigger className="w-[140px] bg-background/80 border-sahara-sand">
+      <div className="flex items-center">
+        <Languages className={cn("h-4 w-4", language === "ar" ? "ml-2" : "mr-2")} />
+        <SelectValue placeholder={t("language.select")} />
+      </div>
+    </SelectTrigger>
+    <SelectContent>
+      {languages.map((lang) => (
+        <SelectItem
+          key={lang.code}
+          value={lang.code}
+          className={language === "ar" ? "text-right" : ""}
+        >
+          {lang.label}
+        </SelectItem>
+      ))}
+    </SelectContent>
+  </Select>
+</div>
+
   );
 };
 

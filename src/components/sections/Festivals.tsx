@@ -18,7 +18,7 @@ const Festivals = () => {
         ? "Le Festival des Nomades est une célébration immersive du riche patrimoine culturel des Sahraouis. Organisé dans le magnifique paysage désertique de M'hamid El Ghizlane, ce festival met en avant les traditions nomades à travers une musique vibrante, des danses et des métiers artisanaux. Les visiteurs sont invités à vivre les rythmes de la musique traditionnelle sahraouie, l'élégance des danses qui reflètent le mode de vie nomade, ainsi que l'artisanat complexe transmis de génération en génération. Le festival est non seulement un rassemblement culturel, mais aussi une connexion profonde avec l'environnement désertique qui a façonné la vie des Sahraouis pendant des siècles."
         : "مهرجان الرحل هو احتفال غامر بالتراث الثقافي الغني لشعب الصحراء. يُعقد في المناظر الطبيعية الصحراوية الرائعة لمحميد الغزلان، ويعرض هذا المهرجان التقاليد البدوية من خلال الموسيقى والرقص والحرف اليدوية. يُدعى الزوار لتجربة إيقاعات الموسيقى الصحراوية التقليدية، ورشاقة الرقصات التي تعكس أسلوب الحياة البدوي، والحرف اليدوية المعقدة التي تم نقلها عبر الأجيال. المهرجان ليس مجرد تجمع ثقافي بل هو اتصال عميق مع البيئة الصحراوية التي شكلت حياة الصحراويين لقرون."
       ,
-      imageUrl: "https://images.unsplash.com/photo-1548374797-d1562ddf4412?q=80&w=2670&auto=format&fit=crop"
+      imageUrl: "https://www.moroccoworldnews.com/wp-content/uploads/2025/04/20th-International-Nomad-Festival-Pauses-Music-to-Unite-Against-Plastic-Pollution-in-the-Sahara-.webp"
     },
     {
       title: language === 'en' ? "Moussem of Tan-Tan" : language === 'fr' ? "Moussem de Tan-Tan" : "موسم طانطان",
@@ -30,7 +30,7 @@ const Festivals = () => {
         ? "Le Moussem de Tan-Tan est l'un des événements culturels et sociaux les plus importants du sud du Maroc, attirant les tribus nomades de toute la région. Ce rassemblement annuel, reconnu par l'UNESCO comme patrimoine culturel immatériel, est une célébration vivante des traditions sahraouies et berbères. L'événement comprend un grand défilé de chameaux, de chevaux et de tentes colorées, où les visiteurs peuvent découvrir la musique traditionnelle, les danses et la cuisine locale. C'est un événement qui réunit les différentes tribus du Sahara et rappelle puissamment le mode de vie nomade qui a façonné l'histoire de la région."
         : "موسم طانطان هو أحد أهم الأحداث الثقافية والاجتماعية في جنوب المغرب، حيث يجذب القبائل البدوية من جميع أنحاء المنطقة. هذا التجمع السنوي، المعترف به من قبل اليونسكو كتراث ثقافي غير مادي، هو احتفال حي بالتقاليد الصحراوية والأمازيغية. يشمل الحدث موكباً كبيراً من الجمال والخيول والخيام الملونة، حيث يمكن للزوار تجربة الموسيقى التقليدية والرقصات والمأكولات المحلية. إنه حدث يجمع بين قبائل الصحراء المختلفة ويعكس بقوة نمط الحياة البدوي الذي شكل تاريخ المنطقة."
       ,
-      imageUrl: "https://images.unsplash.com/photo-1496158551181-1019ac2ce535?q=80&w=2670&auto=format&fit=crop"
+      imageUrl: "https://www.fratmat.info/media/k2/items/cache/8ad6370932b706548b378d238e4ee244_XL.jpg"
     },
     {
       title: language === 'en' 
@@ -46,7 +46,7 @@ const Festivals = () => {
         ? "Le Festival International des Musiques du Désert est un événement incontournable pour les amateurs de musique et les passionnés de désert. Organisé dans les dunes spectaculaires de Merzouga, ce festival réunit des musiciens du monde entier pour se produire sous le ciel ouvert. Avec le vaste désert en toile de fond, les performances couvrent une large gamme de genres, de la musique traditionnelle sahraouie aux styles contemporains fusion. Le festival crée une atmosphère unique où les sons du désert se mélangent avec les influences musicales mondiales, offrant ainsi une expérience inoubliable aux participants."
         : "مهرجان موسيقى الصحراء الدولي هو حدث لا بد من حضوره لمحبي الموسيقى وعشاق الصحراء على حد سواء. يُعقد في كثبان مرزوكة الرائعة، ويجمع هذا المهرجان موسيقيين من جميع أنحاء العالم لتقديم عروضهم تحت السماء المفتوحة. مع الصحراء الواسعة كخلفية، تمتد العروض لتشمل مجموعة متنوعة من الأنماط الموسيقية، من الموسيقى الصحراوية التقليدية إلى الأساليب المعاصرة المدمجة. يخلق المهرجان جوًا فريدًا حيث تختلط أصوات الصحراء مع التأثيرات الموسيقية العالمية، مما يجعله تجربة لا مثيل لها للمشاركين."
       ,
-      imageUrl: "https://images.unsplash.com/photo-1511632765486-a01980e01a18?q=80&w=2670&auto=format&fit=crop"
+      imageUrl: "https://www.globalmoroccoexploration.com/photos/img-pages/page-182/big/377merzouga_music_festival.jpg"
     },
     {
       title: language === 'en' ? "Eid al-Adha" : language === 'fr' ? "Aïd el-Adha" : "عيد الأضحى",

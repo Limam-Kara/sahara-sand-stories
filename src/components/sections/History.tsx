@@ -62,13 +62,13 @@ const History = () => {
 
         <div className="grid grid-cols-2 gap-5">
           <ImageCard
-            src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fx.com%2Fmntlaayon%2Fstatus%2F981129313641746432&psig=AOvVaw0EUJVmXg4LSJvxbagMYv14&ust=1747315926326000&source=images&cd=vfe&opi=89978449&ved=2ahUKEwiN_IeaiaONAxWfTUEAHTIhCWAQjRx6BAgAEBk"
+            src="https://pbs.twimg.com/media/DZ2rodOWsAAIsWP.jpg"
             alt="lifestyle clothing sahraoui"
             title={t("lifestyle.clothing")}
             className="reveal-on-scroll"
           />
           <ImageCard
-            src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fsaharazoom.com%2Fm%2Fnews29.html&psig=AOvVaw2FVf3400bEDW6uhg2WHhnV&ust=1747315809190000&source=images&cd=vfe&opi=89978449&ved=2ahUKEwiel5riiKONAxWsTEEAHVtCEkUQjRx6BAgAEBk"
+            src="https://saharazoom.com/imagesnews/1418684956.jpg"
             alt="lifestyle clothing sahraoui"
             title={t("lifestyle.clothing")}
             className="reveal-on-scroll"

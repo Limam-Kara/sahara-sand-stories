@@ -68,7 +68,7 @@ const History = () => {
             className="reveal-on-scroll"
           />
           <ImageCard
-            src="https://saharazoom.com/imagesnews/1418684956.jpg"
+            src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fsaharazoom.com%2Fm%2Fnews29.html&psig=AOvVaw2FVf3400bEDW6uhg2WHhnV&ust=1747315809190000&source=images&cd=vfe&opi=89978449&ved=2ahUKEwiel5riiKONAxWsTEEAHVtCEkUQjRx6BAgAEBk"
             alt="lifestyle clothing sahraoui"
             title={t("lifestyle.clothing")}
             className="reveal-on-scroll"

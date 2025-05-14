@@ -62,7 +62,7 @@ const History = () => {
 
         <div className="grid grid-cols-2 gap-5">
           <ImageCard
-            src="https://images.app.goo.gl/atzeYTc3cYvx4E769"
+            src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fx.com%2Fmntlaayon%2Fstatus%2F981129313641746432&psig=AOvVaw0EUJVmXg4LSJvxbagMYv14&ust=1747315926326000&source=images&cd=vfe&opi=89978449&ved=2ahUKEwiN_IeaiaONAxWfTUEAHTIhCWAQjRx6BAgAEBk"
             alt="lifestyle clothing sahraoui"
             title={t("lifestyle.clothing")}
             className="reveal-on-scroll"

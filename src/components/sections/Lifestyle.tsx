@@ -79,37 +79,47 @@ const Lifestyle = () => {
             </div>
           </div>
 
+
+          <h3 className="text-2xl font-bold text-sahara-brown mb-4">{t("lifestyle.cuisine")}</h3>
+          <p className="text-lg">
+            {t("lifestyle.cuisine.description")}
+          </p>
+                    <p className="text-lg">
+            {t("lifestyle.cuisine.description2")}
+          </p>
+          <div className="w-16 h-1 bg-sahara-sand my-6"></div>
           <h3 className="text-2xl font-bold text-sahara-brown mb-4">{t("lifestyle.housing")}</h3>
           <p className="text-lg mb-6">
             {t("lifestyle.housing.description")}
           </p>
 
-          <div className="w-16 h-1 bg-sahara-sand mb-6"></div>
-          
-          <h3 className="text-2xl font-bold text-sahara-brown mb-4">{t("lifestyle.cuisine")}</h3>
-          <p className="text-lg">
-            {t("lifestyle.cuisine.description")}
-          </p>
+
         </div>
 
         <div className="grid grid-cols-2 gap-5">
           <ImageCard
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQUjYwN8hpWQLbuz4jsNtyK9eyyXCxH2wPWmw&s"
+            src="https://saharazoom.com/imagesnews/1418684956.jpg"
             alt="Thé à la menthe"
-            title={language === 'en' ? "Sahrawi Tea" : language === 'fr' ? "Thé Sahraoui" : "الشاي الصحراوي"}
+            title={language === 'en' ? "Mlahfa" : language === 'fr' ? "Mlahfa" : "ملحفة"}
             className="reveal-on-scroll"
           />
           <ImageCard
-            src="https://febrayer.com/content/uploads/2024/02/%D9%83%D8%B3%D9%83%D8%B3-%D8%A3%D9%87%D9%84-%D8%A7%D9%84%D8%B5%D8%AD%D8%B1%D8%A7%D8%A1-300x168.webp"
+            src="https://pbs.twimg.com/media/DZ2rodOWsAAIsWP.jpg"
             alt="Plat traditionnel"
-            title={language === 'en' ? "Couscous" : language === 'fr' ? "Couscous" : "كسكس"}
+            title={language === 'en' ? "Daraa" : language === 'fr' ? "Daraa" : "دراعة"}
             className="reveal-on-scroll"
           />
           <ImageCard
             src="https://images.squarespace-cdn.com/content/v1/56c0b561c6fc08567a776255/1739708651030-XZ516KLV9VPGLND738LL/Nomad-Tent-Sahara-Bivouac-Tuareg-Moroccan-Tents.jpg"
             alt="Tente traditionnelle dans le désert"
             title={language === 'en' ? "Khaima" : language === 'fr' ? "Khaïma" : "خيمة"}
-            className="reveal-on-scroll col-span-2"
+            className="reveal-on-scroll"
+          />
+          <ImageCard
+            src="https://almasdare.com/wp-content/uploads/2019/04/da0d14c2-ddd3-484a-a59d-9f9d853ece05.jpg"
+            alt="Tente traditionnelle dans le désert"
+            title={language === 'en' ? "Blghman" : language === 'fr' ? "Blghman" : "البلغمان"}
+            className="reveal-on-scroll"
           />
         </div>
       </div>
@@ -119,12 +129,12 @@ const Lifestyle = () => {
         <div className="bg-white/70 dark:bg-sahara-brown/10 rounded-lg p-6 shadow-md">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             {steps.map((step, index) => (
-              <div 
-                key={index} 
+              <div
+                key={index}
                 className={cn(
                   "p-4 rounded-md cursor-pointer transition-all",
-                  activeStep === index 
-                    ? "bg-sahara-orange text-white shadow-md" 
+                  activeStep === index
+                    ? "bg-sahara-orange text-white shadow-md"
                     : "bg-sahara-sand/30 hover:bg-sahara-sand/50"
                 )}
                 onClick={() => setActiveStep(index)}

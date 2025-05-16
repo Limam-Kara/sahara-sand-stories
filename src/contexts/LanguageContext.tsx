@@ -26,7 +26,7 @@ const translations = {
     // Navbar
     "nav.history": "History",
     "nav.lifestyle": "Lifestyle",
-    "nav.festivals": "Festivals",
+    "nav.festivals": "Activities",
     "nav.art": "Art & Music",
     "nav.explore": "Explore",
 
@@ -166,7 +166,7 @@ const translations = {
     // Navbar
     "nav.history": "Histoire",
     "nav.lifestyle": "Mode de Vie",
-    "nav.festivals": "Festivals",
+    "nav.festivals": "Activités",
     "nav.art": "Art & Musique",
     "nav.explore": "Explorer",
 
@@ -306,7 +306,7 @@ const translations = {
     // Navbar
     "nav.history": "التاريخ",
     "nav.lifestyle": "نمط الحياة",
-    "nav.festivals": "المهرجانات",
+    "nav.festivals": "الأنشطة",
     "nav.art": "الفن والموسيقى",
     "nav.explore": "استكشاف",
 

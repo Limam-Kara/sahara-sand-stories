@@ -37,11 +37,11 @@ const Index = () => {
     <div className="min-h-screen bg-background text-foreground">
       <Navbar />
       <Hero />
+           <Explore />
       <History />
       <Lifestyle />
       <Festivals />
       <Art />
-      <Explore />
       
       <footer className="bg-sahara-brown/90 text-white py-12" dir={language === 'ar' ? 'rtl' : 'ltr'}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

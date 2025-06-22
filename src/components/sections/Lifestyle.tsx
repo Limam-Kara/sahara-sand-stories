@@ -9,7 +9,25 @@ const Lifestyle = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const [activeStep, setActiveStep] = useState(0);
   const { t, language } = useLanguage();
+  const images = [
+    "https://dam.media.un.org/Assets/V2/ChFVTjdTNTAwMDAwMDAwMDAwMxIPVFIxX1dBVEVSTUFSS0VEGi1cVFIxX1dBVEVSTUFSS0VEXDA0XGRiXDhjXDM1XGMxXFVONzE4NjQ0MS5qcGciBAgBEA9AAWIJVU43MTg2NDQx~/2AM9LO6HLPRJ/a5fSYxfP916APODO/UN7186441.jpg",
+    "https://dam.media.un.org/Assets/V2/ChFVTjdTNTAwMDAwMDAwMDAwMxIPVFIxX1dBVEVSTUFSS0VEGi1cVFIxX1dBVEVSTUFSS0VEXDZlXDdlXDM5XGYzXGExXFVONzE4NjQ0Mi5qcGciBAgBEA9AAWIJVU43MTg2NDQy~/2AM9LO6HLNY6/AN0su6ttmXIx82hU/UN7186442.jpg",
+    "https://previews.123rf.com/images/123rfkasami/123rfkasami2005/123rfkasami200500011/147252876-saharawi-green-tea-in-western-sahara.jpg",
+    "https://www.newarab.com/sites/default/files/styles/medium_16_9/public/media/images/D577CDCF-7A9A-494A-AF57-D7F26941EF42.jpg?h=d1cb525d&itok=Nz2LOnN9",
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS9L6XavLbWPCCHxOfRPpCm-fYr1gnr_eQHnw1_aaMViOqAQAp1PAO7tnGKYbJ2JmUBalU&usqp=CAU",
+  ];
 
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const nextImage = () => {
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
+  };
+
+  const prevImage = () => {
+    setCurrentIndex((prevIndex) =>
+      prevIndex === 0 ? images.length - 1 : prevIndex - 1
+    );
+  };
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -124,42 +142,46 @@ const Lifestyle = () => {
         </div>
       </div>
 
-      <div className="mt-16 reveal-on-scroll">
-        <h3 className="text-2xl font-bold text-sahara-brown mb-6 text-center">{t("lifestyle.tea")}</h3>
-        <div className="bg-white/70 dark:bg-sahara-brown/10 rounded-lg p-6 shadow-md">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-            {steps.map((step, index) => (
-              <div
-                key={index}
-                className={cn(
-                  "p-4 rounded-md cursor-pointer transition-all",
-                  activeStep === index
-                    ? "bg-sahara-orange text-white shadow-md"
-                    : "bg-sahara-sand/30 hover:bg-sahara-sand/50"
-                )}
-                onClick={() => setActiveStep(index)}
-              >
-                <div className="flex items-center mb-2">
-                  <span className={cn(
-                    "w-6 h-6 rounded-full flex items-center justify-center text-sm",
-                    activeStep === index ? "bg-white text-sahara-orange" : "bg-sahara-orange text-white",
-                    language === 'ar' ? "ml-2" : "mr-2"
-                  )}>
-                    {index + 1}
-                  </span>
-                  <h4 className="font-bold">{step.title}</h4>
-                </div>
-                <p className="text-sm">
-                  {step.description}
-                </p>
-              </div>
-            ))}
+     <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mt-16">
+        <div className="reveal-on-scroll">
+          <h3 className="text-2xl font-bold text-sahara-brown mb-4">{t("lifestyle.tea.title1")}</h3>
+          {/* <p className="text-lg mb-4">{t("lifestyle.tea.title1")}</p> */}
+          <p className="text-lg mb-6">{t("lifestyle.tea.p1")}</p>
+          <div className="w-16 h-1 bg-sahara-sand mb-6"></div>
+          <h3 className="text-2xl font-bold text-sahara-brown mb-4">{t("lifestyle.tea.title2")}</h3>
+          <p className="text-lg">{t("lifestyle.tea.p2")}</p>
+        </div>
+
+        {/* Custom Image Slider */}
+        <div className="relative">
+          <div className="grid grid-cols-2 gap-5">
+            <div className="col-span-2">
+              <img
+                src={images[currentIndex]}
+                alt="slider image"
+                className="w-full h-auto rounded-lg"
+              />
+            </div>
           </div>
-          <div className="mt-6 text-center text-muted-foreground">
-            <p>
-              "{t("lifestyle.tea.proverb")}"
-            </p>
-            <p className="mt-2 italic">{t("lifestyle.tea.proverb.attribution")}</p>
+
+          {/* Arrow Buttons for navigation */}
+          <div className="absolute inset-0 flex justify-between items-center px-4">
+            <button
+              onClick={prevImage}
+              className="bg-sahara-sand/50 text-white p-4 rounded-full shadow-lg hover:bg-sahara-brown focus:outline-none focus:ring-2 focus:ring-sahara-sand transition-all duration-200"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M15 19l-7-7 7-7" />
+              </svg>
+            </button>
+            <button
+              onClick={nextImage}
+              className="bg-sahara-sand/50 text-white p-4 rounded-full shadow-lg hover:bg-sahara-brown focus:outline-none focus:ring-2 focus:ring-sahara-sand transition-all duration-200"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
           </div>
         </div>
       </div>

@@ -13,7 +13,7 @@ type LanguageContextType = {
 // Create the context with default values
 const LanguageContext = createContext<LanguageContextType>({
   language: "en",
-  setLanguage: () => {},
+  setLanguage: () => { },
   t: () => "",
 });
 
@@ -22,7 +22,7 @@ const translations = {
   en: {
     // Language selector
     "language.select": "Language",
-    
+
     // Navbar
     "nav.history": "History",
     "nav.lifestyle": "Lifestyle",
@@ -47,7 +47,7 @@ const translations = {
     "section.art.subtitle": "Immerse yourself in Sahrawi artistic expressions",
     "section.explore": "Explore the Sahara",
     "section.explore.subtitle": "Tips and information for traveling in the Sahrawi desert",
-    
+
     // Art section
     "art.expression": "Musical Expression",
     "art.description": "Sahrawi music is deeply connected to oral tradition, transmitting the history, values, and emotions of the desert people. The enchanting melodies and hypnotic rhythms evoke the vast expanses of the Sahara and nomadic life.",
@@ -62,7 +62,7 @@ const translations = {
     "art.instrument.tbal.description": "Large drum that provides the rhythmic foundation for Sahrawi music.",
     "art.instrument.bendir": "Bendir",
     "art.instrument.bendir.description": "Frame drum with snares that creates a buzzing sound, used in festive music.",
-    
+
     // Art Cultural Heritage section
     "art.culture.title": "Intangible Cultural Heritage",
     "art.culture.subtitle": "Explore the intangible cultural elements that define Hassani identity",
@@ -93,8 +93,8 @@ const translations = {
     "lifestyle.housing.description": "The traditional tent, called \"khaïma\", is at the heart of Sahrawi nomadic life. Made of goat hair or camel wool, it protects from the extreme desert conditions while being easily transportable.",
     "lifestyle.cuisine": "Sahrawi Cuisine",
     "lifestyle.cuisine.description": "Sahrawi cuisine is adapted to the nomadic lifestyle, combining simple ingredients to create nourishing dishes. Couscous, meat rice, and dates are essential elements. Mint tea, served in three glasses, represents hospitality and is shared at every meeting.",
-    "lifestyle.cuisine.description2": "Bulman or Lebsis: It is a meal made from barley flour. Some flour is placed in a bowl, then hot water, sugar, olive oil or butter, and sometimes sheep and honey are poured over it. The difference between Bulman and Lebsis is that a lot of water is poured over the first until it becomes a dough.",  
-    "lifestyle.tea": "Sahrawi Tea Preparation",
+    "lifestyle.cuisine.description2": "Bulman or Lebsis: It is a meal made from barley flour. Some flour is placed in a bowl, then hot water, sugar, olive oil or butter, and sometimes sheep and honey are poured over it. The difference between Bulman and Lebsis is that a lot of water is poured over the first until it becomes a dough.",
+    "lifestyle.tea": "Sahrawi Tea",
     "lifestyle.tea.step1": "Boil the water",
     "lifestyle.tea.step1.description": "Bring water to a boil in a traditional teapot.",
     "lifestyle.tea.step2": "First infusion",
@@ -105,8 +105,14 @@ const translations = {
     "lifestyle.tea.step4.description": "Pour the tea from a height to create a characteristic foam. Serve three successive glasses, increasingly sweet.",
     "lifestyle.tea.proverb": "The first glass is bitter like life, the second is sweet like love, and the third is smooth like death.",
     "lifestyle.tea.proverb.attribution": "Sahrawi proverb on the three glasses of tea",
-
-    // Festivals section
+    "lifestyle.tea.title1": "Saharan Tea Rituals: Atay",
+    "lifestyle.tea.p1":
+      "The Sahrawi community, including the Beni Hassan tribes in the southern regions, is known for unique customs reflecting its cultural identity. Among these is the tradition of preparing tea, or 'Atay'. For Sahrawis, tea symbolizes hospitality and is served through special rituals, serving as an occasion to strengthen family bonds, share news, and discuss life matters."
+    ,
+    "lifestyle.tea.title2": "Benefits and Types of Saharan Tea",
+    "lifestyle.tea.p2":
+      "Tea aids digestion, making it a staple after heavy meals. Beyond a traditional drink, it represents generosity and warm hospitality. High-quality tea is called 'Hada Atay Yeklaa Douakh' (headache-relieving tea), especially 'Atay Adhamis' (afternoon tea). Two types exist: 'Ashaara' (long leaves, light red) and 'Mkarkab' (darker in color)."
+    ,// Festivals section
     "festivals.title": "Festivals & Celebrations",
     "festivals.subtitle": "Discover the events that animate Sahrawi culture throughout the year",
     "festivals.calendar": "Festival Calendar",
@@ -127,7 +133,7 @@ const translations = {
     "explore.cultural": "Cultural respect",
     "explore.safety": "Desert safety",
     "explore.tip": "Good to know",
-    
+
     // History section
     "history.origins": "Origins",
     "history.traditions": "Traditions",
@@ -152,7 +158,7 @@ const translations = {
     "history.migrations.text2": "Sahrawi culture has developed over the centuries through exchanges with various civilizations of the Maghreb and sub-Saharan Africa. Their oral traditions, poetry, and music bear witness to this rich history.",
     "history.values": "Values & Traditions",
     "history.values.text": "Hospitality is a fundamental value of Sahrawi culture. Strangers are always welcomed with generosity, even in the difficult conditions of the desert. Respect for elders and tribal solidarity are also pillars of this society.",
-    
+
     // Footer
     "footer.sections": "Sections",
     "footer.contact": "Contact",
@@ -162,7 +168,7 @@ const translations = {
   fr: {
     // Language selector
     "language.select": "Langue",
-    
+
     // Navbar
     "nav.history": "Histoire",
     "nav.lifestyle": "Mode de Vie",
@@ -187,7 +193,7 @@ const translations = {
     "section.art.subtitle": "Plongez dans les expressions artistiques sahraouies",
     "section.explore": "Explorer le Sahara",
     "section.explore.subtitle": "Conseils et informations pour voyager dans le désert sahraoui",
-    
+
     // Art section
     "art.expression": "Expression Musicale",
     "art.description": "La musique sahraouie est profondément liée à la tradition orale, transmettant l'histoire, les valeurs et les émotions du peuple du désert. Les mélodies envoûtantes et les rythmes hypnotiques évoquent les vastes étendues du Sahara et la vie nomade.",
@@ -202,7 +208,7 @@ const translations = {
     "art.instrument.tbal.description": "Grand tambour qui fournit la base rythmique de la musique sahraouie.",
     "art.instrument.bendir": "Bendir",
     "art.instrument.bendir.description": "Tambour sur cadre avec timbre qui crée un son bourdonnant, utilisé dans la musique festive.",
-    
+
     // Art Cultural Heritage section
     "art.culture.title": "Patrimoine Culturel Immatériel",
     "art.culture.subtitle": "Explorez les éléments culturels non matériels qui définissent l'identité hassanie",
@@ -245,8 +251,14 @@ const translations = {
     "lifestyle.tea.step4.description": "Versez le thé de haut pour créer une mousse caractéristique. Servez trois verres successifs, de plus en plus sucrés.",
     "lifestyle.tea.proverb": "Le premier verre est amer comme la vie, le second est doux comme l'amour, et le troisième est suave comme la mort.",
     "lifestyle.tea.proverb.attribution": "Proverbe sahraoui sur les trois verres de thé",
-
-    // Festivals section
+    "lifestyle.tea.title1": "Le rituel du thé saharien : l'Atay",
+    "lifestyle.tea.p1":
+      "La communauté sahraouie, y compris les tribus Beni Hassan dans les régions du sud, se distingue par des coutumes uniques reflétant son identité culturelle. Parmi elles, la préparation du thé, appelé 'Atay'. Pour les Sahraouis, le thé symbolise l'hospitalité et est servi selon des rituels précis, servant d'occasion pour renforcer les liens familiaux, échanger des nouvelles et discuter des affaires de la vie."
+    ,
+    "lifestyle.tea.title2": "Bienfaits et variétés du thé saharien",
+    "lifestyle.tea.p2":
+      "Le thé facilite la digestion, d'où sa consommation après les repas copieux. Plus qu'une simple boisson, il incarne la générosité et l'accueil chaleureux. Un thé exceptionnel est appelé 'Hada Atay Yeklaa Douakh' (ce thé soulage les maux de tête), notamment l''Atay Adhamis' préparé l'après-midi. Deux types de thé existent : 'Ashaara' (feuilles longues, couleur rouge claire) et 'Mkarkab' (plus foncé)."
+    ,// Festivals section
     "festivals.title": "Festivals & Célébrations",
     "festivals.subtitle": "Découvrez les événements qui animent la culture sahraouie tout au long de l'année",
     "festivals.calendar": "Calendrier des Festivals",
@@ -267,7 +279,7 @@ const translations = {
     "explore.cultural": "Respect culturel",
     "explore.safety": "Sécurité dans le désert",
     "explore.tip": "Bon à savoir",
-    
+
     // History section
     "history.origins": "Origines",
     "history.traditions": "Traditions",
@@ -292,7 +304,7 @@ const translations = {
     "history.migrations.text2": "La culture sahraouie s'est développée à travers les siècles grâce aux échanges avec les différentes civilisations du Maghreb et de l'Afrique subsaharienne. Leurs traditions orales, leur poésie et leur musique témoignent de cette riche histoire.",
     "history.values": "Valeurs & Traditions",
     "history.values.text": "L'hospitalité est une valeur fondamentale de la culture sahraouie. Les étrangers sont toujours accueillis avec générosité, même dans les conditions difficiles du désert. Le respect des aînés et la solidarité tribale sont également des piliers de cette société.",
-    
+
     // Footer
     "footer.sections": "Sections",
     "footer.contact": "Contact",
@@ -302,7 +314,7 @@ const translations = {
   ar: {
     // Language selector
     "language.select": "اللغة",
-    
+
     // Navbar
     "nav.history": "التاريخ",
     "nav.lifestyle": "نمط الحياة",
@@ -327,7 +339,7 @@ const translations = {
     "section.art.subtitle": "انغمس في التعبيرات الفنية الصحراوية",
     "section.explore": "استكشف الصحراء",
     "section.explore.subtitle": "نصائح ومعلومات للسفر في الصحراء المغربية",
-    
+
     // Art section
     "art.expression": "التعبير الموسيقي",
     "art.description": "ترتبط الموسيقى الصحراوية ارتباطًا وثيقًا بالتقاليد الشفهية، وتنقل تاريخ وقيم ومشاعر أهل الصحراء. تستحضر الألحان الساحرة والإيقاعات المنومة المساحات الشاسعة للصحراء والحياة البدوية.",
@@ -342,7 +354,7 @@ const translations = {
     "art.instrument.tbal.description": "طبل كبير يوفر الأساس الإيقاعي للموسيقى الصحراوية.",
     "art.instrument.bendir": "بندير",
     "art.instrument.bendir.description": "طبل إطار مع أوتار يخلق صوتًا طنانًا، يستخدم في الموسيقى الاحتفالية.",
-    
+
     // Art Cultural Heritage section
     "art.culture.title": "التراث الثقافي غير المادي",
     "art.culture.subtitle": "استكشف العناصر الثقافية غير المادية التي تحدد الهوية الحسانية",
@@ -385,9 +397,15 @@ const translations = {
     "lifestyle.tea.step4.description": "صب الشاي من ارتفاع لتكوين رغوة مميزة. قدم ثلاثة أكواب متتالية، تزداد حلاوة.",
     "lifestyle.tea.proverb": "الكأس الأول مر مثل الحياة، والثاني حلو مثل الحب، والثالث ناعم مثل الموت.",
     "lifestyle.tea.proverb.attribution": "مثل صحراوي عن أكواب الشاي الثلاثة",
-
+    "lifestyle.tea.title1": "طقوس الشاي الصحراوي: أتاي",
+    "lifestyle.tea.p1":
+      "يتميز المجتمع الصحراوي، بما فيه قبائل بني حسان في الأقاليم الجنوبية، بعادات وتقاليد فريدة تعكس هويته الثقافية. ومن أبرز هذه العادات صناعة الشاي أو 'أتاي'. يعتبر الشاي لدى الإنسان الصحراوي رمزاً للكرم وحسن الضيافة، ويُقدم وفق طقوس خاصة، حيث يُعد مناسبة لتقوية الروابط العائلية وتبادل الأخبار ومناقشة شؤون الحياة."
+    ,
+    "lifestyle.tea.title2": "فوائد وأنواع الشاي الصحراوي",
+    "lifestyle.tea.p2":
+      "من فوائد الشاي الصحية تسهيل عملية الهضم، لذا يُحرص على تناوله بعد الوجبات الدسمة. لا يُعتبر الشاي مجرد مشروب تقليدي، بل هو علامة على الكرم وحسن الاستقبال، حيث يُدعى الضيوف للشاي أكثر من الطعام. يُطلق على الشاي عالي الجودة 'هذا أتاي يكلع ادواخ'، أي أنه يزيل آلام الرأس، خاصة 'أتاي الدحميس' الذي يُحضّر عصراً. هناك نوعان من الشاي: 'الشعرة' (حبات طويلة ولونها أحمر فاتح) و'المكركب' (أغمق لوناً)."
     // Festivals section
-    "festivals.title": "المهرجانات والاحتفالات",
+    , "festivals.title": "المهرجانات والاحتفالات",
     "festivals.subtitle": "اكتشف الأحداث التي تنشط الثقافة الصحراوية على مدار العام",
     "festivals.calendar": "تقويم المهرجانات",
     "festivals.calendar.description": "خطط لرحلتك لتعيش هذه التجارب الثقافية الفريدة",
@@ -407,7 +425,7 @@ const translations = {
     "explore.cultural": "احترام الثقافة",
     "explore.safety": "السلامة في الصحراء",
     "explore.tip": "معلومات مفيدة",
-    
+
     // History section
     "history.origins": "الأصول",
     "history.traditions": "التقاليد",
@@ -432,7 +450,7 @@ const translations = {
     "history.migrations.text2": "تطورت الثقافة الصحراوية على مر القرون من خلال التبادلات مع مختلف الحضارات في المغرب وأفريقيا جنوب الصحراء. تشهد تقاليدهم الشفهية وشعرهم وموسيقاهم على هذا التاريخ الغني.",
     "history.values": "القيم والتقاليد",
     "history.values.text": "الضيافة هي قيمة أساسية في الثقافة الصحراوية. يتم الترحيب بالغرباء دائمًا بسخاء، حتى في الظروف الصعبة للصحراء. احترام كبار السن والتضامن القبلي هما أيضًا من ركائز هذا المجتمع.",
-    
+
     // Footer
     "footer.sections": "الأقسام",
     "footer.contact": "اتصل بنا",

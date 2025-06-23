@@ -124,8 +124,8 @@ export default {
 				'fade-out': 'fade-out 0.5s ease-out'
 			},
 			fontFamily: {
-				'playfair': ['"Playfair Display"', 'serif'],
-				'sans': ['Inter', 'sans-serif']
+				'playfair': ['"Amiri"', 'serif'],
+				'sans': ['Amiri', 'sans-serif']
 			},
 			backgroundImage: {
 				'desert-pattern': "url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0zNiAxOGMxLjIgMCAyLjMuNCAzLjIgMWw2LjMgMy43YzEuOSAxIDMuMiAzLjEgMy4yIDUuM3YxMS45YzAgMi4yLTEuMyA0LjMtMy4yIDUuM2wtNi4zIDMuN2MtLjkuNi0yIDEtMy4yIDEtMS4yIDAtMi4zLS40LTMuMi0xbC02LjMtMy43Yy0xLjktMS0zLjItMy4xLTMuMi01LjNWMjhjMC0yLjIgMS4zLTQuMyAzLjItNS4zbDYuMy0zLjdjLjktLjYgMi0xIDMuMi0xeiIgc3Ryb2tlPSIjRDc3MTNEIiBzdHJva2Utd2lkdGg9IjIiIG9wYWNpdHk9Ii4yIi8+PC9nPjwvc3ZnPg==')"

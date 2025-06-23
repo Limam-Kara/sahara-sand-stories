@@ -59,8 +59,13 @@ const Navbar = () => {
               window.scrollTo({ top: 0, behavior: "smooth" });
             }}
           >
-            Sahara<span className="text-sahara-orange">Stories</span>
-          </a>
+{language === 'en' ? 
+  <h1>Sahara <span className="text-sahara-orange"> Legacy</span></h1>
+  : language === 'fr' ? 
+  <h1>L'héritage<span className="text-sahara-orange">du Sahara</span></h1>
+  : 
+  <h1>إرث<span className="text-sahara-orange"> صحراء</span></h1>
+}          </a>
 
           <div className="hidden md:flex items-center">
             <div className={cn("flex", language === "ar" ? "space-x-reverse" : "", "space-x-8")}>

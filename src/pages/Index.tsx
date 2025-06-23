@@ -47,8 +47,14 @@ const Index = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row justify-between gap-8">
             <div className="md:w-1/3">
-              <h2 className="text-xl font-playfair font-bold mb-4">
-                Sahara<span className="text-sahara-orange">Stories</span>
+              <h2 className="text-xl font-bold mb-4">
+               {language === 'en' ? 
+  <h1>Sahara <span className="text-sahara-orange"> Legacy</span></h1>
+  : language === 'fr' ? 
+  <h1>L'héritage<span className="text-sahara-orange">du Sahara</span></h1>
+  : 
+  <h1>إرث<span className="text-sahara-orange"> صحراء</span></h1>
+}  
               </h2>
               <p className="mb-4">
                 {t("footer.brand")}
@@ -88,16 +94,32 @@ const Index = () => {
               <div>
                 <h3 className="text-lg font-semibold mb-3">{t("footer.contact")}</h3>
                 <ul className="space-y-2">
-                  <li>info@saharastories.com</li>
+                  <li>info@saharlegacy.com</li>
                   <li>+212 612 345 678</li>
                   <li>Marrakech, Maroc</li>
                 </ul>
               </div>
             </div>
           </div>
-          <div className="mt-8 pt-8 border-t border-white/20 text-center text-sm">
-            <p>© {new Date().getFullYear()} SaharaStories. {t("footer.rights")}</p>
-          </div>
+ <div className="mt-8 pt-8 border-t border-white/20 text-center text-sm">
+  <p className="flex items-center justify-center gap-1">
+    © {new Date().getFullYear()}{' '}
+    {language === 'en' ? (
+      <>
+        Sahara<span className="text-sahara-orange"> Legacy</span>
+      </>
+    ) : language === 'fr' ? (
+      <>
+        L'héritage<span className="text-sahara-orange"> du Sahara</span>
+      </>
+    ) : (
+      <>
+        إرث<span className="text-sahara-orange"> صحراء</span>
+      </>
+    )}
+    {', ' + t("footer.rights")}
+  </p>
+</div>
         </div>
       </footer>
     </div>

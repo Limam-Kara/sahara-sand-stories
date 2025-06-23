@@ -1,5 +1,7 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
 
 
 @tailwind base;
@@ -76,7 +78,7 @@
     --border: 12 6% 25%;
     --input: 12 6% 25%;
     --ring: 35 40% 60%;
-    
+
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;
@@ -96,11 +98,22 @@
   body {
     @apply bg-background text-foreground font-sans;
   }
+ /* Apply Amiri font when RTL */
+  html[dir="rtl"] {
+    font-family: 'Amiri', serif;
+    /* Use Amiri font for RTL */
+    
+  }
 
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     @apply font-playfair;
   }
-  
+
   .section-container {
     @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24;
   }
@@ -112,50 +125,55 @@
   .reveal-on-scroll.revealed {
     @apply opacity-100 translate-y-0;
   }
-  
+
   /* RTL Support */
   html.rtl {
     direction: rtl;
   }
-  
 
-/* Handle RTL Layout */
-html[dir="rtl"] .language-selector {
-  text-align: right; /* Align text to the right for Arabic */
-  padding-left: 1rem; /* Add padding to left for RTL */
-  padding-right: 1rem; /* Add padding to right for RTL */
-}
+ 
+  /* Handle RTL Layout */
+  html[dir="rtl"] .language-selector {
+    text-align: right;
+    /* Align text to the right for Arabic */
+    padding-left: 1rem;
+    /* Add padding to left for RTL */
+    padding-right: 1rem;
+    /* Add padding to right for RTL */
+  }
 
-html[dir="rtl"] .language-selector select {
-  text-align: right; /* Align select text to the right for RTL */
-}
-  .rtl .space-x-8 > :not([hidden]) ~ :not([hidden]) {
+  html[dir="rtl"] .language-selector select {
+    text-align: right;
+    /* Align select text to the right for RTL */
+  }
+
+  .rtl .space-x-8> :not([hidden])~ :not([hidden]) {
     --tw-space-x-reverse: 1;
   }
-  
-  .rtl .space-x-4 > :not([hidden]) ~ :not([hidden]) {
+
+  .rtl .space-x-4> :not([hidden])~ :not([hidden]) {
     --tw-space-x-reverse: 1;
   }
-  
-  .rtl .space-x-2 > :not([hidden]) ~ :not([hidden]) {
+
+  .rtl .space-x-2> :not([hidden])~ :not([hidden]) {
     --tw-space-x-reverse: 1;
   }
-  
+
   .rtl .mr-1,
   .rtl .mr-2,
   .rtl .mr-4 {
     margin-right: 0;
     margin-left: 0.25rem;
   }
-  
+
   .rtl .mr-2 {
     margin-left: 0.5rem;
   }
-  
+
   .rtl .mr-4 {
     margin-left: 1rem;
   }
-  
+
   .rtl .ml-auto {
     margin-left: 0;
     margin-right: auto;

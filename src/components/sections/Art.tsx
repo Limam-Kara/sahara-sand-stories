@@ -738,35 +738,34 @@ const Art = () => {
         )}
 
         {/* Beliefs Content */}
-        {activeTab === "beliefs" && (
-          <div className="bg-white/70 dark:bg-sahara-brown/10 rounded-lg p-6">
-            <h3 className="text-2xl font-bold text-sahara-brown mb-4">{t("art.beliefs")}</h3>
-            <p className="mb-6">
-              {t("art.beliefs.description")}
-            </p>
+{activeTab === "beliefs" && (
+  <div className="bg-white/70 dark:bg-sahara-brown/10 rounded-xl p-6 shadow-lg">
+    <div className="space-y-6">
+      <h3 className="text-2xl font-bold text-sahara-brown dark:text-sahara-sand mb-4">
+        {t("art.beliefs")}
+      </h3>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="bg-sahara-sand/20 p-4 rounded-lg">
-                <h4 className="font-semibold mb-2">{t("art.beliefs.spiritual")}</h4>
-                <ul className="list-disc pl-5 space-y-1">
-                  <li>{language === 'en' ? "Protection rituals against the evil eye" : language === 'fr' ? "Rituels de protection contre le mauvais œil" : "طقوس الحماية من العين الشريرة"}</li>
-                  <li>{language === 'en' ? "Celebrations linked to lunar cycles" : language === 'fr' ? "Célébrations liées aux cycles lunaires" : "احتفالات مرتبطة بدورات القمر"}</li>
-                  <li>{language === 'en' ? "Healing traditions with plants" : language === 'fr' ? "Traditions de guérison par les plantes" : "تقاليد الشفاء بالنباتات"}</li>
-                  <li>{language === 'en' ? "Dream interpretation" : language === 'fr' ? "Interprétation des rêves" : "تفسير الأحلام"}</li>
-                </ul>
-              </div>
-              <div className="bg-sahara-sand/20 p-4 rounded-lg">
-                <h4 className="font-semibold mb-2">{t("art.beliefs.life")}</h4>
-                <ul className="list-disc pl-5 space-y-1">
-                  <li>{language === 'en' ? "Birth rituals" : language === 'fr' ? "Rituels de naissance" : "طقوس الولادة"}</li>
-                  <li>{language === 'en' ? "Wedding ceremonies" : language === 'fr' ? "Cérémonies de mariage" : "حفلات الزفاف"}</li>
-                  <li>{language === 'en' ? "Coming of age rites" : language === 'fr' ? "Rites de passage à l'âge adulte" : "طقوس البلوغ"}</li>
-                  <li>{language === 'en' ? "Funeral traditions" : language === 'fr' ? "Traditions funéraires" : "تقاليد الجنازة"}</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        )}
+      <div className="bg-sahara-sand/20 dark:bg-sahara-brown/20 p-6 rounded-lg border-l-4 border-sahara-terracotta">
+        <h4 className="font-semibold text-lg text-sahara-brown dark:text-sahara-sand mb-4">
+          {t("art.beliefs.description")}
+        </h4>
+        
+        <ul className="space-y-4">
+          <li className="p-4 bg-white/50 dark:bg-sahara-brown/10 rounded-md shadow-sm">
+            <p className="text-sahara-brown dark:text-sahara-sand/90 leading-relaxed">
+              {language === 'en' ? 
+                "Among these beliefs that nourish our mythological thinking is the prohibition against whistling. This stems from the belief that each person has a star in the sky, and whistling causes one's star to fly away as divine wrath. This shows how prohibited behaviors intertwine with religious and sacred aspects in Saharan life. Another interpretation suggests whistling, especially at night, attracts snakes that pose danger. Another widespread belief prohibits sweeping the house when a family member is traveling, fearing misfortune may befall them, only reversing this after their safe return. There are also prohibitions against finger snapping, sitting on one's knees (called 'mahali ala bouk'), wearing one shoe, and various dietary restrictions like eating certain foods or drinking while standing - all likely health-related prohibitions tied to the sacred role of the father in the family. Children grow up deeply connected to their fathers, and this strong emotional bond is used to instill behavioral messages from early childhood." 
+                : language === 'fr' ? 
+                "Parmi ces croyances qui nourrissent notre pensée mythologique, il est interdit à l'homme de siffler. Cette croyance vient du fait que chaque personne a une étoile dans le ciel, et celui qui siffle voit son étoile s'envoler comme une colère divine, montrant comment ce comportement prohibé s'entrelace avec le religieux et le sacré dans la vie saharienne. Une autre interprétation suggère que siffler, surtout la nuit, attire les serpents dangereux. Une autre croyance répandue interdit de balayer la maison lorsqu'un membre de la famille voyage, par crainte de malheur, n'inversant cette pratique qu'après son retour sain et sauf. Il existe aussi des interdictions contre le claquement des doigts, s'asseoir sur les genoux (appelé 'mahali ala bouk'), porter une seule chaussure, et diverses restrictions alimentaires - toutes probablement liées à la santé et au rôle sacré du père dans la famille. Les enfants grandissent profondément liés à leur père, et ce fort lien émotionnel est utilisé pour inculquer des messages comportementaux dès le plus jeune âge." 
+                : "ومن هذه المعتقدات التي تغذي فكرنا الميثولوجي، ألا يقوم الإنسان بالصفير، ويعود هذا الاعتقاد إلى أن لكل إنسان نجمة في السماء، ومن يقوم بعملية الصفير فإن نجمته تطير من السماء كغضب من الإله، وهنا يتضح كيف يتداخل هذا السلوك المنهي عنه بالدين إلى الجانب المقدس في حياة إنسان الصحراء، كما يجد تفسيرًا آخر وهو أن الصفير خاصة في الليل يجلب الثعابين، التي تشكل مصدر خطر على حياة إنسان الصحراء، كما ينتشر معتقد أنه 'محالي' آن يكنس المنزل يوم سفر أحد أفراد العائلة، خوفًا من أن يلاقي مكروهًا في سفره، ولايتم العكس إلا بعد وصول المسافر، كما ينهي عن فرقعة الأصابع، أو أن يجلس الشخص على ركبتيه، فيُقال 'محالي على بوك'، وهي العبارة نفسها التي تقال للشخص، فيكثر من السياقات، كأن يرتدي الفرد نعلاً واحدًا، أو يُقال 'لا توكلامح'، 'ماتوكل اللهاة'، 'ماتوكل الطيحان محد بوك حي'، ويبدو أنها منهيات لها علاقة بما هو صحي، وهي مرتبطة بقداسة الأب داخل الأسرة، فالطفل ينشأ وهو شديد الارتباط بوالده، ولذا يتم استغلال هذه العلاقة العاطفية القوية في وجدان الطفل فيتم تمرير رسائل سلوكية له، يمثل لها فور تلقينه إياها، كما ينهي عن أكل 'الكراطة' أو أكل 'شي بايت مگهي'، و 'لاتشرب واكف' أو 'ما تنفخ فالطعام'، وكلها أمور غير صحية."
+              }
+            </p>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+)}
       </div>
     </section>
   );
